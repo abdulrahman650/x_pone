@@ -97,8 +97,6 @@ class AppCubit extends Cubit<AppStates> {
       emit(xBoneErrorDoctorsStates(onError.toString()));
     });
   }
-  //
-  //
 
 
   // بتوع تعديل البروفايل
