@@ -10,7 +10,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:x_pone/models/doctors_model.dart';
 import 'package:x_pone/screens/allExercises_Page.dart';
 import 'package:x_pone/screens/all_bicnic_Page.dart';
-import 'package:x_pone/models/blogs_model.dart'as datamodel;
+import 'package:x_pone/models/blogs_model.dart';
 import 'package:x_pone/screens/details_clinics.dart';
 import 'package:x_pone/screens/settingPage.dart';
 import 'package:x_pone/shared/bloc/app_cubit/cubit.dart';
@@ -35,8 +35,10 @@ class homePage extends StatelessWidget {
     return  BlocConsumer<AppCubit , AppStates>(
       listener: (context, state){},
       builder: (context, state){
-        xBoneProfileModel? model =AppCubit.get(context).userModel;
 
+        xBoneProfileModel? model =AppCubit.get(context).userModel;
+        DoctorsModel? doctorsModel =AppCubit.get(context).doctorModel;
+        print(doctorsModel);
         return Scaffold(
             body: SingleChildScrollView(
               child: Padding(
@@ -205,11 +207,11 @@ class homePage extends StatelessWidget {
                         physics: const BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) =>
-                            detailsDocItem(context,AppCubit.get(context).doctorList![index]),
+                            detailsDocItem(context,AppCubit.get(context).doctorModel!,index),
                         separatorBuilder: (context, index) => const SizedBox(
                           width: 14.0,
                         ),
-                        itemCount: 10,
+                        itemCount: 5
                       ),
                     ),
                     const SizedBox(height: 32.0,),
@@ -248,7 +250,7 @@ class homePage extends StatelessWidget {
                         physics: const BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) =>
-                            detailsExcrciseItem(context,AppCubit.get(context).articles![index]),
+                            detailsExcrciseItem(context,AppCubit.get(context).articlesModel![index]),
 
                         separatorBuilder: (context, index) => const SizedBox(
                           width: 16.0,
@@ -269,7 +271,7 @@ class homePage extends StatelessWidget {
 
     );
   }
-  Widget detailsDocItem(context, DoctorsModel model)=> InkWell(
+  Widget detailsDocItem(context, DoctorsModel model,index)=> InkWell(
     onTap: (){
        navigateTo(context,  detailsClinics(model: model,));
       // return detailsDoctor();
@@ -333,7 +335,7 @@ class homePage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                     "Dr. Fadi Salah",
+                                    model.data![index].name.toString(),
                                     style: TextStyle(
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.bold,
@@ -480,7 +482,7 @@ class homePage extends StatelessWidget {
                   ),
                 ),
   ) ;
-  Widget detailsExcrciseItem(context, datamodel.Data model)=>InkWell(
+  Widget detailsExcrciseItem(context, ArticlesModel model)=>InkWell(
     onTap: (){
 
       // navigateTo(context, detailsExercises(model: model,));

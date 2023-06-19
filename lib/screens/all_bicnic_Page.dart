@@ -141,16 +141,18 @@ class allClinicsPage extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 10.0,),
+                  state is xBoneLoadingDoctorsStates?Center(child: CircularProgressIndicator(),):
                   ListView.separated(
                     shrinkWrap: true,
                     physics:const  NeverScrollableScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, index) =>
-                        detailsDocItem(context, AppCubit.get(context).doctorList![index]),
+                        detailsDocItem(context,AppCubit.get(context).doctorModel!,index),
+
                     separatorBuilder: (context, index) => const SizedBox(
                       height: 15.0,
                     ),
-                    itemCount: 6,
+                    itemCount: 10,
                   ),
                   const SizedBox(
                     height: 100.0,
@@ -164,7 +166,7 @@ class allClinicsPage extends StatelessWidget {
 
     );
   }
-   Widget detailsDocItem(context, DoctorsModel model)=> InkWell(
+   Widget detailsDocItem(context, DoctorsModel model, index)=> InkWell(
      onTap: (){
        navigateTo(context,  detailsClinics(model: model,));
      },

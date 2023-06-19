@@ -34,7 +34,8 @@ class _detailsDoctorState extends State<detailsDoctor> {
                   height: 460.0,
                   width: double.infinity,
                   child: Image.asset(
-                   AppCubit.get(context).doctorModel!.data!.image!,
+                    "assets/images/3yada.png",
+                   // AppCubit.get(context).doctorModel!.data!.image!,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -91,7 +92,8 @@ class _detailsDoctorState extends State<detailsDoctor> {
                                   height: 34.0,
                                 ),
                                 Text(
-                                  AppCubit.get(context).doctorModel!.data!.name!,
+                                  "Orthopedics and joints specialist",
+                                  // AppCubit.get(context).doctorModel!.data!.name!,
                                   // "Dr. Fadi Salah",
                                   style: TextStyle(
                                     fontSize: 22,
@@ -124,7 +126,8 @@ class _detailsDoctorState extends State<detailsDoctor> {
                                       width: 6.0,
                                     ),
                                     Text(
-                                      AppCubit.get(context).doctorModel!.data!.address!,
+                                      "Orthopedics and joints specialist",
+                                      // AppCubit.get(context).doctorModel!.data!.address!,
                                       // "mansoura,elgesh st, after carfour mall, building 8",
                                       style: TextStyle(
                                         fontWeight: FontWeight.w300,
@@ -149,7 +152,8 @@ class _detailsDoctorState extends State<detailsDoctor> {
                                       width: 8.0,
                                     ),
                                     Text(
-                                      AppCubit.get(context).doctorModel!.data!.createdAt!,
+                                      "ljf;ljaekfjald",
+                                      // AppCubit.get(context).doctorModel!.data!.createdAt!,
                                       // "every day, from 7pm to 10pm",
                                       style: TextStyle(
                                         fontWeight: FontWeight.w300,

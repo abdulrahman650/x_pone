@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:x_pone/models/blogs_model.dart'as datamodel;
+import 'package:x_pone/models/blogs_model.dart';
 import 'package:x_pone/screens/homePage.dart';
 import 'package:x_pone/screens/settingPage.dart';
 import 'package:x_pone/screens/all_bicnic_Page.dart';
@@ -26,6 +26,7 @@ class AppCubit extends Cubit<AppStates> {
   static AppCubit get(context) => BlocProvider.of(context);
 
   int pageIndex = 0;
+
 
   List<Widget> bottomScreens = [
     homePage(),
@@ -66,16 +67,20 @@ class AppCubit extends Cubit<AppStates> {
   // }
   //
 
-  datamodel.Data? articlesModel;
- List<datamodel.Data>? articles;
+  // ArticlesModel? articlesModel;
+ // List<ArticlesModel>? articles;
+  List<ArticlesModel> articlesModel = [];
    getArticles() {
     DioHelper.getdata(
       url: ARTICLE,
     ).then((value) {
 
       // print(value.data);
-    articles!.add(datamodel.Data.fromJson(value.data));
-      print(articles);
+    // articles!.add(datamodel.Data.fromJson(value.data));
+    (value.data as List).map((e) {
+      articlesModel.add(ArticlesModel.fromJson(e));
+    }).toList();
+      print(articlesModel);
       emit(xBoneSuccessArticlesStates());
     }).catchError((onError) {
       debugPrint(onError.toString());
@@ -84,13 +89,14 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   DoctorsModel? doctorModel;
- List<DoctorsModel>? doctorList;
+ // List<DoctorsModel>? doctorList;
    getDoctorsModel() {
     DioHelper.getdata(
       url: DOCTORS,
     ).then((value) {
       print(value.toString());
-      doctorList!.add(DoctorsModel.fromJson(value.data));
+      doctorModel=DoctorsModel.fromJson(value.data);
+     // doctorList!.add(DoctorsModel.fromJson(value.data));
       emit(xBoneSuccessDoctorsStates(doctorModel!));
     }).catchError((onError) {
       debugPrint(onError.toString());

@@ -9,7 +9,7 @@ import '../shared/componants/components.dart';
 import 'homePage.dart';
 
 class detailsExercises extends StatelessWidget {
-  datamodel.Data? model;
+  ArticlesModel? model;
    detailsExercises({Key? key,required this.model}) : super(key: key);
 
   @override

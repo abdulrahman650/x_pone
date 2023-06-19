@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:x_pone/models/blogs_model.dart'as datamodel;
+import 'package:x_pone/models/blogs_model.dart';
 import '../models/blogs_model.dart';
 import '../shared/bloc/app_cubit/cubit.dart';
 import '../shared/bloc/app_cubit/states.dart';
@@ -17,12 +17,12 @@ class allExercisesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(AppCubit.get(context).articles);
+    print(AppCubit.get(context).articlesModel);
     print('articaaaaaaaaaaaaaaaaaaaaaaaaaaaaal');
     return  BlocConsumer<AppCubit , AppStates>(
         listener: (context ,state) {},
         builder: (context ,state) {
-          // var list =AppCubit.get(context).articlesModel;
+          List<ArticlesModel>? articlesModel = AppCubit.get(context).articlesModel;
           return ConditionalBuilder(
             
             condition: state is! xBoneLoadingArticlesStates,
@@ -132,11 +132,11 @@ class allExercisesPage extends StatelessWidget {
                           physics:const  NeverScrollableScrollPhysics(),
                           scrollDirection: Axis.vertical,
                           itemBuilder: (context, index) =>
-                         detailsExcrciseItem(context,AppCubit.get(context).articles![index]),
-                          separatorBuilder: (context, index) => const SizedBox(
+                         Text(articlesModel.length.toString()),// detailsExcrciseItem(context,),
+                   separatorBuilder: (context, index) => const SizedBox(
                             height: 15.0,
                           ),
-                          itemCount: 10,
+                          itemCount: articlesModel.length,
                         ),
                         const SizedBox(
                           height: 100.0,
@@ -155,7 +155,7 @@ class allExercisesPage extends StatelessWidget {
 
     );
   }
-    Widget detailsExcrciseItem(context, datamodel.Data model)=>InkWell(
+    Widget detailsExcrciseItem(context, ArticlesModel model)=>InkWell(
       onTap: (){
 
         navigateTo(context, detailsExercises(model: model,));
@@ -196,8 +196,8 @@ class allExercisesPage extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 11.0,
                     left: 16),
                 child: Text(
-                 'klhdkuWHGFDKuejfhkJEW',
-                  // model.data!.title!
+                  'klhdkuWHGFDKuejfhkJEW',
+
                   style: TextStyle(
                     fontWeight:FontWeight.w600 ,
                     fontSize:15.0,

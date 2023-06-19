@@ -1,5 +1,5 @@
 class DoctorsModel {
-Data? data;
+  List<Data>? data;
   int? statusCode;
   Meta? meta;
 
@@ -7,7 +7,10 @@ Data? data;
 
   DoctorsModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = Data.fromJson(json['data']);
+      data = <Data>[];
+      json['data'].forEach((v) {
+        data!.add(new Data.fromJson(v));
+      });
     }
     statusCode = json['status_code'];
     meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
@@ -16,7 +19,7 @@ Data? data;
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.data != null) {
-      data['data'] = this.data!.toJson();
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
     data['status_code'] = this.statusCode;
     if (this.meta != null) {
@@ -36,8 +39,8 @@ class Data {
   String? address;
   String? lat;
   String? long;
-  String? education;
-  String? notes;
+  dynamic education;
+  dynamic notes;
   List<String>? services;
   String? image;
 

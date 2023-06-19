@@ -1,7 +1,7 @@
 class ArticlesModel {
   List<Data>? data;
   int? statusCode;
-  Null? meta;
+  String? meta;
 
   ArticlesModel({this.data, this.statusCode, this.meta});
 
