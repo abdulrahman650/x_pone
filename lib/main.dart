@@ -1,115 +1,130 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:x_pone/controller/layout/home_layout.dart';
+import 'package:x_pone/screens/date.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'package:x_pone/screens/homePage.dart';
+
+import 'package:x_pone/screens/rate_dr.dart';
+import 'package:x_pone/screens/settingPage.dart';
+import 'package:x_pone/shared/bloc/app_cubit/cubit.dart';
+import 'package:x_pone/shared/bloc/app_cubit/states.dart';
+import 'package:x_pone/shared/componants/components.dart';
+import 'package:x_pone/shared/network/local/blocObserver.dart';
+import 'package:x_pone/shared/network/local/dio_helper.dart';
+import 'package:x_pone/shared/network/remote/cache_helper.dart';
+import 'package:x_pone/shared/styles/themes.dart';
+
+import 'controller/Register/Register_design.dart';
+import 'controller/login/login_design.dart';
+import 'on_boarding/logo_splash.dart';
+import 'on_boarding/on_boarding.dart';
+import 'package:geolocator/geolocator.dart';
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer =MyBlocObserver();
+  HttpOverrides.global = MyHttpOverrides();
+  DioHelper.init();
+  await CacheHelper.init();
+
+
+  bool? isDark = CacheHelper.getData(key:'isDark');
+
+
+  Widget widget;
+
+  bool? onBoarding = CacheHelper.getData(key:'onBoarding');
+  token = CacheHelper.getData(key:'token');
+  // print(token);
+
+  if (onBoarding != null)
+  {
+    if (token != null) {
+      widget =XponeLayout();
+    } else {
+      widget = LoginScreen();
+    }
+  } else {
+    widget = const logo_splash();
+  }
+      runApp(MyApp(
+
+        startWidget: widget,
+           //    isDark: isDark,
+      ));
+
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  late final  Widget startWidget;
 
-  // This widget is the root of your application.
+  MyApp(
+       // this.isDark,
+  {required this.startWidget}
+
+      );
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late final bool? isDark;
+
+
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(
+              create: ( BuildContext context) => AppCubit()..getArticles(),
+    // ..getUserData()
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+          ),
+        ],
+        child: BlocConsumer<AppCubit, AppStates>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: lightTheme,
+              darkTheme: darkTheme,
+              themeMode: ThemeMode.light,
+              // themeMode: AppCubit.get(context).isDark ? ThemeMode.light : ThemeMode.dark : ThemeMode.light,
+              // theme: ThemeData(
+              //     appBarTheme: AppBarTheme(
+              //         systemOverlayStyle: SystemUiOverlayStyle(
+              //             statusBarColor: Colors.white
+              //         )
+              //     )
+              // ),
+              home:
+              // logo_splash()
+              // setting_page()
+              // RegisterScreen()
+              //  widget.startWidget
+              // onBoarding ?
+               LoginScreen()
+                  // : OnBoarding(),
+            );
+          },
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+
+  }
+
+}
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
