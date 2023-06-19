@@ -82,7 +82,9 @@ class _MyAppState extends State<MyApp> {
     return MultiBlocProvider(
         providers: [
           BlocProvider(
-              create: ( BuildContext context) => AppCubit()..getArticles(),
+              create: ( BuildContext context) => AppCubit()
+                ..getArticles()
+                ..getDoctorsModel(),
     // ..getUserData()
 
           ),

@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:x_pone/models/blogs_model.dart';
+import 'package:x_pone/models/blogs_model.dart'as datamodel;
 import 'package:x_pone/screens/homePage.dart';
 import 'package:x_pone/screens/settingPage.dart';
 import 'package:x_pone/screens/all_bicnic_Page.dart';
@@ -12,6 +12,8 @@ import 'package:x_pone/screens/allExercises_Page.dart';
 import 'package:x_pone/shared/bloc/app_cubit/states.dart';
 import 'package:x_pone/shared/componants/components.dart';
 
+import '../../../models/blogs_model.dart';
+import '../../../models/doctors_model.dart';
 import '../../../models/editProfile_model.dart';
 import '../../../models/login_model.dart';
 import '../../../models/profile_model.dart';
@@ -64,18 +66,35 @@ class AppCubit extends Cubit<AppStates> {
   // }
   //
 
-  ArticlesModel? articlesModel;
- List<ArticlesModel>? articles;
+  datamodel.Data? articlesModel;
+ List<datamodel.Data>? articles;
    getArticles() {
     DioHelper.getdata(
       url: ARTICLE,
     ).then((value) {
-      print(value.toString());
-      articles!.add(ArticlesModel.fromJson(value.data));
-      emit(xBoneSuccessArticlesStates(articlesModel!));
+
+      // print(value.data);
+    articles!.add(datamodel.Data.fromJson(value.data));
+      print(articles);
+      emit(xBoneSuccessArticlesStates());
     }).catchError((onError) {
       debugPrint(onError.toString());
       emit(xBoneErrorArticlesStates(onError.toString()));
+    });
+  }
+
+  DoctorsModel? doctorModel;
+ List<DoctorsModel>? doctorList;
+   getDoctorsModel() {
+    DioHelper.getdata(
+      url: DOCTORS,
+    ).then((value) {
+      print(value.toString());
+      doctorList!.add(DoctorsModel.fromJson(value.data));
+      emit(xBoneSuccessDoctorsStates(doctorModel!));
+    }).catchError((onError) {
+      debugPrint(onError.toString());
+      emit(xBoneErrorDoctorsStates(onError.toString()));
     });
   }
   //

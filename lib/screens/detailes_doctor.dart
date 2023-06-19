@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../models/doctors_model.dart';
 import '../shared/bloc/app_cubit/cubit.dart';
 import '../shared/bloc/app_cubit/states.dart';
 import '../shared/componants/components.dart';
@@ -11,7 +12,8 @@ import 'details_clinics.dart';
 import 'homePage.dart';
 
 class detailsDoctor extends StatefulWidget {
-  const detailsDoctor({Key? key}) : super(key: key);
+  DoctorsModel? model;
+   detailsDoctor({Key? key,required this.model}) : super(key: key);
 
   @override
   State<detailsDoctor> createState() => _detailsDoctorState();
@@ -32,7 +34,7 @@ class _detailsDoctorState extends State<detailsDoctor> {
                   height: 460.0,
                   width: double.infinity,
                   child: Image.asset(
-                    "assets/images/Fady.png",
+                   AppCubit.get(context).doctorModel!.data!.image!,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -89,7 +91,8 @@ class _detailsDoctorState extends State<detailsDoctor> {
                                   height: 34.0,
                                 ),
                                 Text(
-                                  "Dr. Fadi Salah",
+                                  AppCubit.get(context).doctorModel!.data!.name!,
+                                  // "Dr. Fadi Salah",
                                   style: TextStyle(
                                     fontSize: 22,
                                     fontWeight: FontWeight.w500,
@@ -121,7 +124,8 @@ class _detailsDoctorState extends State<detailsDoctor> {
                                       width: 6.0,
                                     ),
                                     Text(
-                                      "mansoura,elgesh st, after carfour mall, building 8",
+                                      AppCubit.get(context).doctorModel!.data!.address!,
+                                      // "mansoura,elgesh st, after carfour mall, building 8",
                                       style: TextStyle(
                                         fontWeight: FontWeight.w300,
                                         fontSize: 12,
@@ -145,7 +149,8 @@ class _detailsDoctorState extends State<detailsDoctor> {
                                       width: 8.0,
                                     ),
                                     Text(
-                                      "every day, from 7pm to 10pm",
+                                      AppCubit.get(context).doctorModel!.data!.createdAt!,
+                                      // "every day, from 7pm to 10pm",
                                       style: TextStyle(
                                         fontWeight: FontWeight.w300,
                                         fontSize: 12,
@@ -169,6 +174,7 @@ class _detailsDoctorState extends State<detailsDoctor> {
                                       width: 6.0,
                                     ),
                                     Text(
+                                      // AppCubit.get(context).doctorModel!.data!.!,
                                       "200 L.E / detection",
                                       style: TextStyle(
                                         fontWeight: FontWeight.w300,

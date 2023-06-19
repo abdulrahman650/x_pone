@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:x_pone/models/doctors_model.dart';
 import 'package:x_pone/screens/homePage.dart';
 import 'package:x_pone/shared/bloc/app_cubit/cubit.dart';
 import 'package:x_pone/shared/bloc/app_cubit/states.dart';
@@ -145,7 +146,7 @@ class allClinicsPage extends StatelessWidget {
                     physics:const  NeverScrollableScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, index) =>
-                        detailsDocItem(context),
+                        detailsDocItem(context, AppCubit.get(context).doctorList![index]),
                     separatorBuilder: (context, index) => const SizedBox(
                       height: 15.0,
                     ),
@@ -163,9 +164,9 @@ class allClinicsPage extends StatelessWidget {
 
     );
   }
-   Widget detailsDocItem(context)=> InkWell(
+   Widget detailsDocItem(context, DoctorsModel model)=> InkWell(
      onTap: (){
-       navigateTo(context,  detailsClinics());
+       navigateTo(context,  detailsClinics(model: model,));
      },
      child: Container(
        width: MediaQuery.of(context).size.width,

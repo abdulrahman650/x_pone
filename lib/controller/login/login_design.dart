@@ -227,13 +227,14 @@ class LoginScreen extends StatelessWidget {
                                                           child: TextButton(
                                                             onPressed: (){
 
-                                                              if(formKey.currentState!.validate()){
-                                                                cubit.userLogin(
-                                                                  context: context,
-                                                                  email: emailController.text,
-                                                                  password: passwordController.text,
-                                                                );
-                                                              }
+                                                              // if(formKey.currentState!.validate()){
+                                                              //   cubit.userLogin(
+                                                              //     context: context,
+                                                              //     email: emailController.text,
+                                                              //     password: passwordController.text,
+                                                              //   );
+                                                              // }
+                                                             AppCubit.get(context).getArticles();
 
                                                             },
                                                             child: const Text(

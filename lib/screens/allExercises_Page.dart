@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-
+import 'package:x_pone/models/blogs_model.dart'as datamodel;
 import '../models/blogs_model.dart';
 import '../shared/bloc/app_cubit/cubit.dart';
 import '../shared/bloc/app_cubit/states.dart';
@@ -12,11 +12,13 @@ import 'details_exercises.dart';
 import 'homePage.dart';
 
 class allExercisesPage extends StatelessWidget {
-    allExercisesPage({Key? key}) : super(key: key);
+    allExercisesPage({Key? key,}) : super(key: key);
     var searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    print(AppCubit.get(context).articles);
+    print('articaaaaaaaaaaaaaaaaaaaaaaaaaaaaal');
     return  BlocConsumer<AppCubit , AppStates>(
         listener: (context ,state) {},
         builder: (context ,state) {
@@ -27,25 +29,6 @@ class allExercisesPage extends StatelessWidget {
             builder: (context){
               return Scaffold(
                 appBar: AppBar(
-                  // leading:
-                  //
-                  //         // InkWell(
-                  //         //   onTap:(){
-                  //         //
-                  //         //     // Navigator.pop(context);
-                  //         //     navigate2(context, homePage());
-                  //         //   },
-                  //         //   child: Icon(Icons.arrow_back_ios,
-                  //         //     color: HexColor("#000000"),
-                  //         //   ),
-                  //         // ),
-                  // Text(
-                  //   "Articles",
-                  //   style: TextStyle(
-                  //       fontWeight: FontWeight.w600,
-                  //       fontSize: 24.0,
-                  //       color: HexColor("#000000")),
-                  // ),
                   title:
                   Text(
                     "Articles",
@@ -127,7 +110,7 @@ class allExercisesPage extends StatelessWidget {
                               return null;
                             },
                             decoration:   InputDecoration(
-                              border: OutlineInputBorder(),
+                              border: const OutlineInputBorder(),
                               label: Text('Search orticles',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
@@ -143,6 +126,7 @@ class allExercisesPage extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 15.0,),
+
                         ListView.separated(
                           shrinkWrap: true,
                           physics:const  NeverScrollableScrollPhysics(),
@@ -171,7 +155,7 @@ class allExercisesPage extends StatelessWidget {
 
     );
   }
-    Widget detailsExcrciseItem(context, ArticlesModel model)=>InkWell(
+    Widget detailsExcrciseItem(context, datamodel.Data model)=>InkWell(
       onTap: (){
 
         navigateTo(context, detailsExercises(model: model,));
@@ -199,7 +183,9 @@ class allExercisesPage extends StatelessWidget {
                   borderRadius: borderRadius2,
                   child: SizedBox.fromSize(
                     // size: Size.fromRadius(10),
-                    child: Image.asset(model.data!.image!,
+                    child: Image.asset(
+                      "assets/images/exclamation.png",
+                      // model.data!.image!,
                       fit: BoxFit.cover,
                       opacity: const AlwaysStoppedAnimation(.8),
                     ),
@@ -209,8 +195,10 @@ class allExercisesPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 11.0,
                     left: 16),
-                child: Text(model.data!.title!
-                  ,style: TextStyle(
+                child: Text(
+                 'klhdkuWHGFDKuejfhkJEW',
+                  // model.data!.title!
+                  style: TextStyle(
                     fontWeight:FontWeight.w600 ,
                     fontSize:15.0,
                     color: HexColor("#FFFFFF"),

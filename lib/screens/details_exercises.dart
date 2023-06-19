@@ -4,12 +4,12 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:x_pone/models/blogs_model.dart';
 import 'package:x_pone/shared/bloc/app_cubit/cubit.dart';
 import 'package:x_pone/shared/bloc/app_cubit/states.dart';
-
+import 'package:x_pone/models/blogs_model.dart'as datamodel;
 import '../shared/componants/components.dart';
 import 'homePage.dart';
 
 class detailsExercises extends StatelessWidget {
-  ArticlesModel? model;
+  datamodel.Data? model;
    detailsExercises({Key? key,required this.model}) : super(key: key);
 
   @override
@@ -23,8 +23,10 @@ class detailsExercises extends StatelessWidget {
             SizedBox(
               height: 420.0,
               width: double.infinity,
-              child: Image.asset(model!.data!.image!
-                ,fit: BoxFit.cover,
+              child: Image.asset(
+                "assets/images/exclamation.png",
+                // model!.data!.image!
+                fit: BoxFit.cover,
               ),
             ),
             SingleChildScrollView(
@@ -78,7 +80,8 @@ class detailsExercises extends StatelessWidget {
                               height: 34.0,
                             ),
                             Text(
-                             model!.data!.title!,
+                              ";IWHDLfsjhoiweHFI",
+                             // model!.data!.title!,
                               style: TextStyle(
                                 decoration: TextDecoration.none,
                                 fontSize: 22,
@@ -91,7 +94,8 @@ class detailsExercises extends StatelessWidget {
                               height: 6.0,
                             ),
                             Text(
-                              model!.data!.doctor!.name!,
+                              "jdlifWEJHFLAKRJGN",
+                              // model!.data!.doctor!.name!,
                               style: TextStyle(
                                 decoration: TextDecoration.none,
                                 fontSize: 14,
@@ -100,7 +104,8 @@ class detailsExercises extends StatelessWidget {
                               ),
                             ),
                             Text(
-                             model!.data!.createdAt!,
+                              ";ohwjdf;luiehwflik",
+                             // model!.data!.createdAt!,
                               style: TextStyle(
                                 decoration: TextDecoration.none,
                                 fontSize: 14,
@@ -112,7 +117,8 @@ class detailsExercises extends StatelessWidget {
                               height: 20.0,
                             ),
                             Text(
-                           model!.data!.description!,
+                              ",MWLJfhkwrngl/",
+                           // model!.data!.description!,
 
 
                               style: TextStyle(

@@ -2,6 +2,7 @@
 
 
 
+import 'package:x_pone/models/doctors_model.dart';
 import 'package:x_pone/models/login_model.dart';
 
 import '../../../models/blogs_model.dart';
@@ -27,13 +28,24 @@ class AppErrorHomeDataStates extends AppStates {}
 //---Articles----------------------------------------------------
 class xBoneSuccessArticlesStates extends AppStates {
   late final ArticlesModel articlesModel;
-  xBoneSuccessArticlesStates(this.articlesModel);
+  xBoneSuccessArticlesStates();
 }
 class xBoneErrorArticlesStates extends AppStates {
   final String error;
   xBoneErrorArticlesStates(this.error);
 }
 class xBoneLoadingArticlesStates extends AppStates {}
+
+//---Doctors----------------------------------------------------
+class xBoneSuccessDoctorsStates extends AppStates {
+  late final DoctorsModel doctorsModel;
+  xBoneSuccessDoctorsStates(this.doctorsModel);
+}
+class xBoneErrorDoctorsStates extends AppStates {
+  final String error;
+  xBoneErrorDoctorsStates(this.error);
+}
+class xBoneLoadingDoctorsStates extends AppStates {}
 
 //----Clinics---------------------------------------------------
 class AppSuccessClinicsStates extends AppStates {}

@@ -7,8 +7,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:x_pone/models/doctors_model.dart';
 import 'package:x_pone/screens/allExercises_Page.dart';
 import 'package:x_pone/screens/all_bicnic_Page.dart';
+import 'package:x_pone/models/blogs_model.dart'as datamodel;
 import 'package:x_pone/screens/details_clinics.dart';
 import 'package:x_pone/screens/settingPage.dart';
 import 'package:x_pone/shared/bloc/app_cubit/cubit.dart';
@@ -203,7 +205,7 @@ class homePage extends StatelessWidget {
                         physics: const BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) =>
-                            detailsDocItem(context),
+                            detailsDocItem(context,AppCubit.get(context).doctorList![index]),
                         separatorBuilder: (context, index) => const SizedBox(
                           width: 14.0,
                         ),
@@ -267,9 +269,9 @@ class homePage extends StatelessWidget {
 
     );
   }
-  Widget detailsDocItem(context)=> InkWell(
+  Widget detailsDocItem(context, DoctorsModel model)=> InkWell(
     onTap: (){
-       navigateTo(context,  detailsClinics());
+       navigateTo(context,  detailsClinics(model: model,));
       // return detailsDoctor();
     },
     child: Container(
@@ -478,7 +480,7 @@ class homePage extends StatelessWidget {
                   ),
                 ),
   ) ;
-  Widget detailsExcrciseItem(context, ArticlesModel model)=>InkWell(
+  Widget detailsExcrciseItem(context, datamodel.Data model)=>InkWell(
     onTap: (){
 
       // navigateTo(context, detailsExercises(model: model,));

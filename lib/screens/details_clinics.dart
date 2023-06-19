@@ -8,10 +8,12 @@ import 'package:x_pone/screens/homePage.dart';
 import 'package:x_pone/shared/bloc/app_cubit/cubit.dart';
 import 'package:x_pone/shared/componants/components.dart';
 
+import '../models/doctors_model.dart';
 import '../shared/bloc/app_cubit/states.dart';
 
 class detailsClinics extends StatefulWidget {
-   detailsClinics({Key? key}) : super(key: key);
+  DoctorsModel? model;
+   detailsClinics({Key? key ,required this.model}) : super(key: key);
 
   @override
   State<detailsClinics> createState() => _detailsClinicsState();
@@ -94,7 +96,7 @@ class _detailsClinicsState extends State<detailsClinics> {
 
                                   InkWell(
                                       onTap:(){
-                                        navigateTo(context, detailsDoctor());
+                                        navigateTo(context, detailsDoctor(model: AppCubit.get(context).doctorModel,));
 
                                       },
                                       child: Image.asset(

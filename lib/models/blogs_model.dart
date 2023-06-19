@@ -1,13 +1,16 @@
 class ArticlesModel {
-  Data? data;
+  List<Data>? data;
   int? statusCode;
-  String? meta;
+  Null? meta;
 
   ArticlesModel({this.data, this.statusCode, this.meta});
 
   ArticlesModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = Data.fromJson(json['data']);
+      data = <Data>[];
+      json['data'].forEach((v) {
+        data!.add(new Data.fromJson(v));
+      });
     }
     statusCode = json['status_code'];
     meta = json['meta'];
@@ -16,7 +19,7 @@ class ArticlesModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.data != null) {
-      data['data'] = this.data!.toJson();
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
     data['status_code'] = this.statusCode;
     data['meta'] = this.meta;
@@ -32,7 +35,7 @@ class Data {
   String? createdAt;
   String? updatedAt;
   int? status;
-  String? description;
+  dynamic description;
   String? image;
   Doctor? doctor;
 
@@ -41,8 +44,8 @@ class Data {
         this.title,
         this.content,
         this.doctorId,
-        this.updatedAt,
         this.createdAt,
+        this.updatedAt,
         this.status,
         this.description,
         this.image,
@@ -83,32 +86,50 @@ class Data {
 class Doctor {
   int? id;
   String? name;
-  String? phone;
-  String? adress;
+  dynamic phone;
   String? createdAt;
   String? updatedAt;
   String? email;
-  String? emailVerifiedAt;
+  dynamic emailVerifiedAt;
+  String? lat;
+  String? long;
+  String? address;
+  dynamic education;
+  dynamic notes;
+  String? services;
+  String? image;
 
   Doctor(
       {this.id,
         this.name,
         this.phone,
-        this.adress,
         this.createdAt,
         this.updatedAt,
         this.email,
-        this.emailVerifiedAt});
+        this.emailVerifiedAt,
+        this.lat,
+        this.long,
+        this.address,
+        this.education,
+        this.notes,
+        this.services,
+        this.image});
 
   Doctor.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     phone = json['phone'];
-    adress = json['adress'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     email = json['email'];
     emailVerifiedAt = json['email_verified_at'];
+    lat = json['lat'];
+    long = json['long'];
+    address = json['address'];
+    education = json['education'];
+    notes = json['notes'];
+    services = json['services'];
+    image = json['image'];
   }
 
   Map<String, dynamic> toJson() {
@@ -116,11 +137,17 @@ class Doctor {
     data['id'] = this.id;
     data['name'] = this.name;
     data['phone'] = this.phone;
-    data['adress'] = this.adress;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     data['email'] = this.email;
     data['email_verified_at'] = this.emailVerifiedAt;
+    data['lat'] = this.lat;
+    data['long'] = this.long;
+    data['address'] = this.address;
+    data['education'] = this.education;
+    data['notes'] = this.notes;
+    data['services'] = this.services;
+    data['image'] = this.image;
     return data;
   }
 }
