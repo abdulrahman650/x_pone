@@ -1,5 +1,5 @@
 class ArticlesModel {
-  List<Data>? data;
+  List<DataBlog>? data;
   int? statusCode;
   String? meta;
 
@@ -7,9 +7,9 @@ class ArticlesModel {
 
   ArticlesModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <DataBlog>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(new DataBlog.fromJson(v));
       });
     }
     statusCode = json['status_code'];
@@ -27,7 +27,7 @@ class ArticlesModel {
   }
 }
 
-class Data {
+class DataBlog {
   int? id;
   String? title;
   String? content;
@@ -39,19 +39,19 @@ class Data {
   String? image;
   Doctor? doctor;
 
-  Data(
+  DataBlog(
       {this.id,
-        this.title,
-        this.content,
-        this.doctorId,
-        this.createdAt,
-        this.updatedAt,
-        this.status,
-        this.description,
-        this.image,
-        this.doctor});
+      this.title,
+      this.content,
+      this.doctorId,
+      this.createdAt,
+      this.updatedAt,
+      this.status,
+      this.description,
+      this.image,
+      this.doctor});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  DataBlog.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     content = json['content'];
@@ -62,7 +62,7 @@ class Data {
     description = json['description'];
     image = json['image'];
     doctor =
-    json['doctor'] != null ? new Doctor.fromJson(json['doctor']) : null;
+        json['doctor'] != null ? new Doctor.fromJson(json['doctor']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -101,19 +101,19 @@ class Doctor {
 
   Doctor(
       {this.id,
-        this.name,
-        this.phone,
-        this.createdAt,
-        this.updatedAt,
-        this.email,
-        this.emailVerifiedAt,
-        this.lat,
-        this.long,
-        this.address,
-        this.education,
-        this.notes,
-        this.services,
-        this.image});
+      this.name,
+      this.phone,
+      this.createdAt,
+      this.updatedAt,
+      this.email,
+      this.emailVerifiedAt,
+      this.lat,
+      this.long,
+      this.address,
+      this.education,
+      this.notes,
+      this.services,
+      this.image});
 
   Doctor.fromJson(Map<String, dynamic> json) {
     id = json['id'];

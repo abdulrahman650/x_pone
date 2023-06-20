@@ -27,7 +27,6 @@ class AppCubit extends Cubit<AppStates> {
 
   int pageIndex = 0;
 
-
   List<Widget> bottomScreens = [
     homePage(),
     allExercisesPage(),
@@ -43,7 +42,6 @@ class AppCubit extends Cubit<AppStates> {
     }
     if (index == 3) {
       emit(xBoneSuccessUserDataState(userModel!));
-
     }
   }
 
@@ -68,42 +66,41 @@ class AppCubit extends Cubit<AppStates> {
   //
 
   // ArticlesModel? articlesModel;
- // List<ArticlesModel>? articles;
-  List<ArticlesModel> articlesModel = [];
-   getArticles() {
-    DioHelper.getdata(
-      url: ARTICLE,
-    ).then((value) {
+  List<ArticlesModel>? articles;
+  List<DataBlog> articlesModel = [];
 
-      // print(value.data);
-    // articles!.add(datamodel.Data.fromJson(value.data));
-    (value.data as List).map((e) {
-      articlesModel.add(ArticlesModel.fromJson(e));
-    }).toList();
+  Future<void> getArticles() async {
+    try {
+      final value = await DioHelper.getdata(url: ARTICLE);
+      final data = value.data['data'];
+      if (data is List) {
+        articlesModel = data.map((e) => DataBlog.fromJson(e)).toList();
+      }
       print(articlesModel);
       emit(xBoneSuccessArticlesStates());
-    }).catchError((onError) {
-      debugPrint(onError.toString());
-      emit(xBoneErrorArticlesStates(onError.toString()));
-    });
+    } catch (error) {
+      print(error.toString());
+      emit(xBoneErrorArticlesStates(error.toString()));
+    }
   }
 
-  DoctorsModel? doctorModel;
- // List<DoctorsModel>? doctorList;
-   getDoctorsModel() {
-    DioHelper.getdata(
-      url: DOCTORS,
-    ).then((value) {
-      print(value.toString());
-      doctorModel=DoctorsModel.fromJson(value.data);
-     // doctorList!.add(DoctorsModel.fromJson(value.data));
-      emit(xBoneSuccessDoctorsStates(doctorModel!));
-    }).catchError((onError) {
-      debugPrint(onError.toString());
-      emit(xBoneErrorDoctorsStates(onError.toString()));
-    });
-  }
+  // DoctorsModel? doctorModel;
+  List<DataDoctor>? doctorList;
 
+  Future<void> getDoctorsModel() async {
+    try {
+      final value = await DioHelper.getdata(url: DOCTORS);
+      final data = value.data['data'];
+      if (data is List) {
+        doctorList = data.map((e) => DataDoctor.fromJson(e)).toList();
+      }
+      print(doctorList);
+      emit(xBoneSuccessDoctorsStates());
+    } catch (error) {
+      print(error.toString());
+      emit(xBoneErrorDoctorsStates(error.toString()));
+    }
+  }
 
   // بتوع تعديل البروفايل
   // xBoneProfileModel? updateUserModel;
@@ -194,16 +191,15 @@ class AppCubit extends Cubit<AppStates> {
 
   // xBoneProfileModel? userModel;
 //الداتا بتاعت البروفايل
-   getUserData() {
-
+  getUserData() {
     emit(xBoneLoadingUserDataState());
 
     DioHelper.getdata(
       url: PROFILE,
-          headers: {
-      'Accept': 'application/json',
-      'Authorization': "Bearer $token",
-    },
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': "Bearer $token",
+      },
       // token: token,
     ).then((value) {
       userModel = xBoneProfileModel.fromJson(value.data);
@@ -222,6 +218,7 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 }
+
 void calculateDistance() async {
   Position position = await Geolocator.getCurrentPosition(
     desiredAccuracy: LocationAccuracy.high,

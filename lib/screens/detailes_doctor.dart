@@ -12,7 +12,7 @@ import 'details_clinics.dart';
 import 'homePage.dart';
 
 class detailsDoctor extends StatefulWidget {
-  DoctorsModel? model;
+  DataDoctor? model;
    detailsDoctor({Key? key,required this.model}) : super(key: key);
 
   @override

@@ -38,8 +38,6 @@ class xBoneLoadingArticlesStates extends AppStates {}
 
 //---Doctors----------------------------------------------------
 class xBoneSuccessDoctorsStates extends AppStates {
-  late final DoctorsModel doctorsModel;
-  xBoneSuccessDoctorsStates(this.doctorsModel);
 }
 class xBoneErrorDoctorsStates extends AppStates {
   final String error;

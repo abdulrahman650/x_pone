@@ -1,5 +1,5 @@
 class DoctorsModel {
-  List<Data>? data;
+  List<DataDoctor>? data;
   int? statusCode;
   Meta? meta;
 
@@ -7,9 +7,9 @@ class DoctorsModel {
 
   DoctorsModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <DataDoctor>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(new DataDoctor.fromJson(v));
       });
     }
     statusCode = json['status_code'];
@@ -29,7 +29,7 @@ class DoctorsModel {
   }
 }
 
-class Data {
+class DataDoctor {
   int? id;
   String? name;
   String? phone;
@@ -44,22 +44,22 @@ class Data {
   List<String>? services;
   String? image;
 
-  Data(
+  DataDoctor(
       {this.id,
-        this.name,
-        this.phone,
-        this.createdAt,
-        this.updatedAt,
-        this.email,
-        this.address,
-        this.lat,
-        this.long,
-        this.education,
-        this.notes,
-        this.services,
-        this.image});
+      this.name,
+      this.phone,
+      this.createdAt,
+      this.updatedAt,
+      this.email,
+      this.address,
+      this.lat,
+      this.long,
+      this.education,
+      this.notes,
+      this.services,
+      this.image});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  DataDoctor.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     phone = json['phone'];
@@ -71,7 +71,7 @@ class Data {
     long = json['long'];
     education = json['education'];
     notes = json['notes'];
-    services = json['services'].cast<String>();
+    services = json['services'] is List ? List<String>.from(json['services'] ?? []) : [];
     image = json['image'];
   }
 

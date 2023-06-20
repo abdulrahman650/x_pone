@@ -24,49 +24,43 @@ import 'controller/login/login_design.dart';
 import 'on_boarding/logo_splash.dart';
 import 'on_boarding/on_boarding.dart';
 import 'package:geolocator/geolocator.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Bloc.observer =MyBlocObserver();
+  Bloc.observer = MyBlocObserver();
   HttpOverrides.global = MyHttpOverrides();
   DioHelper.init();
   await CacheHelper.init();
 
-
-  bool? isDark = CacheHelper.getData(key:'isDark');
-
+  bool? isDark = CacheHelper.getData(key: 'isDark');
 
   Widget widget;
 
-  bool? onBoarding = CacheHelper.getData(key:'onBoarding');
-  token = CacheHelper.getData(key:'token');
+  bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
+  token = CacheHelper.getData(key: 'token');
   // print(token);
 
-  if (onBoarding != null)
-  {
+  if (onBoarding != null) {
     if (token != null) {
-      widget =XponeLayout();
+      widget = XponeLayout();
     } else {
       widget = LoginScreen();
     }
   } else {
     widget = const logo_splash();
   }
-      runApp(MyApp(
-
-        startWidget: widget,
-           //    isDark: isDark,
-      ));
-
+  runApp(MyApp(
+    startWidget: widget,
+    //    isDark: isDark,
+  ));
 }
 
 class MyApp extends StatefulWidget {
-  late final  Widget startWidget;
+  late final Widget startWidget;
 
   MyApp(
-       // this.isDark,
-  {required this.startWidget}
-
-      );
+      // this.isDark,
+      {required this.startWidget});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -75,24 +69,21 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   late final bool? isDark;
 
-
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-        providers: [
-          BlocProvider(
-              create: ( BuildContext context) => AppCubit()
-                ..getArticles()
-                ..getDoctorsModel(),
-    // ..getUserData()
-
-          ),
-        ],
-        child: BlocConsumer<AppCubit, AppStates>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            return MaterialApp(
+      providers: [
+        BlocProvider(
+          create: (BuildContext context) => AppCubit()
+            ..getArticles()
+            ..getDoctorsModel(),
+          // ..getUserData()
+        ),
+      ],
+      child: BlocConsumer<AppCubit, AppStates>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return MaterialApp(
               debugShowCheckedModeBanner: false,
               theme: lightTheme,
               darkTheme: darkTheme,
@@ -106,22 +97,20 @@ class _MyAppState extends State<MyApp> {
               //     )
               // ),
               home:
-              // logo_splash()
-              // setting_page()
-              // RegisterScreen()
-              //  widget.startWidget
-              // onBoarding ?
-               LoginScreen()
-                  // : OnBoarding(),
-            );
-          },
-
-        ),
+                  // logo_splash()
+                  // setting_page()
+                  // RegisterScreen()
+                  //  widget.startWidget
+                  // onBoarding ?
+                  LoginScreen()
+              // : OnBoarding(),
+              );
+        },
+      ),
     );
-
   }
-
 }
+
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {

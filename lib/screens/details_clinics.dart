@@ -12,7 +12,7 @@ import '../models/doctors_model.dart';
 import '../shared/bloc/app_cubit/states.dart';
 
 class detailsClinics extends StatefulWidget {
-  DoctorsModel? model;
+  DataDoctor? model;
    detailsClinics({Key? key ,required this.model}) : super(key: key);
 
   @override
@@ -27,14 +27,17 @@ class _detailsClinicsState extends State<detailsClinics> {
     return BlocConsumer <AppCubit , AppStates>(
       listener: (context, state){},
       builder: (context, state){
+        List<DataDoctor>? doctorsModel = AppCubit.get(context).doctorList;
+
         return Scaffold(
           body: Stack(
             children: [
               Container(
                 height: 410.0,
                 width: double.infinity,
-                child: Image.asset(
-                  "assets/images/3yada.png", fit: BoxFit.cover,
+                child: Image.network(
+                  AppCubit.get(context).doctorList
+                  fit: BoxFit.cover,
                 ),
               ),
               SingleChildScrollView(
@@ -86,17 +89,19 @@ class _detailsClinicsState extends State<detailsClinics> {
                               Row(
                                 children: [
                                   Text(
-                                    "Dr. Fadi Salah ",
-                                    style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w500,
-                                      color: HexColor("#000000"),
-                                    ),
-                                  ),
+                                  model.name.toString(),
+                        overflow: TextOverflow.fade,
+                        maxLines: 1,
+                        softWrap: false,
+                        style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                            color: HexColor("#FFFFFF")),
+                      ),
 
                                   InkWell(
                                       onTap:(){
-                                        navigateTo(context, detailsDoctor(model: AppCubit.get(context).doctorModel,));
+                                        // navigateTo(context, detailsDoctor(model: AppCubit.get(context).doctorList,));
 
                                       },
                                       child: Image.asset(
@@ -133,14 +138,15 @@ class _detailsClinicsState extends State<detailsClinics> {
                                     width: 6.0,
                                   ),
                                   Text(
-                                    "mansoura,elgesh st, after carfour mall, building 8",
+                                    model.address ?? '',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: 12,
-                                      color: HexColor("#737373"),
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 12,
+                                        color: HexColor("#737373"),
                                       overflow: TextOverflow.visible,
                                     ),
                                   ),
+
                                 ],
                               ),
                               const SizedBox(
@@ -153,18 +159,22 @@ class _detailsClinicsState extends State<detailsClinics> {
                                     size: 12.0,
                                     color: HexColor("737373"),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 8.0,
                                   ),
                                   Text(
-                                    "every day, from 7pm to 10pm",
+                                    model.createdAt! ?? '',
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    softWrap: false,
                                     style: TextStyle(
                                       fontWeight: FontWeight.w300,
                                       fontSize: 12,
                                       color: HexColor("#737373"),
-                                      overflow: TextOverflow.visible,
+
                                     ),
                                   ),
+
                                 ],
                               ),
                               const SizedBox(

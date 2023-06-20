@@ -235,6 +235,8 @@ class LoginScreen extends StatelessWidget {
                                                                 );
                                                               }
 
+                                                              // AppCubit.get(context).getDoctorsModel();
+
 
                                                             },
                                                             child: const Text(

@@ -12,33 +12,31 @@ import 'details_exercises.dart';
 import 'homePage.dart';
 
 class allExercisesPage extends StatelessWidget {
-    allExercisesPage({Key? key,}) : super(key: key);
-    var searchController = TextEditingController();
+  allExercisesPage({
+    Key? key,
+  }) : super(key: key);
+  var searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     print(AppCubit.get(context).articlesModel);
     print('articaaaaaaaaaaaaaaaaaaaaaaaaaaaaal');
-    return  BlocConsumer<AppCubit , AppStates>(
-        listener: (context ,state) {},
-        builder: (context ,state) {
-          List<ArticlesModel>? articlesModel = AppCubit.get(context).articlesModel;
+    return BlocConsumer<AppCubit, AppStates>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          List<DataBlog>? articlesModel = AppCubit.get(context).articlesModel;
           return ConditionalBuilder(
-            
             condition: state is! xBoneLoadingArticlesStates,
-            builder: (context){
+            builder: (context) {
               return Scaffold(
                 appBar: AppBar(
-                  title:
-                  Text(
+                  title: Text(
                     "Articles",
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 24.0,
                         color: HexColor("#000000")),
                   ),
-
-
                 ),
                 body: SingleChildScrollView(
                   child: Padding(
@@ -83,20 +81,20 @@ class allExercisesPage extends StatelessWidget {
                           width: double.infinity,
                           height: 44.0,
                           decoration: BoxDecoration(
-                            border: Border.all(width: 0.5,
-                                color: HexColor("#FFFFFF")),
+                            border: Border.all(
+                                width: 0.5, color: HexColor("#FFFFFF")),
                             borderRadius: BorderRadius.circular(12),
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(
-                                color:  HexColor("#0052CC").withOpacity(0.1),
+                                color: HexColor("#0052CC").withOpacity(0.1),
                                 spreadRadius: 3,
                                 blurRadius: 9,
-                                offset: const Offset(0, 9), // changes position of shadow
+                                offset: const Offset(
+                                    0, 9), // changes position of shadow
                               ),
                             ],
                           ),
-
                           child: TextFormField(
                             controller: searchController,
                             keyboardType: TextInputType.text,
@@ -109,31 +107,34 @@ class allExercisesPage extends StatelessWidget {
                               }
                               return null;
                             },
-                            decoration:   InputDecoration(
+                            decoration: InputDecoration(
                               border: const OutlineInputBorder(),
-                              label: Text('Search orticles',
+                              label: Text(
+                                'Search orticles',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 14,
                                   color: HexColor("#94A3B8"),
                                 ),
                               ),
-                              suffixIcon:Icon(Icons.search,
+                              suffixIcon: Icon(
+                                Icons.search,
                                 color: HexColor("#94A3B8"),
                               ),
-
                             ),
                           ),
                         ),
-                        const SizedBox(height: 15.0,),
+                        const SizedBox(
+                          height: 15.0,
+                        ),
 
                         ListView.separated(
                           shrinkWrap: true,
-                          physics:const  NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           scrollDirection: Axis.vertical,
-                          itemBuilder: (context, index) =>
-                         Text(articlesModel.length.toString()),// detailsExcrciseItem(context,),
-                   separatorBuilder: (context, index) => const SizedBox(
+                          itemBuilder: (context, index) => detailsExcrciseItem(
+                              context, articlesModel[index]),
+                          separatorBuilder: (context, index) => const SizedBox(
                             height: 15.0,
                           ),
                           itemCount: articlesModel.length,
@@ -147,68 +148,67 @@ class allExercisesPage extends StatelessWidget {
                 ),
               );
             },
-            fallback: (context)=>Center(child: CircularProgressIndicator(),),
-
-
+            fallback: (context) => Center(
+              child: CircularProgressIndicator(),
+            ),
           );
-        }
-
-    );
+        });
   }
-    Widget detailsExcrciseItem(context, ArticlesModel model)=>InkWell(
-      onTap: (){
 
-        navigateTo(context, detailsExercises(model: model,));
-      },
-      child: Column(
-        children: [
-          Stack(
-            children: [
-              Container(
-                width: double.infinity,
-                height: 127.0,
-                decoration: BoxDecoration(
-                  color: HexColor("#004DC0"),
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color:  HexColor("#0052CC").withOpacity(0.1),
-                      spreadRadius: 3,
-                      blurRadius: 9,
-                      offset: const Offset(0, 9), // changes position of shadow
-                    ),
-                  ],
-                ),
-                child: ClipRRect(
-                  borderRadius: borderRadius2,
-                  child: SizedBox.fromSize(
-                    // size: Size.fromRadius(10),
-                    child: Image.asset(
-                      "assets/images/exclamation.png",
-                      // model.data!.image!,
-                      fit: BoxFit.cover,
-                      opacity: const AlwaysStoppedAnimation(.8),
+  Widget detailsExcrciseItem(context, DataBlog model) => InkWell(
+        onTap: () {
+          navigateTo(
+              context,
+              detailsExercises(
+                model: model,
+              ));
+        },
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 127.0,
+                  decoration: BoxDecoration(
+                    color: HexColor("#004DC0"),
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: HexColor("#0052CC").withOpacity(0.1),
+                        spreadRadius: 3,
+                        blurRadius: 9,
+                        offset:
+                            const Offset(0, 9), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: borderRadius2,
+                    child: SizedBox.fromSize(
+                      // size: Size.fromRadius(10),
+                      child: Image.network(
+                        model.image!,
+                        fit: BoxFit.cover,
+                        opacity: const AlwaysStoppedAnimation(.8),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 11.0,
-                    left: 16),
-                child: Text(
-                  'klhdkuWHGFDKuejfhkJEW',
-
-                  style: TextStyle(
-                    fontWeight:FontWeight.w600 ,
-                    fontSize:15.0,
-                    color: HexColor("#FFFFFF"),
-                  ),),
-              ),
-
-            ],
-          ),
-        ],
-      ),
-    );
-
+                Padding(
+                  padding: const EdgeInsets.only(top: 11.0, left: 16),
+                  child: Text(
+                    model.title!,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15.0,
+                      color: HexColor("#FFFFFF"),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
 }
