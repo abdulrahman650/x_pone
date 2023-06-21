@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import 'location.dart';
+
 class rateDoctor extends StatefulWidget {
    rateDoctor({Key? key}) : super(key: key);
 
@@ -12,7 +14,14 @@ class rateDoctor extends StatefulWidget {
 }
 
 class _rateDoctorState extends State<rateDoctor> {
+
+  String? lat, long, country, adminArea;
   double showRating =1.0;
+  @override
+  void initState(){
+    super.initState();
+    getLocation();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -157,11 +166,29 @@ class _rateDoctorState extends State<rateDoctor> {
                 ),),
               ),
             ),
+            Text("Country : ${country ??' Loading ...'}"),
+            Text("Admin Area : ${adminArea ??' Loading ...'}"),
+
           ],
         ),
       ),
 
 
     );
+  }
+  void getLocation()async{
+    final service = LocationService();
+    final locationData = await service.getLocation();
+
+    if(locationData != null){
+      final placeMark = await service.getPlacemark(locationData : locationData);
+      setState(() {
+        lat = locationData.latitude!.toStringAsFixed(2);
+        long = locationData.longitude!.toStringAsFixed(2);
+
+        country = placeMark?.country ?? 'could not get country';
+        adminArea = placeMark?.administrativeArea ?? 'could not get admin area';
+      });
+    }
   }
 }

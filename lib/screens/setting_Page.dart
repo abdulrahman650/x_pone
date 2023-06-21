@@ -17,6 +17,7 @@ import '../models/profile_model.dart';
 import '../shared/componants/components.dart';
 import '../shared/network/remote/cache_helper.dart';
 import 'home_Page.dart';
+import 'location.dart';
 
 class setting_page extends StatefulWidget {
   @override
@@ -25,6 +26,12 @@ class setting_page extends StatefulWidget {
 
 class _setting_pageState extends State<setting_page> {
 
+  String? lat, long, country, adminArea;
+  @override
+  void initState(){
+    super.initState();
+    // getLocation();
+  }
   var formKey =GlobalKey<FormState>();
   var nameEditController = TextEditingController();
   var emailEditController = TextEditingController();
@@ -32,17 +39,6 @@ class _setting_pageState extends State<setting_page> {
   var locationEditController = TextEditingController();
   var passwordEditController = TextEditingController();
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    // nameEditController = TextEditingController(text: CacheHelper.getData(key: "name"));
-    // emailEditController = TextEditingController(text: CacheHelper.getData(key: "email"));
-    // phoneEditController = TextEditingController(text: CacheHelper.getData(key: "phone"));
-    // locationEditController = TextEditingController(text: CacheHelper.getData(key: "location"));
-    // passwordEditController = TextEditingController(text: CacheHelper.getData(key: "password"));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -311,6 +307,8 @@ class _setting_pageState extends State<setting_page> {
                                   ),
                                 ],
                               ),
+                              // Text("Country : ${country ??' Loading ...'}"),
+                              // Text("Admin Area : ${adminArea ??' Loading ...'}"),
                               const SizedBox(
                                 height: 40,
                               ),
@@ -399,4 +397,19 @@ class _setting_pageState extends State<setting_page> {
 
     );
   }
+//   void getLocation()async{
+//     final service = LocationService();
+//     final locationData = await service.getLocation();
+//
+//     if(locationData != null){
+// final placeMark = await service.getPlacemark(locationData : locationData);
+//       setState(() {
+//         lat = locationData.latitude!.toStringAsFixed(2);
+//         long = locationData.longitude!.toStringAsFixed(2);
+//
+//         country = placeMark?.country ?? 'could not get country';
+//         adminArea = placeMark?.administrativeArea ?? 'could not get admin area';
+//       });
+//     }
+//   }
 }

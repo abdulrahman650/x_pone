@@ -5,6 +5,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'colors.dart';
 
 ThemeData darkTheme =  ThemeData(
+  fontFamily: "Lexend",
   // primarySwatch: Colors.red,
   scaffoldBackgroundColor: HexColor('#3e3d3d'),
   appBarTheme: AppBarTheme(

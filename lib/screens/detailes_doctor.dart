@@ -32,10 +32,20 @@ class _details_DoctorState extends State<details_Doctor> {
                 SizedBox(
                   height: 420.0,
                   width: double.infinity,
-                  child: Image.network(
-                    widget.model!.image??'',
+                  child: widget.model!.image!.isNotEmpty
+                      ? FadeInImage.assetNetwork(
+                    placeholder: "assets/images/loading.gif",
+                    image:widget.model!.image!,
                     fit: BoxFit.cover,
-                  ),
+                  )
+                      : Image.asset(
+                    "assets/images/3yada.png",
+                    fit: BoxFit.cover,
+                  )
+                  // Image.network(
+                  //   widget.model!.image??'',
+                  //   fit: BoxFit.cover,
+                  // ),
                 ),
                 SingleChildScrollView(
                   child: Column(
@@ -407,7 +417,7 @@ class _details_DoctorState extends State<details_Doctor> {
                                                             ],
                                                           ),
                                                           const SizedBox(
-                                                            height: 25.0,
+                                                            height: 20.0,
                                                           ),
                                                           Container(
                                                             width:

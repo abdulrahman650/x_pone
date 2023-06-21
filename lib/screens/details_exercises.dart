@@ -20,10 +20,21 @@ class detailsExercises extends StatelessWidget {
             SizedBox(
               height: 420.0,
               width: double.infinity,
-              child: Image.network(
-                 model!.image!,
+              child:model!.image!.isNotEmpty
+                  ? FadeInImage.assetNetwork(
+                placeholder: "assets/images/loading.gif",
+                image: model!.image!,
                 fit: BoxFit.cover,
-              ),
+              )
+                  : Image.asset(
+                "assets/images/pic_exc.png",
+                fit: BoxFit.cover,
+              )
+
+              // Image.network(
+              //    model!.image!,
+              //   fit: BoxFit.cover,
+              // ),
             ),
             SingleChildScrollView(
               child: Column(

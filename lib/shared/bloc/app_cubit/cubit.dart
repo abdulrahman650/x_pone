@@ -37,12 +37,13 @@ class AppCubit extends Cubit<AppStates> {
   void changeBottom(int index) {
     pageIndex = index;
     emit(AppChangeBottomNavStates());
-    if (index == 2) {
-      emit(AppSuccessClinicsStates());
-    }
-    if (index == 3) {
-      emit(xBoneSuccessUserDataState(userModel!));
-    }
+    // emit(AppChangeBottomNavStates());
+    // if (index == 2) {
+    //   emit(AppSuccessClinicsStates());
+    // }
+    // if (index == 3) {
+    //   emit(xBoneSuccessUserDataState(userModel!));
+    // }
   }
 
   // HomeModel? homeModel;
@@ -193,14 +194,12 @@ class AppCubit extends Cubit<AppStates> {
 //الداتا بتاعت البروفايل
   getUserData() {
     emit(xBoneLoadingUserDataState());
-
     DioHelper.getdata(
       url: PROFILE,
       headers: {
         'Accept': 'application/json',
         'Authorization': "Bearer $token",
       },
-      // token: token,
     ).then((value) {
       userModel = xBoneProfileModel.fromJson(value.data);
       emit(xBoneSuccessUserDataState(userModel!));

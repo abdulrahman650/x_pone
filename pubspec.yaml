@@ -46,6 +46,9 @@ dependencies:
   flutter_glass: ^0.0.8
   conditional_builder_null_safety: ^0.0.6
   geolocator: ^9.0.2
+  location:
+  geocoding:
+
 
 
   #  awesome_dialog: ^3.0.2
@@ -99,10 +102,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-#  fonts:
-#    - family: Lexend
-#      fonts:
-#        - asset: assets/fonts/Lexend.ttf
+  fonts:
+    - family: Lexend
+      fonts:
+        - asset: assets/fonts/Lexend.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

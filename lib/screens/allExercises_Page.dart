@@ -154,11 +154,22 @@ class allExercisesPage extends StatelessWidget {
                     borderRadius: borderRadius2,
                     child: SizedBox.fromSize(
                       // size: Size.fromRadius(10),
-                      child: Image.network(
-                        model.image!,
+                      child:
+                      model.image!.isNotEmpty
+                          ? FadeInImage.assetNetwork(
+                        placeholder: "assets/images/loading.gif",
+                        image: model.image!,
                         fit: BoxFit.cover,
-                        opacity: const AlwaysStoppedAnimation(.8),
-                      ),
+                      )
+                          : Image.asset(
+                        "assets/images/pic_exc.png",
+                        fit: BoxFit.cover,
+                      )
+                      // Image.network(
+                      //   model.image!,
+                      //   fit: BoxFit.cover,
+                      //   opacity: const AlwaysStoppedAnimation(.8),
+                      // ),
                     ),
                   ),
                 ),

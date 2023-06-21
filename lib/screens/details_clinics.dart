@@ -37,10 +37,21 @@ class _detailsClinicsState extends State<detailsClinics> {
               Container(
                 height: 400.0,
                 width: double.infinity,
-                child: Image.network(
-                  widget.model!.image??'',
+                child:
+                widget.model!.image!.isNotEmpty
+                    ? FadeInImage.assetNetwork(
+                  placeholder: "assets/images/loading.gif",
+                  image:widget.model!.image!,
                   fit: BoxFit.cover,
-                ),
+                )
+                    : Image.asset(
+                  "assets/images/3yada.png",
+                  fit: BoxFit.cover,
+                )
+                // Image.network(
+                //   widget.model!.image??'',
+                //   fit: BoxFit.cover,
+                // ),
               ),
               SingleChildScrollView(
                 child: Column(
@@ -281,10 +292,20 @@ class _detailsClinicsState extends State<detailsClinics> {
                                                           mainAxisAlignment:
                                                           MainAxisAlignment
                                                               .start,
-                                                          children: const [
-                                                            Text(
-                                                              "Rate Dr. Fadi",
+                                                          children:  [
+                                                            const Text(
+                                                              "Rate - ",
                                                               style: TextStyle(
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .w500,
+                                                                fontSize: 22,
+                                                                color: MyColors.myblack,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              widget.model!.name??'',
+                                                              style: const TextStyle(
                                                                 fontWeight:
                                                                 FontWeight
                                                                     .w500,
@@ -420,7 +441,7 @@ class _detailsClinicsState extends State<detailsClinics> {
                                                           ],
                                                         ),
                                                         const SizedBox(
-                                                          height: 38.0,
+                                                          height: 20.0,
                                                         ),
                                                         Container(
                                                           width:

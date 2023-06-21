@@ -77,8 +77,8 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
           create: (BuildContext context) => AppCubit()
             ..getArticles()
-            ..getDoctorsModel(),
-          // ..getUserData()
+            ..getDoctorsModel()
+          ..getUserData(),
         ),
       ],
       child: BlocConsumer<AppCubit, AppStates>(
@@ -98,6 +98,7 @@ class _MyAppState extends State<MyApp> {
               //     )
               // ),
               home:
+              // rateDoctor()
                   // logo_splash()
                   // setting_page()
                   // RegisterScreen()

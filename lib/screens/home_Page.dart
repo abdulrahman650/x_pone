@@ -22,7 +22,9 @@ import 'details_exercises.dart';
 class home_page extends StatelessWidget {
   var searchController = TextEditingController();
   var formKey = GlobalKey<FormState>();
+
   home_page({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     DateTime currentDate = DateTime.now();
@@ -34,7 +36,7 @@ class home_page extends StatelessWidget {
       builder: (context, state) {
         xBoneProfileModel? model = AppCubit.get(context).userModel;
         List<DataDoctor>? doctorsModel = AppCubit.get(context).doctorList;
-        if (kDebugMode) {print(doctorsModel);}
+        List<DataBlog>? articalesModel = AppCubit.get(context).articlesModel;
         return Scaffold(
             body: SingleChildScrollView(
           child: Padding(
@@ -112,7 +114,10 @@ class home_page extends StatelessWidget {
                   width: double.infinity,
                   height: 44.0,
                   decoration: BoxDecoration(
-                    border: Border.all(width: 0.5, color: MyColors.myWhite,),
+                    border: Border.all(
+                      width: 0.5,
+                      color: MyColors.myWhite,
+                    ),
                     borderRadius: BorderRadius.circular(12),
                     color: Colors.white,
                     boxShadow: [
@@ -137,9 +142,9 @@ class home_page extends StatelessWidget {
                       }
                       return null;
                     },
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      label: const Text(
+                      label: Text(
                         'Search doctors or clinics',
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
@@ -179,7 +184,7 @@ class home_page extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
-                        color:  MyColors.mydarkgray,
+                        color: MyColors.mydarkgray,
                       ),
                     ),
                     const SizedBox(
@@ -219,17 +224,18 @@ class home_page extends StatelessWidget {
                 const SizedBox(
                   height: 15.0,
                 ),
+                doctorsModel ==null?  Center(child: CircularProgressIndicator(),):
                 SizedBox(
                   height: 161,
                   child: ListView.separated(
                       physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) =>
-                          detailsDocItem(context, doctorsModel![index]),
+                          detailsDocItem(context, doctorsModel[index]),
                       separatorBuilder: (context, index) => const SizedBox(
                             width: 14.0,
                           ),
-                      itemCount: AppCubit.get(context).doctorList!.length),
+                      itemCount: doctorsModel.length),
                 ),
                 const SizedBox(
                   height: 32.0,
@@ -242,7 +248,7 @@ class home_page extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        color:  MyColors.mydarkgray,
+                        color: MyColors.mydarkgray,
                       ),
                     ),
                     const SizedBox(
@@ -267,17 +273,18 @@ class home_page extends StatelessWidget {
                 const SizedBox(
                   height: 15.0,
                 ),
+                articalesModel ==null?  Center(child: CircularProgressIndicator(),):
                 SizedBox(
                   height: 110,
                   child: ListView.separated(
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) => detailsExcrciseItem(
-                        context, AppCubit.get(context).articlesModel[index]),
+                        context, articalesModel[index]),
                     separatorBuilder: (context, index) => const SizedBox(
                       width: 16.0,
                     ),
-                    itemCount: AppCubit.get(context).articlesModel.length,
+                    itemCount: articalesModel.length,
                   ),
                 ),
                 const SizedBox(
@@ -293,7 +300,11 @@ class home_page extends StatelessWidget {
 
   Widget detailsDocItem(context, DataDoctor model) => InkWell(
         onTap: () {
-          navigateTo(context, detailsClinics(model: model,));
+          navigateTo(
+              context,
+              detailsClinics(
+                model: model,
+              ));
         },
         child: Container(
           width: 312.0,
@@ -327,14 +338,22 @@ class home_page extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: borderRadius1,
                   child: SizedBox.fromSize(
-
-                    child:
-                        model.image ==null ? Center(child: Text("not image found")):
-                    Image.network(
-                      model.image!,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                      child: model.image!.isNotEmpty
+                          ? FadeInImage.assetNetwork(
+                              placeholder: "assets/images/loading.gif",
+                              image: model.image!,
+                              fit: BoxFit.cover,
+                            )
+                          : Image.asset(
+                              "assets/images/3yada.png",
+                              fit: BoxFit.cover,
+                            )
+                      // model.image ==null ? Center(child: Text("not image found")):
+                      // Image.network(
+                      //   model.image!,
+                      //   fit: BoxFit.cover,
+                      // ),
+                      ),
                 ),
               ),
               Column(
@@ -360,9 +379,10 @@ class home_page extends StatelessWidget {
                             maxLines: 1,
                             softWrap: false,
                             style: const TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.bold,
-                                color: MyColors.myWhite,),
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.bold,
+                              color: MyColors.myWhite,
+                            ),
                           ),
                           const Text(
                             "Orthopedics and joints specialist",
@@ -443,9 +463,10 @@ class home_page extends StatelessWidget {
                             Text(
                               model.address ?? '',
                               style: const TextStyle(
-                                  fontWeight: FontWeight.w300,
-                                  fontSize: 10,
-                                  color: MyColors.mydarkwhite,),
+                                fontWeight: FontWeight.w300,
+                                fontSize: 10,
+                                color: MyColors.mydarkwhite,
+                              ),
                             ),
                           ],
                         ),
@@ -465,10 +486,9 @@ class home_page extends StatelessWidget {
                               maxLines: 1,
                               softWrap: false,
                               style: const TextStyle(
-                                  fontWeight: FontWeight.w300,
-                                  fontSize: 8,
-                                  color: MyColors.mydarkwhite,
-
+                                fontWeight: FontWeight.w300,
+                                fontSize: 8,
+                                color: MyColors.mydarkwhite,
                               ),
                             ),
                           ],
@@ -541,6 +561,7 @@ class home_page extends StatelessWidget {
           ),
         ),
       );
+
   Widget detailsExcrciseItem(context, DataBlog model) => InkWell(
         onTap: () {
           navigateTo(
@@ -573,11 +594,21 @@ class home_page extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: borderRadius2,
                     child: SizedBox.fromSize(
-                      child: Image.network(
-                        model.image!,
+                      child:model.image!.isNotEmpty
+                          ? FadeInImage.assetNetwork(
+                        placeholder: "assets/images/loading.gif",
+                        image: model.image!,
                         fit: BoxFit.cover,
-                        opacity: const AlwaysStoppedAnimation(.8),
-                      ),
+                      )
+                          : Image.asset(
+                        "assets/images/3yada.png",
+                        fit: BoxFit.cover,
+                      )
+                      // Image.network(
+                      //   model.image!,
+                      //   fit: BoxFit.cover,
+                      //   opacity: const AlwaysStoppedAnimation(.8),
+                      // ),
                     ),
                   ),
                 ),
@@ -589,7 +620,7 @@ class home_page extends StatelessWidget {
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 12.0,
-                      color:MyColors.myWhite,
+                      color: MyColors.myWhite,
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
