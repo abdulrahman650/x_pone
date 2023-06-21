@@ -5,12 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:x_pone/controller/layout/home_layout.dart';
+import 'package:x_pone/screens/allbicnic2.dart';
 import 'package:x_pone/screens/date.dart';
 
-import 'package:x_pone/screens/homePage.dart';
+import 'package:x_pone/screens/home_Page.dart';
 
 import 'package:x_pone/screens/rate_dr.dart';
-import 'package:x_pone/screens/settingPage.dart';
+import 'package:x_pone/screens/setting_Page.dart';
 import 'package:x_pone/shared/bloc/app_cubit/cubit.dart';
 import 'package:x_pone/shared/bloc/app_cubit/states.dart';
 import 'package:x_pone/shared/componants/components.dart';
@@ -42,7 +43,7 @@ Future<void> main() async {
 
   if (onBoarding != null) {
     if (token != null) {
-      widget = XponeLayout();
+      widget = xpone_layout();
     } else {
       widget = LoginScreen();
     }
@@ -100,9 +101,10 @@ class _MyAppState extends State<MyApp> {
                   // logo_splash()
                   // setting_page()
                   // RegisterScreen()
-                  //  widget.startWidget
+                   widget.startWidget
                   // onBoarding ?
-                  LoginScreen()
+              // allClinicsPage2()
+              //      LoginScreen()
               // : OnBoarding(),
               );
         },

@@ -1,5 +1,6 @@
 // import 'dart:js';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -8,21 +9,20 @@ import 'package:x_pone/screens/allExercises_Page.dart';
 import 'package:x_pone/screens/all_bicnic_Page.dart';
 import 'package:x_pone/models/blogs_model.dart';
 import 'package:x_pone/screens/details_clinics.dart';
-import 'package:x_pone/screens/settingPage.dart';
+import 'package:x_pone/screens/setting_Page.dart';
 import 'package:x_pone/shared/bloc/app_cubit/cubit.dart';
 import 'package:x_pone/shared/bloc/app_cubit/states.dart';
 import 'package:x_pone/shared/componants/components.dart';
 
 import '../models/blogs_model.dart';
 import '../models/editProfile_model.dart';
+import '../shared/styles/colors.dart';
 import 'details_exercises.dart';
 
-class homePage extends StatelessWidget {
+class home_page extends StatelessWidget {
   var searchController = TextEditingController();
   var formKey = GlobalKey<FormState>();
-
-  homePage({Key? key}) : super(key: key);
-
+  home_page({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     DateTime currentDate = DateTime.now();
@@ -34,14 +34,13 @@ class homePage extends StatelessWidget {
       builder: (context, state) {
         xBoneProfileModel? model = AppCubit.get(context).userModel;
         List<DataDoctor>? doctorsModel = AppCubit.get(context).doctorList;
-        print(doctorsModel);
+        if (kDebugMode) {print(doctorsModel);}
         return Scaffold(
             body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(30.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(
                   height: 30.0,
@@ -73,12 +72,12 @@ class homePage extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Text(
+                            const Text(
                               "Good Morning",
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
-                                color: HexColor("#737373"),
+                                color: MyColors.myblue,
                               ),
                             ),
                             const SizedBox(
@@ -96,10 +95,10 @@ class homePage extends StatelessWidget {
                         ),
                         Text(
                           "${model?.data?.name}",
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
-                            color: HexColor("#3D3D3D"),
+                            color: MyColors.mydarkgray,
                           ),
                         ),
                       ],
@@ -113,7 +112,7 @@ class homePage extends StatelessWidget {
                   width: double.infinity,
                   height: 44.0,
                   decoration: BoxDecoration(
-                    border: Border.all(width: 0.5, color: HexColor("#FFFFFF")),
+                    border: Border.all(width: 0.5, color: MyColors.myWhite,),
                     borderRadius: BorderRadius.circular(12),
                     color: Colors.white,
                     boxShadow: [
@@ -140,17 +139,17 @@ class homePage extends StatelessWidget {
                     },
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      label: Text(
+                      label: const Text(
                         'Search doctors or clinics',
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 14,
-                          color: HexColor("#94A3B8"),
+                          color: MyColors.myGrey,
                         ),
                       ),
                       suffixIcon: Icon(
                         Icons.search,
-                        color: HexColor("#94A3B8"),
+                        color: MyColors.myGrey,
                       ),
                     ),
                   ),
@@ -163,12 +162,12 @@ class homePage extends StatelessWidget {
                   children: [
                     Container(
                       width: double.infinity,
-                      child: Text(
+                      child: const Text(
                         "How is your joint hip\ntoday ?",
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.w600,
-                          color: HexColor("#3D3D3D"),
+                          color: MyColors.mydarkgray,
                         ),
                       ),
                     ),
@@ -177,10 +176,10 @@ class homePage extends StatelessWidget {
                     ),
                     Text(
                       formattedDate,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
-                        color: HexColor("#737373"),
+                        color:  MyColors.mydarkgray,
                       ),
                     ),
                     const SizedBox(
@@ -191,12 +190,12 @@ class homePage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       "Best clinics",
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        color: HexColor("#3D3D3D"),
+                        color: MyColors.mydarkgray,
                       ),
                     ),
                     const SizedBox(
@@ -204,15 +203,14 @@ class homePage extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
-                        // navigateTo(context, allClinicsPage());
                         AppCubit.get(context).changeBottom(2);
                       },
-                      child: Text(
+                      child: const Text(
                         "View all",
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
-                          color: HexColor("#0F57C3"),
+                          color: MyColors.myblue,
                         ),
                       ),
                     ),
@@ -231,7 +229,7 @@ class homePage extends StatelessWidget {
                       separatorBuilder: (context, index) => const SizedBox(
                             width: 14.0,
                           ),
-                      itemCount: 5),
+                      itemCount: AppCubit.get(context).doctorList!.length),
                 ),
                 const SizedBox(
                   height: 32.0,
@@ -239,12 +237,12 @@ class homePage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       "Advices and routine",
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        color: HexColor("#3D3D3D"),
+                        color:  MyColors.mydarkgray,
                       ),
                     ),
                     const SizedBox(
@@ -255,12 +253,12 @@ class homePage extends StatelessWidget {
                         // navigateTo(context, allExercisesPage());
                         AppCubit.get(context).changeBottom(1);
                       },
-                      child: Text(
+                      child: const Text(
                         "View all",
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
-                          color: HexColor("#0F57C3"),
+                          color: MyColors.myblue,
                         ),
                       ),
                     ),
@@ -295,12 +293,7 @@ class homePage extends StatelessWidget {
 
   Widget detailsDocItem(context, DataDoctor model) => InkWell(
         onTap: () {
-          navigateTo(
-              context,
-              detailsClinics(
-                model: model,
-              ));
-          // return detailsDoctor();
+          navigateTo(context, detailsClinics(model: model,));
         },
         child: Container(
           width: 312.0,
@@ -334,8 +327,10 @@ class homePage extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: borderRadius1,
                   child: SizedBox.fromSize(
-                    // size: Size.fromRadius(10),
-                    child: Image.network(
+
+                    child:
+                        model.image ==null ? Center(child: Text("not image found")):
+                    Image.network(
                       model.image!,
                       fit: BoxFit.cover,
                     ),
@@ -364,52 +359,52 @@ class homePage extends StatelessWidget {
                             overflow: TextOverflow.fade,
                             maxLines: 1,
                             softWrap: false,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.bold,
-                                color: HexColor("#FFFFFF")),
+                                color: MyColors.myWhite,),
                           ),
-                          Text(
+                          const Text(
                             "Orthopedics and joints specialist",
                             // model.address ?? '',
                             style: TextStyle(
                                 fontSize: 8.0,
                                 fontWeight: FontWeight.w300,
-                                color: HexColor("#FFFFFF")),
+                                color: MyColors.myWhite),
                           ),
                           Container(
                             width: 161,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.star,
                                   size: 10,
-                                  color: HexColor("#FBFF04"),
+                                  color: MyColors.myYellow,
                                 ),
                                 const SizedBox(
                                   width: 2.0,
                                 ),
-                                Icon(
+                                const Icon(
                                   Icons.star,
                                   size: 10,
-                                  color: HexColor("#FBFF04"),
+                                  color: MyColors.myYellow,
                                 ),
                                 const SizedBox(
                                   width: 2.0,
                                 ),
-                                Icon(
+                                const Icon(
                                   Icons.star,
                                   size: 10,
-                                  color: HexColor("#FBFF04"),
+                                  color: MyColors.myYellow,
                                 ),
                                 const SizedBox(
                                   width: 2.0,
                                 ),
-                                Icon(
+                                const Icon(
                                   Icons.star,
                                   size: 10,
-                                  color: HexColor("#FBFF04"),
+                                  color: MyColors.myYellow,
                                 ),
                                 const SizedBox(
                                   width: 2.0,
@@ -430,35 +425,35 @@ class homePage extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 12),
                     width: 161.0,
                     height: 62.0,
-                    color: HexColor("#033E96"),
+                    color: MyColors.mydarkblue,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.location_on_outlined,
                               size: 12,
-                              color: HexColor("#DDE7F7"),
+                              color: MyColors.mydarkwhite,
                             ),
                             const SizedBox(
                               width: 8.0,
                             ),
                             Text(
                               model.address ?? '',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.w300,
                                   fontSize: 10,
-                                  color: HexColor("#DDE7F7")),
+                                  color: MyColors.mydarkwhite,),
                             ),
                           ],
                         ),
                         Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.access_time,
-                              color: HexColor("#DDE7F7"),
+                              color: MyColors.mydarkwhite,
                               size: 11,
                             ),
                             const SizedBox(
@@ -469,23 +464,23 @@ class homePage extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               softWrap: false,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.w300,
                                   fontSize: 8,
-                                  color: HexColor("#DDE7F7"),
+                                  color: MyColors.mydarkwhite,
 
                               ),
                             ),
                           ],
                         ),
                         Row(
-                          children: [
+                          children: const [
                             Icon(
                               Icons.attach_money,
                               size: 12.0,
-                              color: HexColor("#DDE7F7"),
+                              color: MyColors.mydarkwhite,
                             ),
-                            const SizedBox(
+                            SizedBox(
                               width: 8.0,
                             ),
                             Text(
@@ -493,7 +488,7 @@ class homePage extends StatelessWidget {
                               style: TextStyle(
                                 fontWeight: FontWeight.w300,
                                 fontSize: 10,
-                                color: HexColor("#DDE7F7"),
+                                color: MyColors.mydarkwhite,
                                 overflow: TextOverflow.visible,
                               ),
                             ),
@@ -506,10 +501,10 @@ class homePage extends StatelessWidget {
                     width: 161.0,
                     // width: MediaQuery.of(context).size.width,
                     height: 37.0,
-                    decoration: BoxDecoration(
-                      color: HexColor("#FFFFFF"),
+                    decoration: const BoxDecoration(
+                      color: MyColors.myWhite,
                       // color: HexColor("#004DC0"),
-                      borderRadius: const BorderRadius.only(
+                      borderRadius: BorderRadius.only(
                         bottomLeft: Radius.zero,
                         bottomRight: Radius.circular(16),
                       ),
@@ -520,12 +515,12 @@ class homePage extends StatelessWidget {
                             const SizedBox(
                               width: 40.0,
                             ),
-                            Text(
+                            const Text(
                               "contact",
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
-                                color: HexColor("#0052CC"),
+                                color: MyColors.myblue,
                               ),
                             ),
                             const SizedBox(
@@ -578,7 +573,6 @@ class homePage extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: borderRadius2,
                     child: SizedBox.fromSize(
-                      // size: Size.fromRadius(10),
                       child: Image.network(
                         model.image!,
                         fit: BoxFit.cover,
@@ -592,10 +586,10 @@ class homePage extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 11.0, left: 16),
                   child: Text(
                     model.content!,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 15.0,
-                      color: HexColor("#FFFFFF"),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12.0,
+                      color:MyColors.myWhite,
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,

@@ -46,7 +46,9 @@ dependencies:
   flutter_glass: ^0.0.8
   conditional_builder_null_safety: ^0.0.6
   geolocator: ^9.0.2
-#  awesome_dialog: ^3.0.2
+
+
+  #  awesome_dialog: ^3.0.2
 #  flutter_native_splash: ^2.3.1
 #  awesome_dialog:
 

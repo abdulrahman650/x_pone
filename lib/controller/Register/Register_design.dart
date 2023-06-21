@@ -10,23 +10,20 @@ import 'package:x_pone/shared/bloc/login_cubit/cubit.dart';
 import 'package:x_pone/shared/bloc/register_cubit/cubit.dart';
 import 'package:x_pone/shared/bloc/register_cubit/states.dart';
 
-import '../../screens/homePage.dart';
+import '../../screens/home_Page.dart';
 import '../../shared/bloc/app_cubit/cubit.dart';
 import '../../shared/componants/components.dart';
 import '../../shared/network/remote/cache_helper.dart';
 import '../../shared/styles/colors.dart';
 import '../login/login_design.dart';
 
-// ignore: must_be_immutable
-class RegisterScreen extends StatelessWidget {
+class register_Screen extends StatelessWidget {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var nameController = TextEditingController();
   var phoneController = TextEditingController();
-  // var locationController = TextEditingController();
   var formKey = GlobalKey<FormState>();
-
-  RegisterScreen({Key? key}) : super(key: key);
+  register_Screen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +35,7 @@ class RegisterScreen extends StatelessWidget {
             CacheHelper.saveLoginData('token', state.RegisterModel.data)
                 .then((value) {
               token = state.RegisterModel.data;
-
-              navigate2(
-                context,
-                XponeLayout(),
-              );
+              navigate2(context, const xpone_layout(),);
             });
           }
         },
@@ -59,7 +52,7 @@ class RegisterScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           const SizedBox(height: 10),
-                          Container(
+                          SizedBox(
                             width: double.infinity,
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
@@ -76,9 +69,9 @@ class RegisterScreen extends StatelessWidget {
                                               LoginScreen(),
                                             );
                                           },
-                                          child: Icon(
+                                          child: const Icon(
                                             Icons.arrow_back_ios,
-                                            color: HexColor("#737373"),
+                                            color: MyColors.myGreytext,
                                           ),
                                         ),
                                       ),
@@ -91,10 +84,7 @@ class RegisterScreen extends StatelessWidget {
                                         height: 560,
                                         child: Image.asset(
                                           "assets/images/picdocinlogin.png",
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              1.3,
+                                          width: MediaQuery.of(context).size.width / 1.3,
                                         ),
                                       ),
                                     ],
@@ -116,7 +106,6 @@ class RegisterScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            // height: 625,
                             height: 550,
                             child: ClipRect(
                               child: BackdropFilter(
@@ -147,7 +136,7 @@ class RegisterScreen extends StatelessWidget {
                                           Container(
                                             height: 44.0,
                                             decoration: BoxDecoration(
-                                              color: Colors.white,
+                                              color: MyColors.myWhite,
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                             ),
@@ -161,21 +150,17 @@ class RegisterScreen extends StatelessWidget {
                                                 }
                                                 return null;
                                               },
-                                              decoration: InputDecoration(
+                                              decoration: const InputDecoration(
                                                 border:
-                                                    const OutlineInputBorder(),
+                                                    OutlineInputBorder(),
                                                 label: Text(
                                                   'Email',
                                                   style: TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w400,
-                                                    color: HexColor("#94A3B8"),
+                                                    color: MyColors.myGrey,
                                                   ),
                                                 ),
-                                                // prefixIcon:  Icon(
-                                                //   Icons.email_outlined,
-                                                //   color: HexColor("#94A3B8"),
-                                                // ),
                                               ),
                                             ),
                                           ),
@@ -189,7 +174,6 @@ class RegisterScreen extends StatelessWidget {
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                             ),
-                                            // color: Colors.white,
                                             child: TextFormField(
                                               controller: phoneController,
                                               keyboardType: TextInputType.text,
@@ -199,20 +183,16 @@ class RegisterScreen extends StatelessWidget {
                                                 }
                                                 return null;
                                               },
-                                              decoration: InputDecoration(
+                                              decoration:const InputDecoration(
                                                 border:
-                                                    const OutlineInputBorder(),
+                                                     OutlineInputBorder(),
                                                 label: Text(
                                                   'Your Phone',
                                                   style: TextStyle(
                                                     fontSize: 14.0,
-                                                    color: HexColor("#94A3B8"),
+                                                    color:MyColors.myGrey,
                                                   ),
                                                 ),
-                                                // prefixIcon:  Icon(
-                                                //   Icons.phone,
-                                                //   color: HexColor("#94A3B8"),
-                                                // ),
                                               ),
                                             ),
                                           ),
@@ -235,20 +215,17 @@ class RegisterScreen extends StatelessWidget {
                                                 }
                                                 return null;
                                               },
-                                              decoration: InputDecoration(
+                                              decoration:const InputDecoration(
                                                 border: OutlineInputBorder(),
                                                 label: Text(
                                                   'Your Name',
                                                   style: TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w400,
-                                                    color: HexColor("#94A3B8"),
+                                                    color: MyColors.myGrey,
                                                   ),
                                                 ),
-                                                // prefixIcon: Icon(
-                                                //   Icons.person,
-                                                //   color: HexColor("#94A3B8"),
-                                                // ),
+
                                               ),
                                             ),
                                           ),
@@ -278,13 +255,13 @@ class RegisterScreen extends StatelessWidget {
                                                   .isShown,
                                               decoration: InputDecoration(
                                                 border:
-                                                    const OutlineInputBorder(),
-                                                label: Text(
+                                                     OutlineInputBorder(),
+                                                label: const Text(
                                                   'Password',
                                                   style: TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w400,
-                                                    color: HexColor("#94A3B8"),
+                                                    color: MyColors.myGrey,
                                                   ),
                                                 ),
                                                 suffixIcon: IconButton(
@@ -295,106 +272,40 @@ class RegisterScreen extends StatelessWidget {
                                                   },
                                                   icon: Icon(
                                                     Icons.remove_red_eye,
-                                                    color: HexColor("#94A3B8"),
+                                                    color: MyColors.myGrey,
                                                     // ShopLoginCubit.get(context).iconData,
                                                   ),
                                                 ),
-                                                // prefixIcon:  Icon(
-                                                //   Icons.lock_rounded,
-                                                //   color: HexColor("#94A3B8"),
-                                                // ),
                                               ),
                                             ),
                                           ),
                                           const SizedBox(
                                             height: 8.0,
                                           ),
-                                          // Container(
-                                          //   height: 44.0,
-                                          //   decoration: BoxDecoration(
-                                          //     color: Colors.white,
-                                          //     borderRadius: BorderRadius.circular(8),
-                                          //   ),
-                                          //   child: TextFormField(
-                                          //     controller: locationController,
-                                          //     keyboardType: TextInputType.text,
-                                          //     onFieldSubmitted: (value) {
-                                          //       if (formKey.currentState!
-                                          //           .validate()) {
-                                          //       }
-                                          //     },
-                                          //     validator: (value) {
-                                          //       if (value!.isEmpty) {
-                                          //         return ' Location must not be empty';
-                                          //       }
-                                          //       return null;
-                                          //     },
-                                          //     // obscureText: ShopLoginCubit.get(context).isShown,
-                                          //     decoration: InputDecoration(
-                                          //       border: const OutlineInputBorder(),
-                                          //       label: Text(
-                                          //         'location',
-                                          //         style: TextStyle(
-                                          //           fontSize: 14,
-                                          //           fontWeight: FontWeight.w400,
-                                          //           color: HexColor("#94A3B8"),
-                                          //         ),
-                                          //       ),
-                                          //       suffixIcon: IconButton(
-                                          //         onPressed: () {
-                                          //           // ShopLoginCubit.get(context)
-                                          //           //     .changePasswordVisibility();
-                                          //         },
-                                          //         icon: InkWell(
-                                          //           onTap: (){
-                                          //             calculateDistance();
-                                          //           },
-                                          //           child: Icon(
-                                          //             Icons.location_on_outlined,
-                                          //             color: HexColor("#94A3B8"),
-                                          //             // ShopLoginCubit.get(context).iconData,
-                                          //           ),
-                                          //         ),
-                                          //       ),
-                                          //       // prefixIcon:  Icon(
-                                          //       //   Icons.lock_rounded,
-                                          //       //   color: HexColor("#94A3B8"),
-                                          //       // ),
-                                          //     ),
-                                          //   ),
-                                          // ),
+
                                           Container(
                                             decoration: BoxDecoration(
-                                              color: HexColor("#94A3B8"),
+                                              color: MyColors.myGrey,
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                             ),
                                             width: double.infinity,
                                             height: 40,
                                             child: TextButton(
-                                              onPressed: () {
-                                                calculateDistance();
-                                              },
+                                              onPressed: () {calculateDistance();},
                                               child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: const [
                                                   Text(
                                                     "Your Location",
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      fontSize: 14,
-                                                      color: Colors.white,
+                                                    style: TextStyle(fontWeight:
+                                                          FontWeight.w400, fontSize: 14,
+                                                      color: MyColors.myWhite,
                                                     ),
                                                   ),
                                                   Icon(
-                                                      Icons
-                                                          .location_on_outlined,
-                                                      color: Colors.white
-                                                      // ShopLoginCubit.get(context).iconData,
-                                                      ),
+                                                      Icons.location_on_outlined,
+                                                      color: MyColors.myWhite,),
                                                 ],
                                               ),
                                             ),
@@ -405,12 +316,11 @@ class RegisterScreen extends StatelessWidget {
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
-                                            children: [
+                                            children: const [
                                               Text(
-                                                // "Your location determined automatically",
                                                 "Click to select your location",
                                                 style: TextStyle(
-                                                    color: HexColor("##000000"),
+                                                    color: MyColors.myblack,
                                                     fontWeight: FontWeight.w400,
                                                     fontSize: 10.0),
                                               ),
@@ -435,20 +345,12 @@ class RegisterScreen extends StatelessWidget {
                                                   onPressed: () {
                                                     if (formKey.currentState!
                                                         .validate()) {
-                                                      xBoneRegisterCubit
-                                                          .get(context)
+                                                      xBoneRegisterCubit.get(context)
                                                           .userRegister(
-                                                            email:
-                                                                emailController
-                                                                    .text,
-                                                            password:
-                                                                passwordController
-                                                                    .text,
-                                                            name: nameController
-                                                                .text,
-                                                            phone:
-                                                                phoneController
-                                                                    .text,
+                                                            email: emailController.text,
+                                                            password: passwordController.text,
+                                                            name: nameController.text,
+                                                            phone: phoneController.text,
                                                             long: "15.5",
                                                             lat: "15.5",
                                                           );
@@ -460,7 +362,7 @@ class RegisterScreen extends StatelessWidget {
                                                       fontWeight:
                                                           FontWeight.w400,
                                                       fontSize: 14,
-                                                      color: Colors.white,
+                                                      color: MyColors.myWhite,
                                                     ),
                                                   ),
                                                 ),
@@ -482,14 +384,14 @@ class RegisterScreen extends StatelessWidget {
                                             children: [
                                               TextButton(
                                                 onPressed: () {},
-                                                child: Text(
+                                                child: const Text(
                                                   'Forgot Your password?',
                                                   style: TextStyle(
                                                       fontSize: 14,
                                                       fontWeight:
                                                           FontWeight.w400,
                                                       color:
-                                                          HexColor("#0F57C3")),
+                                                         MyColors.myblue,),
                                                 ),
                                               ),
                                             ],
@@ -502,7 +404,7 @@ class RegisterScreen extends StatelessWidget {
                                                 MainAxisAlignment.start,
                                             children: [
                                               Container(
-                                                color: HexColor("#696969"),
+                                                color: MyColors.myGrey,
                                                 child: const Divider(
                                                   height: .5,
                                                   thickness: 5,
@@ -513,19 +415,18 @@ class RegisterScreen extends StatelessWidget {
                                               const SizedBox(
                                                 width: 9.0,
                                               ),
-                                              Text(
-                                                // 'Or Sign in With',
+                                              const Text(
                                                 'Have account ?',
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.w300,
                                                     fontSize: 12,
-                                                    color: HexColor("#696969")),
+                                                    color: MyColors.myGrey,),
                                               ),
                                               const SizedBox(
                                                 width: 9.0,
                                               ),
                                               Container(
-                                                color: HexColor("#696969"),
+                                                color:MyColors.myGrey,
                                                 child: const Divider(
                                                   height: .5,
                                                   thickness: 5,
@@ -538,114 +439,14 @@ class RegisterScreen extends StatelessWidget {
                                           const SizedBox(
                                             height: 25.0,
                                           ),
-                                          // Row(
-                                          //   mainAxisAlignment:
-                                          //   MainAxisAlignment.spaceEvenly,
-                                          //   children: [
-                                          //     Expanded(
-                                          //       child: Container(
-                                          //         decoration: BoxDecoration(
-                                          //             borderRadius:
-                                          //             BorderRadius.circular(8),
-                                          //             border: Border.all(
-                                          //                 color:
-                                          //                 HexColor("#0F57C3"))),
-                                          //         height: 40,
-                                          //         width: 142,
-                                          //         child: TextButton(
-                                          //           onPressed: () {},
-                                          //           child: Row(
-                                          //             mainAxisAlignment:
-                                          //             MainAxisAlignment.center,
-                                          //             children: [
-                                          //               Container(
-                                          //                 width: 15.45,
-                                          //                 height: 16,
-                                          //                 child: Image.asset(
-                                          //                     "assets/images/face.png"),
-                                          //               ),
-                                          //               const SizedBox(
-                                          //                 width: 10.0,
-                                          //               ),
-                                          //               Container(
-                                          //                   width: 59,
-                                          //                   height: 20,
-                                          //                   child: Image.asset(
-                                          //                       "assets/images/facepic.png")
-                                          //                 // Text(
-                                          //                 //   'facebook',
-                                          //                 //   style: TextStyle(
-                                          //                 //       fontWeight: FontWeight.w400,
-                                          //                 //       fontSize: 13,
-                                          //                 //       color: HexColor("#0F57C3")
-                                          //                 //   ),
-                                          //                 // ),
-                                          //               ),
-                                          //             ],
-                                          //           ),
-                                          //         ),
-                                          //       ),
-                                          //     ),
-                                          //     const SizedBox(
-                                          //       width: 15.0,
-                                          //     ),
-                                          //     Expanded(
-                                          //       child: Container(
-                                          //         decoration: BoxDecoration(
-                                          //             borderRadius:
-                                          //             BorderRadius.circular(8),
-                                          //             border: Border.all(
-                                          //                 color:
-                                          //                 HexColor("#0F57C3"))),
-                                          //         height: 40,
-                                          //         width: 142,
-                                          //         child: TextButton(
-                                          //           onPressed: () {},
-                                          //           child: Row(
-                                          //             mainAxisAlignment:
-                                          //             MainAxisAlignment.center,
-                                          //             children: [
-                                          //               Container(
-                                          //                 width: 15.45,
-                                          //                 height: 16,
-                                          //                 child: Image.asset(
-                                          //                     "assets/images/chrome.png"),
-                                          //               ),
-                                          //               const SizedBox(
-                                          //                 width: 10.0,
-                                          //               ),
-                                          //               Container(
-                                          //                   width: 44.0,
-                                          //                   height: 20,
-                                          //                   child: Image.asset(
-                                          //                       "assets/images/chromet.png")
-                                          //                 // Text(
-                                          //                 //   'google',
-                                          //                 //   style: TextStyle(
-                                          //                 //       fontWeight: FontWeight.w300,
-                                          //                 //       fontSize: 14,
-                                          //                 //       color: HexColor("#0F57C3")
-                                          //                 //   ),
-                                          //                 // ),
-                                          //               ),
-                                          //             ],
-                                          //           ),
-                                          //         ),
-                                          //       ),
-                                          //     )
-                                          //   ],
-                                          // ),
-                                          // const SizedBox(
-                                          //   height: 25.0,
-                                          // ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              Text('Already have an account? ',
+                                              const Text('Already have an account? ',
                                                   style: TextStyle(
                                                       color:
-                                                          HexColor("#696969"),
+                                                      MyColors.myGrey,
                                                       fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.w300)),
@@ -656,10 +457,10 @@ class RegisterScreen extends StatelessWidget {
                                                     LoginScreen(),
                                                   );
                                                 },
-                                                child: Text(
+                                                child: const Text(
                                                   'Login',
                                                   style: TextStyle(
-                                                    color: HexColor("#0F57C3"),
+                                                    color:  MyColors.myblue,
                                                   ),
                                                 ),
                                               ),

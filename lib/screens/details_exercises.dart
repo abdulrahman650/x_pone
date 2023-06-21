@@ -4,28 +4,24 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:x_pone/models/blogs_model.dart';
 import 'package:x_pone/shared/bloc/app_cubit/cubit.dart';
 import 'package:x_pone/shared/bloc/app_cubit/states.dart';
-import 'package:x_pone/models/blogs_model.dart'as datamodel;
 import '../shared/componants/components.dart';
-import 'homePage.dart';
+import 'home_Page.dart';
 
 class detailsExercises extends StatelessWidget {
   DataBlog? model;
    detailsExercises({Key? key,required this.model}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context,state){},
       builder: (context,state){
-
         return  Stack(
           children: [
             SizedBox(
               height: 420.0,
               width: double.infinity,
-              child: Image.asset(
-                "assets/images/exclamation.png",
-                // model!.data!.image!
+              child: Image.network(
+                 model!.image!,
                 fit: BoxFit.cover,
               ),
             ),
@@ -43,8 +39,6 @@ class detailsExercises extends StatelessWidget {
                         Stack(
                             children:[ TextButton(onPressed: (){
                               Navigator.pop(context);
-                              // navigate2(context, homePage());
-
                             }, child:  CircleAvatar(
                                 radius: 18,
                                 backgroundColor: HexColor("#737373").withOpacity(0.5),
@@ -58,9 +52,7 @@ class detailsExercises extends StatelessWidget {
                   const SizedBox(
                     height: 270.0,
                   ),
-                  // const SizedBox(
-                  //   height: 374,
-                  // ),
+
                   Container(
                     height: 610.0,
                     width: double.infinity,
@@ -80,8 +72,7 @@ class detailsExercises extends StatelessWidget {
                               height: 34.0,
                             ),
                             Text(
-                              ";IWHDLfsjhoiweHFI",
-                             // model!.data!.title!,
+                              model!.title! ?? '',
                               style: TextStyle(
                                 decoration: TextDecoration.none,
                                 fontSize: 22,
@@ -94,8 +85,7 @@ class detailsExercises extends StatelessWidget {
                               height: 6.0,
                             ),
                             Text(
-                              "jdlifWEJHFLAKRJGN",
-                              // model!.data!.doctor!.name!,
+                               model!.doctor!.name! ?? '',
                               style: TextStyle(
                                 decoration: TextDecoration.none,
                                 fontSize: 14,
@@ -104,8 +94,7 @@ class detailsExercises extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              ";ohwjdf;luiehwflik",
-                             // model!.data!.createdAt!,
+                              model!.createdAt! ?? '',
                               style: TextStyle(
                                 decoration: TextDecoration.none,
                                 fontSize: 14,
@@ -117,8 +106,8 @@ class detailsExercises extends StatelessWidget {
                               height: 20.0,
                             ),
                             Text(
-                              ",MWLJfhkwrngl/",
-                           // model!.data!.description!,
+
+                           model!.content! ?? '',
 
 
                               style: TextStyle(

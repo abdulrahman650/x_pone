@@ -12,36 +12,29 @@ class BoardingModel {
   final String image;
   final String title;
   final String body;
-
   BoardingModel({required this.image, required this.title, required this.body});
 }
-
 class OnBoarding extends StatefulWidget {
   const OnBoarding({Key? key}) : super(key: key);
-
   @override
   State<OnBoarding> createState() => _OnBoardingState();
 }
-
 class _OnBoardingState extends State<OnBoarding> {
   List<BoardingModel> boarding = [
     BoardingModel(
       image: 'assets/images/onb1.png',
       title: 'Getting Advice',
-      body:
-          ' Easily read blogs about joint hip and \n what to do after surgery for quick recovery',
+      body: ' Easily read blogs about joint hip and \n what to do after surgery for quick recovery',
     ),
     BoardingModel(
       image: 'assets/images/onb2.png',
       title: 'Filter Doctors',
-      body:
-          'Search orthopedic clinics and filter results \n for The most appropriate and nearest one',
+      body: 'Search orthopedic clinics and filter results \n for The most appropriate and nearest one',
     ),
     BoardingModel(
       image: 'assets/images/onb3.png',
       title: 'Getting Advice',
-      body:
-          "Easily read blogs about joint hip and \n what to do after surgery for quick recovery",
+      body: "Easily read blogs about joint hip and \n what to do after surgery for quick recovery",
     ),
   ];
 
@@ -76,15 +69,11 @@ class _OnBoardingState extends State<OnBoarding> {
               child: TextButton(
                 onPressed: () {
                   submit();
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => LoginScreen()),
-                  // );
                   setState(() {});
                 },
                 child: const Text(
                   "Skip",
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(color: MyColors.myGrey),
                 ),
               ),
             ),
@@ -101,8 +90,8 @@ class _OnBoardingState extends State<OnBoarding> {
                 SmoothPageIndicator(
                   controller: boardController,
                   effect: const ExpandingDotsEffect(
-                    dotColor: Colors.grey,
-                    activeDotColor: myColor,
+                    dotColor: MyColors.myGrey,
+                    activeDotColor: MyColors.myblue,
                     dotHeight: 10,
                     expansionFactor: 4,
                     dotWidth: 10,
@@ -121,7 +110,6 @@ class _OnBoardingState extends State<OnBoarding> {
                 physics: const BouncingScrollPhysics(),
                 scrollBehavior: const ScrollBehavior(),
                 itemBuilder: (context, index) {
-                  //required parameter
                   return buildBoardingItem(boarding[index]);
                 },
                 onPageChanged: (int index) {
@@ -166,7 +154,7 @@ class _OnBoardingState extends State<OnBoarding> {
                     child: Text(
                       isLast ? "Start" : 'Next'.toUpperCase(),
                       style: const TextStyle(
-                        color: Colors.white,
+                        color: MyColors.myWhite,
                       ),
                     ),
                   ),
@@ -187,7 +175,7 @@ class _OnBoardingState extends State<OnBoarding> {
           child: Text(
             model.title,
             style: const TextStyle(
-              color: Colors.blue,
+              color: MyColors.myblue,
               fontSize: 24.0,
               fontWeight: FontWeight.bold,
             ),

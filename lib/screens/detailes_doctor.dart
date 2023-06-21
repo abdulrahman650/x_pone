@@ -3,25 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:x_pone/shared/styles/colors.dart';
 
 import '../models/doctors_model.dart';
 import '../shared/bloc/app_cubit/cubit.dart';
 import '../shared/bloc/app_cubit/states.dart';
 import '../shared/componants/components.dart';
 import 'details_clinics.dart';
-import 'homePage.dart';
+import 'home_Page.dart';
 
-class detailsDoctor extends StatefulWidget {
-  DataDoctor? model;
-   detailsDoctor({Key? key,required this.model}) : super(key: key);
-
+class details_Doctor extends StatefulWidget {
+ // List<DataDoctor>?  model;
+   details_Doctor({Key? key,required this.model}) : super(key: key);
+ final DataDoctor? model;
   @override
-  State<detailsDoctor> createState() => _detailsDoctorState();
+  State<details_Doctor> createState() => _details_DoctorState();
 }
-
-class _detailsDoctorState extends State<detailsDoctor> {
+class _details_DoctorState extends State<details_Doctor> {
   double showRating = 1.0;
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
@@ -30,12 +29,11 @@ class _detailsDoctorState extends State<detailsDoctor> {
           return Scaffold(
             body: Stack(
               children: [
-                Container(
-                  height: 460.0,
+                SizedBox(
+                  height: 420.0,
                   width: double.infinity,
-                  child: Image.asset(
-                    "assets/images/3yada.png",
-                   // AppCubit.get(context).doctorModel!.data!.image!,
+                  child: Image.network(
+                    widget.model!.image??'',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -54,12 +52,11 @@ class _detailsDoctorState extends State<detailsDoctor> {
                               TextButton(
                                 onPressed: () {
                                   Navigator.pop(context);
-                                  // navigate2(context, detailsClinics());
                                 },
                                 child: CircleAvatar(
                                     radius: 18,
                                     backgroundColor:
-                                        HexColor("#737373").withOpacity(0.5),
+                                        MyColors.myGreytext.withOpacity(0.5),
                                     child: Icon(
                                       Icons.arrow_back_ios_new,
                                       size: 20,
@@ -76,9 +73,9 @@ class _detailsDoctorState extends State<detailsDoctor> {
                       Container(
                         height: 720.0,
                         width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: HexColor("#FFFFFF"),
-                          borderRadius: const BorderRadius.only(
+                        decoration: const BoxDecoration(
+                          color: MyColors.myWhite,
+                          borderRadius: BorderRadius.only(
                               topRight: Radius.circular(16),
                               topLeft: Radius.circular(16)),
                         ),
@@ -91,48 +88,43 @@ class _detailsDoctorState extends State<detailsDoctor> {
                                 const SizedBox(
                                   height: 34.0,
                                 ),
-                                Text(
-                                  "Orthopedics and joints specialist",
-                                  // AppCubit.get(context).doctorModel!.data!.name!,
-                                  // "Dr. Fadi Salah",
-                                  style: TextStyle(
+                                 Text(
+                                  widget.model!.name  ??'',
+                                  style: const TextStyle(
                                     fontSize: 22,
                                     fontWeight: FontWeight.w500,
-                                    color: HexColor("#000000"),
+                                    color: MyColors.myblack,
                                   ),
                                 ),
                                 const SizedBox(
                                   height: 4.0,
                                 ),
-                                Text(
+                                const Text(
                                   "Orthopedics and joints specialist",
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
-                                    color: HexColor("#737373"),
+                                    color: MyColors.myGreytext,
                                   ),
                                 ),
                                 const SizedBox(
                                   height: 24.0,
                                 ),
                                 Row(
-                                  children: [
-                                    Icon(
+                                  children:  [
+                                    const Icon(
                                       Icons.location_on_outlined,
                                       size: 15.0,
-                                      color: HexColor("737373"),
+                                      color: MyColors.myGreytext,
                                     ),
                                     const SizedBox(
                                       width: 6.0,
                                     ),
                                     Text(
-                                      "Orthopedics and joints specialist",
-                                      // AppCubit.get(context).doctorModel!.data!.address!,
-                                      // "mansoura,elgesh st, after carfour mall, building 8",
-                                      style: TextStyle(
+                                      widget.model!.address??'',                                      style: const TextStyle(
                                         fontWeight: FontWeight.w300,
                                         fontSize: 12,
-                                        color: HexColor("#737373"),
+                                        color: MyColors.myGreytext,
                                         overflow: TextOverflow.visible,
                                       ),
                                     ),
@@ -142,23 +134,21 @@ class _detailsDoctorState extends State<detailsDoctor> {
                                   height: 9.0,
                                 ),
                                 Row(
-                                  children: [
-                                    Icon(
+                                  children:  [
+                                    const  Icon(
                                       Icons.access_time,
                                       size: 12.0,
-                                      color: HexColor("737373"),
+                                      color: MyColors.myGreytext,
                                     ),
                                     const SizedBox(
                                       width: 8.0,
                                     ),
-                                    Text(
-                                      "ljf;ljaekfjald",
-                                      // AppCubit.get(context).doctorModel!.data!.createdAt!,
-                                      // "every day, from 7pm to 10pm",
-                                      style: TextStyle(
+                                     Text(
+                                      widget.model!.createdAt??'',
+                                      style:const TextStyle(
                                         fontWeight: FontWeight.w300,
                                         fontSize: 12,
-                                        color: HexColor("#737373"),
+                                        color: MyColors.myGreytext,
                                         overflow: TextOverflow.visible,
                                       ),
                                     ),
@@ -168,13 +158,13 @@ class _detailsDoctorState extends State<detailsDoctor> {
                                   height: 9,
                                 ),
                                 Row(
-                                  children: [
+                                  children: const [
                                     Icon(
                                       Icons.attach_money,
                                       size: 15.0,
-                                      color: HexColor("737373"),
+                                      color: MyColors.myGreytext,
                                     ),
-                                    const SizedBox(
+                                    SizedBox(
                                       width: 6.0,
                                     ),
                                     Text(
@@ -183,7 +173,7 @@ class _detailsDoctorState extends State<detailsDoctor> {
                                       style: TextStyle(
                                         fontWeight: FontWeight.w300,
                                         fontSize: 12,
-                                        color: HexColor("#737373"),
+                                        color: MyColors.myGreytext,
                                         overflow: TextOverflow.visible,
                                       ),
                                     ),
@@ -195,44 +185,44 @@ class _detailsDoctorState extends State<detailsDoctor> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "4/5",
                                       style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 10.0,
-                                        color: HexColor("#000000"),
+                                        color: MyColors.myblack,
                                       ),
                                     ),
                                     const SizedBox(
                                       height: 14.0,
                                     ),
-                                    Icon(
+                                    const Icon(
                                       Icons.star,
-                                      color: HexColor("#FDCB08"),
+                                      color: MyColors.myYellow,
                                       size: 16,
                                     ),
                                     const SizedBox(
                                       height: 2.9,
                                     ),
-                                    Icon(
+                                    const Icon(
                                       Icons.star,
-                                      color: HexColor("#FDCB08"),
+                                      color:  MyColors.myYellow,
                                       size: 16,
                                     ),
                                     const SizedBox(
                                       height: 2.9,
                                     ),
-                                    Icon(
+                                    const Icon(
                                       Icons.star,
-                                      color: HexColor("#FDCB08"),
+                                      color: MyColors.myYellow,
                                       size: 16,
                                     ),
                                     const SizedBox(
                                       height: 2.9,
                                     ),
-                                    Icon(
+                                    const Icon(
                                       Icons.star,
-                                      color: HexColor("#FDCB08"),
+                                      color:  MyColors.myYellow,
                                       size: 16,
                                     ),
                                     const SizedBox(
@@ -243,233 +233,247 @@ class _detailsDoctorState extends State<detailsDoctor> {
                                       color: HexColor("#DADADA"),
                                       size: 16,
                                     ),
-                                    TextButton(
-                                        onPressed: () {
-                                          showModalBottomSheet(
-                                              context: context,
-                                              builder: (BuildContext context)
-                                              {
-                                                return SizedBox(
-                                                  height: 280,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            24.0),
-                                                    child: Column(
-                                                      children: [
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              "Rate Dr. Fadi",
-                                                              style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                fontSize: 22,
-                                                                color: HexColor(
-                                                                    "#000000"),
+                                    Container(
+                                      decoration: const BoxDecoration(
+                                        color: MyColors.myWhite,
+                                        borderRadius: BorderRadius.only(
+                                            topRight: Radius.circular(16),
+                                            topLeft: Radius.circular(16)),
+                                      ),
+                                      child: TextButton(
+                                          onPressed: () {
+                                            showModalBottomSheet(
+                                                context: context,
+                                                builder: (BuildContext context)
+                                                {
+                                                  return SizedBox(
+                                                    height: 280,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              24.0),
+                                                      child: Column(
+                                                        children: [
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            children:  [
+                                                              const Text(
+                                                                "Rate - ",
+                                                                style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  fontSize: 22,
+                                                                  color: MyColors.myblack,
+                                                                ),
                                                               ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 16,
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .symmetric(
-                                                                  horizontal:
-                                                                      5.0),
-                                                          child:
-                                                              RatingBar.builder(
-                                                            textDirection:
-                                                                TextDirection
-                                                                    .rtl,
-                                                            initialRating:
-                                                                showRating,
-                                                            minRating: 1,
-                                                            itemSize: 30,
-                                                            direction:
-                                                                Axis.horizontal,
-                                                            allowHalfRating:
-                                                                true,
-                                                            itemCount: 5,
-                                                            itemPadding:
+                                                              Text(
+                                                                widget.model!.name??'',
+                                                                style: const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  fontSize: 22,
+                                                                  color: MyColors.myblack,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 16,
+                                                          ),
+                                                          Padding(
+                                                            padding:
                                                                 const EdgeInsets
                                                                         .symmetric(
                                                                     horizontal:
-                                                                        2),
-                                                            itemBuilder:
-                                                                (context, _) =>
-                                                                    const Icon(
-                                                              Icons.star,
-                                                              color:
-                                                                  Colors.amber,
-                                                            ),
-                                                            onRatingUpdate:
-                                                                (rating) {
-                                                              if (kDebugMode) {}
-                                                              setState(() {
-                                                                showRating =
-                                                                    rating;
-                                                                if (kDebugMode) {
-                                                                  print(
-                                                                      showRating);
-                                                                }
-                                                              });
-                                                            },
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 30.0,
-                                                        ),
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            IconButton(
-                                                              onPressed: () {
-                                                                if (showRating <=
-                                                                    4) {
-                                                                  setState(() {
-                                                                    showRating++;
-                                                                  });
-                                                                }
-                                                              },
-                                                              icon: Icon(
-                                                                Icons
-                                                                    .arrow_back_ios_new,
-                                                                color: HexColor(
-                                                                    "#000000"),
-                                                                size: 22.0,
+                                                                        5.0),
+                                                            child:
+                                                                RatingBar.builder(
+                                                              textDirection:
+                                                                  TextDirection
+                                                                      .rtl,
+                                                              initialRating:
+                                                                  showRating,
+                                                              minRating: 1,
+                                                              itemSize: 30,
+                                                              direction:
+                                                                  Axis.horizontal,
+                                                              allowHalfRating:
+                                                                  true,
+                                                              itemCount: 5,
+                                                              itemPadding:
+                                                                  const EdgeInsets
+                                                                          .symmetric(
+                                                                      horizontal:
+                                                                          2),
+                                                              itemBuilder:
+                                                                  (context, _) =>
+                                                                      const Icon(
+                                                                Icons.star,
+                                                                color:
+                                                                    Colors.amber,
                                                               ),
+                                                              onRatingUpdate:
+                                                                  (rating) {
+                                                                if (kDebugMode) {}
+                                                                setState(() {
+                                                                  showRating =
+                                                                      rating;
+                                                                  if (kDebugMode) {
+                                                                    print(
+                                                                        showRating);
+                                                                  }
+                                                                });
+                                                              },
                                                             ),
-                                                            const SizedBox(
-                                                                width: 49.0),
-                                                            Row(
-                                                              children: [
-                                                                Text(
-                                                                  "$showRating",
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        18,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w400,
-                                                                    color: HexColor(
-                                                                        "#585858"),
-                                                                  ),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 25.0,
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              IconButton(
+                                                                onPressed: () {
+                                                                  if (showRating <=
+                                                                      4) {
+                                                                    setState(() {
+                                                                      showRating++;
+                                                                    });
+                                                                  }
+                                                                },
+                                                                icon: const Icon(
+                                                                  Icons
+                                                                      .arrow_back_ios_new,
+                                                                  color: MyColors.myblack,
+                                                                  size: 22.0,
                                                                 ),
-                                                                Text(
-                                                                  "/5",
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        18,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w400,
-                                                                    color: HexColor(
-                                                                        "#585858"),
+                                                              ),
+                                                              const SizedBox(
+                                                                  width: 49.0),
+                                                              Row(
+                                                                children: [
+                                                                  Text(
+                                                                    "$showRating",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontSize:
+                                                                          18,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w400,
+                                                                      color: HexColor(
+                                                                          "#585858"),
+                                                                    ),
                                                                   ),
-                                                                )
-                                                              ],
+                                                                  Text(
+                                                                    "/5",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontSize:
+                                                                          18,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w400,
+                                                                      color: HexColor(
+                                                                          "#585858"),
+                                                                    ),
+                                                                  )
+                                                                ],
+                                                              ),
+                                                              const SizedBox(
+                                                                  width: 49.0),
+                                                              IconButton(
+                                                                onPressed: () {
+                                                                  if (showRating >=
+                                                                      1) {
+                                                                    setState(() {
+                                                                      showRating--;
+                                                                    });
+                                                                  }
+                                                                },
+                                                                icon: const Icon(
+                                                                  Icons
+                                                                      .arrow_forward_ios,
+                                                                  color: MyColors.myblack,
+                                                                  size: 22.0,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 25.0,
+                                                          ),
+                                                          Container(
+                                                            width:
+                                                                double.infinity,
+                                                            height: 44.0,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8),
+                                                              color: HexColor(
+                                                                  "#004DC0"),
                                                             ),
-                                                            const SizedBox(
-                                                                width: 49.0),
-                                                            IconButton(
+                                                            child: TextButton(
                                                               onPressed: () {
-                                                                if (showRating >=
-                                                                    1) {
-                                                                  setState(() {
-                                                                    showRating--;
-                                                                  });
-                                                                }
+                                                                  Navigator.pop(context);
                                                               },
-                                                              icon: Icon(
-                                                                Icons
-                                                                    .arrow_forward_ios,
-                                                                color: HexColor(
-                                                                    "#000000"),
-                                                                size: 22.0,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 38.0,
-                                                        ),
-                                                        Container(
-                                                          width:
-                                                              double.infinity,
-                                                          height: 44.0,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8),
-                                                            color: HexColor(
-                                                                "#004DC0"),
-                                                          ),
-                                                          child: TextButton(
-                                                            onPressed: () {
-                                                                Navigator.pop(context);
-                                                            },
-                                                            child: Text(
-                                                              "Confirm",
-                                                              style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                fontSize: 14,
-                                                                color: HexColor(
-                                                                    "#FFFFFF"),
+                                                              child: const Text(
+                                                                "Confirm",
+                                                                style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  fontSize: 14,
+                                                                  color: MyColors.myWhite,
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
-                                                        ),
-                                                      ],
+                                                        ],
+                                                      ),
                                                     ),
-                                                  ),
-                                                );
-                                              });
-                                        },
-                                        child: Text(
-                                          "Rate",
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w500,
-                                            color: HexColor("##004DC0"),
-                                          ),
-                                        ))
+                                                  );
+                                                });
+                                          },
+                                          child: const Text(
+                                            "Rate",
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                              color: MyColors.myblue,
+                                            ),
+                                          )),
+                                    )
                                   ],
                                 ),
                                 const SizedBox(
                                   height: 29.0,
                                 ),
-                                Text(
+                                const Text(
                                   "About me",
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600,
-                                      color: HexColor("3D3D3D")),
+                                      color: MyColors.mydarkgray),
                                 ),
                                 const SizedBox(
                                   height: 10.0,
                                 ),
-                                Text(
+                                const Text(
                                   "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an",
                                   style: TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.w400,
-                                    color: HexColor("##737373"),
+                                    color: MyColors.myGreytext,
                                   ),
                                 ),
                                 const SizedBox(
@@ -486,13 +490,13 @@ class _detailsDoctorState extends State<detailsDoctor> {
                                   height: 10.0,
                                 ),
                                 Row(
-                                  children: [
+                                  children: const [
                                     Icon(
                                       Icons.local_hospital_outlined,
                                       size: 12.0,
-                                      color: HexColor("737373"),
+                                      color:  MyColors.myGreytext,
                                     ),
-                                    const SizedBox(
+                                    SizedBox(
                                       width: 8.0,
                                     ),
                                     Text(
@@ -500,7 +504,7 @@ class _detailsDoctorState extends State<detailsDoctor> {
                                       style: TextStyle(
                                         fontWeight: FontWeight.w300,
                                         fontSize: 12,
-                                        color: HexColor("#737373"),
+                                        color:  MyColors.myGreytext,
                                         overflow: TextOverflow.visible,
                                       ),
                                     ),
@@ -510,13 +514,13 @@ class _detailsDoctorState extends State<detailsDoctor> {
                                   height: 6.0,
                                 ),
                                 Row(
-                                  children: [
+                                  children: const [
                                     Icon(
                                       Icons.house_siding_outlined,
                                       size: 12.0,
-                                      color: HexColor("737373"),
+                                      color: MyColors.myGreytext,
                                     ),
-                                    const SizedBox(
+                                    SizedBox(
                                       width: 8.0,
                                     ),
                                     Text(
@@ -524,7 +528,7 @@ class _detailsDoctorState extends State<detailsDoctor> {
                                       style: TextStyle(
                                         fontWeight: FontWeight.w300,
                                         fontSize: 12,
-                                        color: HexColor("#737373"),
+                                        color:  MyColors.myGreytext,
                                         overflow: TextOverflow.visible,
                                       ),
                                     ),
@@ -533,12 +537,12 @@ class _detailsDoctorState extends State<detailsDoctor> {
                                 const SizedBox(
                                   height: 31.0,
                                 ),
-                                Text(
+                                const Text(
                                   "Location",
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600,
-                                      color: HexColor("3D3D3D")),
+                                      color: MyColors.mydarkgray),
                                 ),
                                 const SizedBox(
                                   height: 12.0,

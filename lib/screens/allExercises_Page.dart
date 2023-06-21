@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:x_pone/models/blogs_model.dart';
+import 'package:x_pone/shared/styles/colors.dart';
 import '../models/blogs_model.dart';
 import '../shared/bloc/app_cubit/cubit.dart';
 import '../shared/bloc/app_cubit/states.dart';
 import '../shared/componants/components.dart';
 import 'details_exercises.dart';
-import 'homePage.dart';
+import 'home_Page.dart';
 
 class allExercisesPage extends StatelessWidget {
   allExercisesPage({
@@ -43,46 +44,12 @@ class allExercisesPage extends StatelessWidget {
                     padding: const EdgeInsets.all(24.0),
                     child: Column(
                       children: [
-                        // const SizedBox(height: 31.0,),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.start,
-                        //   children: [
-                        //     Row(
-                        //       children: [
-                        //         // InkWell(
-                        //         //   onTap:(){
-                        //         //
-                        //         //     Navigator.pop(context);
-                        //         //     // navigate2(context, homePage());
-                        //         //   },
-                        //         //   child: Icon(Icons.arrow_back_ios,
-                        //         //     color: HexColor("#000000"),
-                        //         //   ),
-                        //         // ),
-                        //         Text(
-                        //           "Articles",
-                        //           style: TextStyle(
-                        //               fontWeight: FontWeight.w600,
-                        //               fontSize: 24.0,
-                        //               color: HexColor("#000000")),
-                        //         ),
-                        //       ],
-                        //     ),
-                        //     // Text("Articles",
-                        //     //   style: TextStyle(
-                        //     //       fontWeight: FontWeight.w600,
-                        //     //       fontSize: 24.0,
-                        //     //       color: HexColor("#000000")
-                        //     //   ),),
-                        //   ],
-                        // ),
-                        // const SizedBox(height: 35.0,),
                         Container(
                           width: double.infinity,
                           height: 44.0,
                           decoration: BoxDecoration(
                             border: Border.all(
-                                width: 0.5, color: HexColor("#FFFFFF")),
+                                width: 0.5, color: MyColors.myWhite,),
                             borderRadius: BorderRadius.circular(12),
                             color: Colors.white,
                             boxShadow: [
@@ -107,19 +74,19 @@ class allExercisesPage extends StatelessWidget {
                               }
                               return null;
                             },
-                            decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
                               label: Text(
                                 'Search orticles',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 14,
-                                  color: HexColor("#94A3B8"),
+                                  color: MyColors.myGrey,
                                 ),
                               ),
                               suffixIcon: Icon(
                                 Icons.search,
-                                color: HexColor("#94A3B8"),
+                                color:MyColors.myGrey,
                               ),
                             ),
                           ),
@@ -199,10 +166,10 @@ class allExercisesPage extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 11.0, left: 16),
                   child: Text(
                     model.title!,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 15.0,
-                      color: HexColor("#FFFFFF"),
+                      color:MyColors.myWhite,
                     ),
                   ),
                 ),

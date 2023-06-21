@@ -1,16 +1,31 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:x_pone/models/doctors_model.dart';
-import 'package:x_pone/screens/homePage.dart';
+import 'package:x_pone/screens/home_Page.dart';
 import 'package:x_pone/shared/bloc/app_cubit/cubit.dart';
 import 'package:x_pone/shared/bloc/app_cubit/states.dart';
 
 import '../shared/componants/components.dart';
+import '../shared/styles/colors.dart';
 import 'details_clinics.dart';
 
-class allClinicsPage extends StatelessWidget {
+class allClinicsPage extends StatefulWidget {
   allClinicsPage({Key? key}) : super(key: key);
+
+  @override
+  State<allClinicsPage> createState() => _allClinicsPageState();
+}
+
+class _allClinicsPageState extends State<allClinicsPage> {
+  late List<DataDoctor> allClinics;
+
+  late List<DataDoctor> searchedForClinics;
+
+  bool _isSearching = false;
+
   var searchController = TextEditingController();
 
   @override
@@ -22,12 +37,12 @@ class allClinicsPage extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text(
+            title: const Text(
               "Clinics",
               style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 24.0,
-                  color: HexColor("#000000")),
+                  color: MyColors.myblack),
             ),
           ),
           body: SingleChildScrollView(
@@ -35,48 +50,15 @@ class allClinicsPage extends StatelessWidget {
               padding: const EdgeInsets.all(24.0),
               child: Column(
                 children: [
-                  // const SizedBox(height: 31.0,),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.start,
-                  //   children: [
-                  //     Row(
-                  //       children: [
-                  //         // InkWell(
-                  //         //   onTap:(){
-                  //         //     Navigator.pop(context);
-                  //         //
-                  //         //     // navigate2(context, homePage());
-                  //         //   },
-                  //         //   child: Icon(Icons.arrow_back_ios,
-                  //         //     color: HexColor("#000000"),
-                  //         //   ),
-                  //         // ),
-                  //         Text(
-                  //           "Clinics",
-                  //           style: TextStyle(
-                  //               fontWeight: FontWeight.w600,
-                  //               fontSize: 24.0,
-                  //               color: HexColor("#000000")),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //     // Text("Clinics",
-                  //     //   style: TextStyle(
-                  //     //     fontWeight: FontWeight.w600,
-                  //     //       fontSize: 24.0,
-                  //     //       color: HexColor("#000000")
-                  //     //   ),),
-                  //   ],
-                  // ),
-                  // const SizedBox(height: 35.0,),
+
                   Container(
                     width: double.infinity,
                     height: 44.0,
                     decoration: BoxDecoration(
                       border:
-                          Border.all(width: 0.5, color: HexColor("#FFFFFF")),
+                          Border.all(width: 0.5, color: MyColors.myWhite,),
                       borderRadius: BorderRadius.circular(12),
-                      color: Colors.white,
+                      color: MyColors.myWhite,
                       boxShadow: [
                         BoxShadow(
                           color: HexColor("#0052CC").withOpacity(0.1),
@@ -90,6 +72,10 @@ class allClinicsPage extends StatelessWidget {
                     child: TextFormField(
                       controller: searchController,
                       keyboardType: TextInputType.text,
+                      cursorColor: MyColors.myGrey,
+                      onChanged: (searchedClinic) {
+                        addSearchedFOrItemsToSearchedList(searchedClinic);
+                      },
                       onFieldSubmitted: (value) {
                         // SearchCubit.get(context).search(searchController.text);
                       },
@@ -99,19 +85,19 @@ class allClinicsPage extends StatelessWidget {
                         }
                         return null;
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         label: Text(
                           'Search clinics',
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 14,
-                            color: HexColor("#94A3B8"),
+                            color:MyColors.myGrey,
                           ),
                         ),
                         suffixIcon: Icon(
                           Icons.search,
-                          color: HexColor("#94A3B8"),
+                          color: MyColors.myGrey,
                         ),
                       ),
                     ),
@@ -122,24 +108,24 @@ class allClinicsPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.filter_alt_sharp,
-                        color: HexColor("#737373"),
+                        color: MyColors.myGreytext,
                         size: 15,
                       ),
-                      Text(
+                      const Text(
                         "sort by :",
                         style: TextStyle(
                           fontSize: 14,
-                          color: HexColor("#737373"),
+                          color: MyColors.myGreytext,
                         ),
                       ),
-                      Text(
+                      const Text(
                         " Location",
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          color: HexColor("#000000"),
+                          color: MyColors.myblack,
                         ),
                       ),
                       InkWell(
@@ -152,7 +138,7 @@ class allClinicsPage extends StatelessWidget {
                     height: 10.0,
                   ),
                   state is xBoneLoadingDoctorsStates
-                      ? Center(
+                      ? const Center(
                           child: CircularProgressIndicator(),
                         )
                       : ListView.separated(
@@ -164,7 +150,7 @@ class allClinicsPage extends StatelessWidget {
                           separatorBuilder: (context, index) => const SizedBox(
                             height: 15.0,
                           ),
-                          itemCount: 10,
+                          itemCount:  AppCubit.get(context).doctorList!.length,
                         ),
                   const SizedBox(
                     height: 100.0,
@@ -248,58 +234,58 @@ class allClinicsPage extends StatelessWidget {
                               overflow: TextOverflow.fade,
                               maxLines: 1,
                               softWrap: false,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.bold,
-                                  color: HexColor("#FFFFFF")),
+                                  color: MyColors.myWhite,),
                             ),
                             Text(
                               "Orthopedics and joints specialist",
                               style: TextStyle(
                                   fontSize: 8.0,
                                   fontWeight: FontWeight.w300,
-                                  color: HexColor("#FFFFFF")),
+                                  color: MyColors.myWhite,),
                             ),
                             Container(
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
+                                children: const [
                                   Icon(
                                     Icons.star,
                                     size: 11,
-                                    color: HexColor("#FBFF04"),
+                                    color: MyColors.myYellow,
                                   ),
-                                  const SizedBox(
+                                  SizedBox(
                                     width: 2.0,
                                   ),
                                   Icon(
                                     Icons.star,
                                     size: 11,
-                                    color: HexColor("#FBFF04"),
+                                    color: MyColors.myYellow,
                                   ),
-                                  const SizedBox(
+                                  SizedBox(
                                     width: 2.0,
                                   ),
                                   Icon(
                                     Icons.star,
                                     size: 11,
-                                    color: HexColor("#FBFF04"),
+                                    color: MyColors.myYellow,
                                   ),
-                                  const SizedBox(
+                                  SizedBox(
                                     width: 2.0,
                                   ),
                                   Icon(
                                     Icons.star,
                                     size: 11,
-                                    color: HexColor("#FBFF04"),
+                                    color: MyColors.myYellow,
                                   ),
-                                  const SizedBox(
+                                  SizedBox(
                                     width: 2.0,
                                   ),
                                   Icon(
                                     Icons.star,
                                     size: 11,
-                                    color: HexColor("#FFFFFF"),
+                                    color: MyColors.myWhite
                                   ),
                                 ],
                               ),
@@ -328,18 +314,18 @@ class allClinicsPage extends StatelessWidget {
                               ),
                               Text(
                                 model.address ?? '',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.w300,
                                     fontSize: 10,
-                                    color: HexColor("#DDE7F7")),
+                                    color: MyColors.mydarkwhite),
                               ),
                             ],
                           ),
                           Row(
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.access_time,
-                                color: HexColor("#DDE7F7"),
+                                color:  MyColors.mydarkwhite,
                                 size: 11,
                               ),
                               const SizedBox(
@@ -350,23 +336,23 @@ class allClinicsPage extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 softWrap: false,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontWeight: FontWeight.w300,
                                   fontSize: 8,
-                                  color: HexColor("#DDE7F7"),
+                                  color:  MyColors.mydarkwhite,
 
                                 ),
                               ),
                             ],
                           ),
                           Row(
-                            children: [
+                            children: const [
                               Icon(
                                 Icons.attach_money,
                                 size: 12.0,
-                                color: HexColor("#DDE7F7"),
+                                color:  MyColors.mydarkwhite,
                               ),
-                              const SizedBox(
+                              SizedBox(
                                 width: 8.0,
                               ),
                               Text(
@@ -374,7 +360,7 @@ class allClinicsPage extends StatelessWidget {
                                 style: TextStyle(
                                   fontWeight: FontWeight.w300,
                                   fontSize: 10,
-                                  color: HexColor("#DDE7F7"),
+                                  color:  MyColors.mydarkwhite,
                                   overflow: TextOverflow.visible,
                                 ),
                               ),
@@ -385,10 +371,10 @@ class allClinicsPage extends StatelessWidget {
                     ),
                     Container(
                       height: 37.0,
-                      decoration: BoxDecoration(
-                        color: HexColor("#FFFFFF"),
+                      decoration: const BoxDecoration(
+                        color: MyColors.myWhite,
                         // color: HexColor("#004DC0"),
-                        borderRadius: const BorderRadius.only(
+                        borderRadius: BorderRadius.only(
                           bottomLeft: Radius.zero,
                           bottomRight: Radius.circular(16),
                         ),
@@ -399,12 +385,12 @@ class allClinicsPage extends StatelessWidget {
                               const SizedBox(
                                 width: 40.0,
                               ),
-                              Text(
+                              const Text(
                                 "contact",
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
-                                  color: HexColor("#0052CC"),
+                                  color: MyColors.myblue,
                                 ),
                               ),
                               const SizedBox(
@@ -426,4 +412,50 @@ class allClinicsPage extends StatelessWidget {
           ),
         ),
       );
+
+  void addSearchedFOrItemsToSearchedList(String searchedClinic) {
+    searchedForClinics = allClinics
+        .where((character) =>
+        character.name!.toLowerCase().startsWith(searchedClinic))
+        .toList();
+    setState((){});
+  }
+
+  List<Widget> _buildFaiActios(){
+    if(_isSearching){
+      return[
+        IconButton(onPressed:(){
+          _clearSearch();
+          Navigator.pop(context);
+        } ,icon:Icon(Icons.clear,color: MyColors.myGrey,) ,),
+      ];
+    }else{
+      return [
+        IconButton(onPressed: _startSearch, icon: Icon(Icons.search,color: MyColors.myGrey,))
+
+      ];
+    }
+  }
+
+  void _startSearch(){
+    ModalRoute.of(context)!.addLocalHistoryEntry(LocalHistoryEntry(onRemove:_stopSearching ));
+
+    setState((){
+      _isSearching =true;
+    });
+  }
+
+  void _stopSearching(){
+    _clearSearch();
+    setState((){
+      _isSearching =false;
+    });
+  }
+
+  void _clearSearch(){
+    setState((){
+      searchController.clear();
+    });
+
+  }
 }

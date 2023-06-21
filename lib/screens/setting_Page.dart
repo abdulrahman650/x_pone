@@ -7,6 +7,7 @@ import 'package:x_pone/shared/bloc/app_cubit/cubit.dart';
 import 'package:x_pone/shared/bloc/app_cubit/states.dart';
 import 'package:x_pone/shared/bloc/login_cubit/cubit.dart';
 import 'package:x_pone/shared/bloc/register_cubit/cubit.dart';
+import 'package:x_pone/shared/styles/colors.dart';
 
 import '../controller/login/login_design.dart';
 import '../models/Register_model.dart';
@@ -15,7 +16,7 @@ import '../models/login_model.dart';
 import '../models/profile_model.dart';
 import '../shared/componants/components.dart';
 import '../shared/network/remote/cache_helper.dart';
-import 'homePage.dart';
+import 'home_Page.dart';
 
 class setting_page extends StatefulWidget {
   @override
@@ -61,12 +62,12 @@ class _setting_pageState extends State<setting_page> {
             return Scaffold(
                 appBar:AppBar(
                     title:
-                    Text(
+                    const Text(
                       "Settings",
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 24.0,
-                          color: HexColor("#000000")),
+                          color: MyColors.myblack),
                     ),
                     actions:[
                       Padding(
@@ -102,13 +103,13 @@ class _setting_pageState extends State<setting_page> {
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
+                                children: const [
                                   Text(
                                     "Photo",
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400,
-                                      color: HexColor("#737373"),
+                                      color: MyColors.myGreytext,
                                     ),
                                   ),
                                 ],
@@ -119,10 +120,10 @@ class _setting_pageState extends State<setting_page> {
                               CircleAvatar(
                                 backgroundColor: HexColor("#004DC0"),
                                 radius: 76,
-                                child: CircleAvatar(
-                                  backgroundColor: HexColor("#FFFFFF"),
+                                child: const CircleAvatar(
+                                  backgroundColor: MyColors.myWhite,
                                   radius: 72,
-                                  child: const CircleAvatar(
+                                  child: CircleAvatar(
                                     radius: 70,
                                     backgroundImage: AssetImage('assets/images/img.png'),
                                   ),
@@ -144,12 +145,12 @@ class _setting_pageState extends State<setting_page> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Name",
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400,
-                                      color: HexColor("#737373"),
+                                      color: MyColors.myGrey,
                                     ),
                                   ),
                                   const SizedBox(
@@ -203,8 +204,8 @@ class _setting_pageState extends State<setting_page> {
                                       textAlign: TextAlign.left,
                                       cursorColor: Colors.black,
                                       onChanged: (value) {},
-                                      style: TextStyle(
-                                        color: HexColor("#737373"),
+                                      style: const TextStyle(
+                                        color: MyColors.myGrey,
                                       ),
                                       decoration: InputDecoration(
 
@@ -224,12 +225,12 @@ class _setting_pageState extends State<setting_page> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Phone",
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400,
-                                      color: HexColor("#737373"),
+                                      color: MyColors.myGrey,
                                     ),
                                   ),
                                   const SizedBox(
@@ -243,8 +244,8 @@ class _setting_pageState extends State<setting_page> {
                                       textAlign: TextAlign.left,
                                       cursorColor: Colors.black,
                                       onChanged: (value) {},
-                                      style: TextStyle(
-                                        color: HexColor("#737373"),
+                                      style: const TextStyle(
+                                        color:MyColors.myGrey,
                                       ),
                                       decoration: InputDecoration(
 
@@ -264,12 +265,12 @@ class _setting_pageState extends State<setting_page> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Location",
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400,
-                                      color: HexColor("#737373"),
+                                      color: MyColors.myGrey,
                                     ),
                                   ),
                                   const SizedBox(
@@ -283,8 +284,8 @@ class _setting_pageState extends State<setting_page> {
                                       textAlign: TextAlign.left,
                                       cursorColor: Colors.black,
                                       onChanged: (value) {},
-                                      style: TextStyle(
-                                        color: HexColor("#737373"),
+                                      style: const TextStyle(
+                                        color: MyColors.myGrey,
                                       ),
                                       decoration: InputDecoration(
                                         suffix:
@@ -295,14 +296,12 @@ class _setting_pageState extends State<setting_page> {
                                           child:
                                           InkWell(
                                             onTap: () {},
-                                            child: Container(
-                                              child: Text(
-                                                "Change",
-                                                style: TextStyle(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: HexColor("#004DC0"),
-                                                ),
+                                            child: Text(
+                                              "Change",
+                                              style: TextStyle(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.w400,
+                                                color: HexColor("#004DC0"),
                                               ),
                                             ),
                                           ),
@@ -318,12 +317,12 @@ class _setting_pageState extends State<setting_page> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Password",
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400,
-                                      color: HexColor("#737373"),
+                                      color:MyColors.myGrey,
                                     ),
                                   ),
                                   const SizedBox(
@@ -337,14 +336,8 @@ class _setting_pageState extends State<setting_page> {
                                       textAlign: TextAlign.left,
                                       cursorColor: Colors.black,
                                       onChanged: (value) {},
-                                      style: TextStyle(
-                                        color: HexColor("#737373"),
-                                      ),
-                                      decoration: InputDecoration(
-
-                                        // labelText: 'First Name',
-
-
+                                      style: const TextStyle(
+                                        color: MyColors.myGrey,
                                       ),
                                     ),
                                   ),

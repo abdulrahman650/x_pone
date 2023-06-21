@@ -83,16 +83,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:x_pone/screens/all_bicnic_Page.dart';
-import 'package:x_pone/screens/homePage.dart';
+import 'package:x_pone/screens/home_Page.dart';
 import 'package:x_pone/screens/allExercises_Page.dart';
-import 'package:x_pone/screens/settingPage.dart';
+import 'package:x_pone/screens/setting_Page.dart';
 import 'package:x_pone/shared/bloc/app_cubit/cubit.dart';
 import 'package:x_pone/shared/bloc/app_cubit/states.dart';
 
-class XponeLayout extends StatelessWidget {
+import '../../shared/styles/colors.dart';
 
-  const XponeLayout({Key? key}) : super(key: key);
-
+class xpone_layout extends StatelessWidget {
+  const xpone_layout({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return  BlocConsumer<AppCubit, AppStates>(
@@ -100,9 +100,7 @@ class XponeLayout extends StatelessWidget {
       builder: (context, state) {
         var cubit = AppCubit.get(context);
         return Scaffold(
-            body:
-            Stack(
-              children: [
+            body: Stack(children: [
                 cubit.bottomScreens[cubit.pageIndex],
                 Padding(
                   padding: const EdgeInsets.only(right: 25,top: 49,bottom: 49,left: 25),
@@ -117,26 +115,21 @@ class XponeLayout extends StatelessWidget {
                             color:  HexColor("#0052CC").withOpacity(0.25),
                            spreadRadius: 3,
                             blurRadius: 12,
-                            offset: Offset(0, 8), // changes position of shadow
+                            offset: const Offset(0, 8), // changes position of shadow
                           ),
                         ],
                       ),
-
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(16),
                         child: BottomNavigationBar(
-                          selectedItemColor: HexColor("#0F57C3"),
+                          selectedItemColor: MyColors.myblue,
                           unselectedItemColor: HexColor("#696969"),
-
                           showSelectedLabels: true,
                           showUnselectedLabels: false,
-                          backgroundColor: Colors.white,
+                          backgroundColor: MyColors.myWhite,
                           currentIndex: cubit.pageIndex,
                           onTap: (int index){
                            cubit.changeBottom(index);
-                            // setState((){
-                            //   pageIndex = index;
-                            // });
                           },
                           items: const [
                             BottomNavigationBarItem(

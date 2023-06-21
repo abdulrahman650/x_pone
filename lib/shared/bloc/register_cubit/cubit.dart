@@ -36,12 +36,6 @@ class xBoneRegisterCubit extends Cubit<xBoneRegisterStates> {
         'phone':phone,
         'lat':lat,
         'long':long,
-        // 'email':"abdo@12.com",
-        // 'password':"01021460838",
-        // 'name':"abdulrahman",
-        // 'phone':"01021460888",
-        // 'lat':"12.5",
-        // 'long':"12.5",
 
 
 
@@ -50,17 +44,19 @@ class xBoneRegisterCubit extends Cubit<xBoneRegisterStates> {
     ).then(
       (value) {
         RegisterModel = xBoneRegisterModel.fromJson(value.data);
+        // CacheHelper.saveToken(value.data['access_token']);
+      CacheHelper.putData(key: 'token', value: value.data['access_token']);
+        print('sssssssssssssssssssssssssssssss rigestrer');
         CacheHelper.saveLoginData("email", email);
         CacheHelper.saveLoginData("password", password);
         CacheHelper.saveLoginData("name", name);
         CacheHelper.saveLoginData("phone", phone);
-
         CacheHelper.putDataList(key: "userData", value: [email, password, name, phone,lat, long]);
         emit(xBoneRegisterSuccessState(RegisterModel!));
       },
     ).catchError((onError) {
       print(onError.toString());
-      print('sssssssssssssssssssssssssssssss');
+
       emit(xBoneRegisterErrorState(onError.toString()));
       debugPrint(onError.toString());
 

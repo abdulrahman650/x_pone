@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:x_pone/models/blogs_model.dart';
-import 'package:x_pone/screens/homePage.dart';
-import 'package:x_pone/screens/settingPage.dart';
+import 'package:x_pone/screens/home_Page.dart';
+import 'package:x_pone/screens/setting_Page.dart';
 import 'package:x_pone/screens/all_bicnic_Page.dart';
 import 'package:x_pone/screens/allExercises_Page.dart';
 import 'package:x_pone/shared/bloc/app_cubit/states.dart';
@@ -28,7 +28,7 @@ class AppCubit extends Cubit<AppStates> {
   int pageIndex = 0;
 
   List<Widget> bottomScreens = [
-    homePage(),
+    home_page(),
     allExercisesPage(),
     allClinicsPage(),
     setting_page(),
@@ -226,8 +226,12 @@ void calculateDistance() async {
 
   double latitude = position.latitude;
   double longitude = position.longitude;
-  print(latitude);
-  print(longitude);
+  if (kDebugMode) {
+    print(latitude);
+  }
+  if (kDebugMode) {
+    print(longitude);
+  }
 }
 // void getProfil() {
 //
