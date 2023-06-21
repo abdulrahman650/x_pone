@@ -490,6 +490,7 @@ class _detailsClinicsState extends State<detailsClinics> {
                                 ),
                                 const SizedBox(
                                   height: 24.0,
+
                                 ),
                                 Text(
                                   "Services",
@@ -503,34 +504,35 @@ class _detailsClinicsState extends State<detailsClinics> {
                                 ),
                                 SizedBox(
                                   // width: ,
-                                  child: ListView.builder(
+                                  child: ListView.separated(
                                     shrinkWrap: true,
                                     physics: const NeverScrollableScrollPhysics(),
-                                      itemBuilder: (context, index){
-                                      print(widget.model!.services![1]);
+                                    separatorBuilder: (context, index) => SizedBox(width: 15), // Add a SizedBox as a separator with the desired width
+                                    itemBuilder: (context, index) {
+                                      print(widget.model!.services![index]);
                                       print(widget.model!.services!.length);
-                                       return Container(
-                                          width: 62,
-                                          height: 22,
-                                          decoration: BoxDecoration(
-                                            borderRadius: const BorderRadius.all(
-                                              Radius.circular(16),
-                                            ),
-                                            color: HexColor("#E8F1FF"),
+                                      return Container(
+                                        width: 62,
+                                        height: 22,
+                                        decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.all(
+                                            Radius.circular(16),
                                           ),
-                                          child: Center(
-                                            child: Text(
-                                              widget.model!.services![index],
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w500,
-                                                color: HexColor("#0046AF"),
-                                              ),
+                                          color: HexColor("#E8F1FF"),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            widget.model!.services![index],
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500,
+                                              color: HexColor("#0046AF"),
                                             ),
                                           ),
-                                        );
-                                      },
-                                  itemCount: widget.model!.services!.length,
+                                        ),
+                                      );
+                                    },
+                                    itemCount: widget.model!.services!.length,
                                   ),
                                 ),
                                 Row(

@@ -20,9 +20,9 @@ class allClinicsPage extends StatefulWidget {
 }
 
 class _allClinicsPageState extends State<allClinicsPage> {
-  late List<DataDoctor> allClinics;
+   List<DataDoctor>? allClinics;
 
-  late List<DataDoctor> searchedForClinics;
+   List<DataDoctor>? searchedForClinics;
 
   bool _isSearching = false;
 
@@ -75,6 +75,7 @@ class _allClinicsPageState extends State<allClinicsPage> {
                       cursorColor: MyColors.myGrey,
                       onChanged: (searchedClinic) {
                         addSearchedFOrItemsToSearchedList(searchedClinic);
+
                       },
                       onFieldSubmitted: (value) {
                         // SearchCubit.get(context).search(searchController.text);
@@ -139,19 +140,20 @@ class _allClinicsPageState extends State<allClinicsPage> {
                   ),
                   state is xBoneLoadingDoctorsStates
                       ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
+                    child: CircularProgressIndicator(),
+                  )
                       : ListView.separated(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (context, index) =>
-                              detailsDocItem(context, doctorsModel![index]),
-                          separatorBuilder: (context, index) => const SizedBox(
-                            height: 15.0,
-                          ),
-                          itemCount:  AppCubit.get(context).doctorList!.length,
-                        ),
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (context, index) =>
+                        detailsDocItem(context, searchController.text.isEmpty? doctorsModel![index]  : searchedForClinics![index]),
+
+                    separatorBuilder: (context, index) => const SizedBox(
+                      height: 15.0,
+                    ),
+                    itemCount: searchController.text.isEmpty? doctorsModel!.length : searchedForClinics!.length,
+                  ),
                   const SizedBox(
                     height: 100.0,
                   )
@@ -414,7 +416,7 @@ class _allClinicsPageState extends State<allClinicsPage> {
       );
 
   void addSearchedFOrItemsToSearchedList(String searchedClinic) {
-    searchedForClinics = allClinics
+    searchedForClinics = AppCubit.get(context).doctorList!
         .where((character) =>
         character.name!.toLowerCase().startsWith(searchedClinic))
         .toList();

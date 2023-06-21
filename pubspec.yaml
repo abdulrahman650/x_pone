@@ -48,6 +48,7 @@ dependencies:
   geolocator: ^9.0.2
   location:
   geocoding:
+  carousel_slider: ^4.2.1
 
 
 

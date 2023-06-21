@@ -1,5 +1,7 @@
 
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -20,9 +22,9 @@ class allClinicsPage2 extends StatefulWidget {
 }
 
 class _allClinicsPage2State extends State<allClinicsPage2> {
-  late List<DataDoctor> doctorsModel;
+   List<DataDoctor>? doctorsModel;
 
-  late List<DataDoctor> searchedForClinics;
+   List<DataDoctor>? searchedForClinics;
 
   bool _isSearching = false;
 
@@ -144,13 +146,12 @@ class _allClinicsPage2State extends State<allClinicsPage2> {
                     physics: const NeverScrollableScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, index) =>
-                        detailsDocItem(context, searchController.text.isEmpty? doctorsModel![index]  : searchedForClinics[index]),
+                        detailsDocItem(context, searchController.text.isEmpty? doctorsModel![index]  : searchedForClinics![index]),
 
                     separatorBuilder: (context, index) => const SizedBox(
                       height: 15.0,
                     ),
-                    itemCount: searchController.text.isEmpty? doctorsModel!.length : searchedForClinics.length,
-                    // _searchTextController.text.isEmpty? allCharacters.length : searchedForCharacters.length,
+                    itemCount: searchController.text.isEmpty? doctorsModel!.length : searchedForClinics!.length,
                   ),
                   const SizedBox(
                     height: 100.0,
@@ -430,7 +431,7 @@ class _allClinicsPage2State extends State<allClinicsPage2> {
   }
 
   void addSearchedFOrItemsToSearchedList(String searchedClinic) {
-    searchedForClinics = doctorsModel
+    searchedForClinics = AppCubit.get(context).doctorList!
         .where((doctorsModel) =>
         doctorsModel.name!.toLowerCase().startsWith(searchedClinic))
         .toList();
@@ -476,4 +477,41 @@ class _allClinicsPage2State extends State<allClinicsPage2> {
     return Text("Clinics",
       style: TextStyle(color: MyColors.myGrey),);
   }
+
+
+   // double calculateDistance(double startLatitude, double startLongitude, double endLatitude, double endLongitude) {
+   //   const int earthRadius = 6371; // Radius of the Earth in kilometers
+   //   double lat1 = startLatitude * (pi / 180);
+   //   double lon1 = startLongitude * (pi / 180);
+   //   double lat2 = endLatitude * (pi / 180);
+   //   double lon2 = endLongitude * (pi / 180);
+   //
+   //   double dLat = lat2 - lat1;
+   //   double dLon = lon2 - lon1;
+   //
+   //   double a = sin(dLat / 2) * sin(dLat / 2) +
+   //       cos(lat1) * cos(lat2) * sin(dLon / 2) * sin(dLon / 2);
+   //   double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+   //   double distance = earthRadius * c;
+   //
+   //   return distance;
+   // }
+   //
+   // List<DataDoctor> findNearestDoctors(double userLatitude, double userLongitude, List<DataDoctor> doctors, int limit) {
+   //   doctors.sort((a, b) {
+   //     double distanceToA = calculateDistance(userLatitude, userLongitude, double.parse(a.lat!), double.parse(a.long!));
+   //     double distanceToB = calculateDistance(userLatitude, userLongitude,  double.parse(b.lat!), double.parse(b.long!));
+   //     return distanceToA.compareTo(distanceToB);
+   //   });
+   //
+   //   return doctors.sublist(0, limit);
+   // }
+   //
+   // // Find the nearest doctors
+   // List<DataDoctor> nearestDoctors = findNearestDoctors(userLatitude, userLongitude, doctors, 3);
+   //
+   // // Print the nearest doctors
+   // for (DataDoctor doctor in nearestDoctors) {
+   // print('Name: ${doctor.name}, Latitude: ${doctor.latitude}, Longitude: ${doctor.longitude}');
+   // }
 }

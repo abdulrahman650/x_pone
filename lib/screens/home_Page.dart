@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:x_pone/models/doctors_model.dart';
 import 'package:x_pone/screens/allExercises_Page.dart';
 import 'package:x_pone/screens/all_bicnic_Page.dart';
@@ -27,6 +28,16 @@ class home_page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    PageController topController =
+    PageController(viewportFraction: 1.0, keepPage: true, initialPage: 1);
+    final List<String> imgList = [
+      'assets/images/doctor_in_home.png',
+      'assets/images/Fady.png',
+      'assets/images/3yada.png',
+      'assets/images/cardio.jpg',
+      'assets/images/cardio.jpg',
+      'assets/images/cardio.jpg',
+     ];
     DateTime currentDate = DateTime.now();
     String formattedDate = currentDate
         .toString()
@@ -108,59 +119,91 @@ class home_page extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(
-                  height: 30.0,
+                  height: 15.0,
                 ),
-                Container(
-                  width: double.infinity,
-                  height: 44.0,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 0.5,
-                      color: MyColors.myWhite,
+                Column(
+                  children: [
+                    Container(
+                        margin: const EdgeInsetsDirectional.only(top: 10, bottom: 10),
+                        height: 150,
+                        child: PageView.builder(
+                          padEnds: false,
+                          physics: const BouncingScrollPhysics(),
+                          controller: topController,
+                          itemCount:imgList.length,
+                          itemBuilder: (_, index) {
+                            return _bannerItem(
+                                context, imgList[index]);
+                          },
+                        )),
+                    const SizedBox(
+                      height: 5,
                     ),
-                    borderRadius: BorderRadius.circular(12),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: HexColor("#0052CC").withOpacity(0.1),
-                        spreadRadius: 3,
-                        blurRadius: 9,
-                        offset:
-                            const Offset(0, 9), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  child: TextFormField(
-                    controller: searchController,
-                    keyboardType: TextInputType.text,
-                    onFieldSubmitted: (value) {
-                      // SearchCubit.get(context).search(searchController.text);
-                    },
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return ' Name must not be empty';
-                      }
-                      return null;
-                    },
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      label: Text(
-                        'Search doctors or clinics',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14,
-                          color: MyColors.myGrey,
-                        ),
-                      ),
-                      suffixIcon: Icon(
-                        Icons.search,
-                        color: MyColors.myGrey,
+                    SmoothPageIndicator(
+                      controller: topController,
+                      count:imgList.length,
+                      effect: WormEffect(
+                          dotHeight: 12,
+                          dotWidth: 12,
+                          type: WormType.thin,
+                          dotColor: Colors.grey.shade300,
+                          activeDotColor: MyColors.myblue,
+                        // strokeWidth: 5,
                       ),
                     ),
-                  ),
+                  ],
                 ),
+                // Container(
+                //   width: double.infinity,
+                //   height: 44.0,
+                //   decoration: BoxDecoration(
+                //     border: Border.all(
+                //       width: 0.5,
+                //       color: MyColors.myWhite,
+                //     ),
+                //     borderRadius: BorderRadius.circular(12),
+                //     color: Colors.white,
+                //     boxShadow: [
+                //       BoxShadow(
+                //         color: HexColor("#0052CC").withOpacity(0.1),
+                //         spreadRadius: 3,
+                //         blurRadius: 9,
+                //         offset:
+                //             const Offset(0, 9), // changes position of shadow
+                //       ),
+                //     ],
+                //   ),
+                //   child: TextFormField(
+                //     controller: searchController,
+                //     keyboardType: TextInputType.text,
+                //     onFieldSubmitted: (value) {
+                //       // SearchCubit.get(context).search(searchController.text);
+                //     },
+                //     validator: (value) {
+                //       if (value!.isEmpty) {
+                //         return ' Name must not be empty';
+                //       }
+                //       return null;
+                //     },
+                //     decoration: const InputDecoration(
+                //       border: OutlineInputBorder(),
+                //       label: Text(
+                //         'Search doctors or clinics',
+                //         style: TextStyle(
+                //           fontWeight: FontWeight.w400,
+                //           fontSize: 14,
+                //           color: MyColors.myGrey,
+                //         ),
+                //       ),
+                //       suffixIcon: Icon(
+                //         Icons.search,
+                //         color: MyColors.myGrey,
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 const SizedBox(
-                  height: 45.0,
+                  height: 15.0,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -297,7 +340,21 @@ class home_page extends StatelessWidget {
       },
     );
   }
-
+  Widget _bannerItem(context,  media, ) {
+    return InkWell(
+      onTap: () {
+      },
+      child: Container(
+        margin: const EdgeInsetsDirectional.only(start: 8, end: 7),
+        decoration: BoxDecoration(
+          color: Colors.amber,
+          borderRadius: BorderRadiusDirectional.circular( 10),
+          image: DecorationImage(
+              fit: BoxFit.cover, image: AssetImage(media)),
+        ),
+      ),
+    );
+  }
   Widget detailsDocItem(context, DataDoctor model) => InkWell(
         onTap: () {
           navigateTo(

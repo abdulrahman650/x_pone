@@ -12,10 +12,22 @@ import '../shared/componants/components.dart';
 import 'details_exercises.dart';
 import 'home_Page.dart';
 
-class allExercisesPage extends StatelessWidget {
+class allExercisesPage extends StatefulWidget {
   allExercisesPage({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<allExercisesPage> createState() => _allExercisesPageState();
+}
+
+class _allExercisesPageState extends State<allExercisesPage> {
+  List<DataBlog>? allBlogs;
+
+  List<DataBlog>? searchedForBlogs;
+
+  bool _isSearching = false;
+
   var searchController = TextEditingController();
 
   @override
@@ -65,6 +77,10 @@ class allExercisesPage extends StatelessWidget {
                           child: TextFormField(
                             controller: searchController,
                             keyboardType: TextInputType.text,
+                            onChanged: (searchblogs){
+                              addSearchedFOrItemsToSearchedList(searchblogs);
+
+                            },
                             onFieldSubmitted: (value) {
                               // SearchCubit.get(context).search(searchController.text);
                             },
@@ -94,17 +110,22 @@ class allExercisesPage extends StatelessWidget {
                         const SizedBox(
                           height: 15.0,
                         ),
-
+                      state is xBoneLoadingArticlesStates
+                      ? const Center(
+                      child: CircularProgressIndicator(),
+                ):
                         ListView.separated(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           scrollDirection: Axis.vertical,
-                          itemBuilder: (context, index) => detailsExcrciseItem(
-                              context, articlesModel[index]),
+                          itemBuilder: (context, index) =>
+                          detailsExcrciseItem(context, searchController.text.isEmpty? articlesModel[index]: searchedForBlogs![index]),
+
                           separatorBuilder: (context, index) => const SizedBox(
                             height: 15.0,
                           ),
-                          itemCount: articlesModel.length,
+                          itemCount: searchController.text.isEmpty? articlesModel.length : searchedForBlogs!.length,
+
                         ),
                         const SizedBox(
                           height: 100.0,
@@ -120,6 +141,7 @@ class allExercisesPage extends StatelessWidget {
             ),
           );
         });
+
   }
 
   Widget detailsExcrciseItem(context, DataBlog model) => InkWell(
@@ -189,4 +211,12 @@ class allExercisesPage extends StatelessWidget {
           ],
         ),
       );
+
+  void addSearchedFOrItemsToSearchedList(String searchedBlogs) {
+    searchedForBlogs= AppCubit.get(context).articlesModel
+        .where((character) =>
+        character.title!.toLowerCase().startsWith(searchedBlogs))
+        .toList();
+    setState((){});
+  }
 }
