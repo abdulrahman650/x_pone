@@ -614,7 +614,7 @@ class home_page extends StatelessWidget {
                           : Image.asset(
                         "assets/images/3yada.png",
                         fit: BoxFit.cover,
-                      )
+                      ),
                     ),
                   ),
                 ),
