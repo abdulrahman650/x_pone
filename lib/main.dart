@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:x_pone/controller/layout/home_layout.dart';
 import 'package:x_pone/screens/allbicnic2.dart';
 import 'package:x_pone/screens/date.dart';
@@ -24,7 +23,6 @@ import 'controller/Register/Register_design.dart';
 import 'controller/login/login_design.dart';
 import 'on_boarding/logo_splash.dart';
 import 'on_boarding/on_boarding.dart';
-import 'package:geolocator/geolocator.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

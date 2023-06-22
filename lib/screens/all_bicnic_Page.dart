@@ -1,8 +1,7 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:x_pone/models/doctors_model.dart';
 import 'package:x_pone/screens/home_Page.dart';
 import 'package:x_pone/shared/bloc/app_cubit/cubit.dart';
@@ -20,9 +19,9 @@ class allClinicsPage extends StatefulWidget {
 }
 
 class _allClinicsPageState extends State<allClinicsPage> {
-   List<DataDoctor>? allClinics;
+  List<DataDoctor>? allClinics;
 
-   List<DataDoctor>? searchedForClinics;
+  List<DataDoctor>? searchedForClinics;
 
   bool _isSearching = false;
 
@@ -50,13 +49,14 @@ class _allClinicsPageState extends State<allClinicsPage> {
               padding: const EdgeInsets.all(24.0),
               child: Column(
                 children: [
-
                   Container(
                     width: double.infinity,
                     height: 44.0,
                     decoration: BoxDecoration(
-                      border:
-                          Border.all(width: 0.5, color: MyColors.myWhite,),
+                      border: Border.all(
+                        width: 0.5,
+                        color: MyColors.myWhite,
+                      ),
                       borderRadius: BorderRadius.circular(12),
                       color: MyColors.myWhite,
                       boxShadow: [
@@ -75,7 +75,6 @@ class _allClinicsPageState extends State<allClinicsPage> {
                       cursorColor: MyColors.myGrey,
                       onChanged: (searchedClinic) {
                         addSearchedFOrItemsToSearchedList(searchedClinic);
-
                       },
                       onFieldSubmitted: (value) {
                         // SearchCubit.get(context).search(searchController.text);
@@ -93,7 +92,7 @@ class _allClinicsPageState extends State<allClinicsPage> {
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 14,
-                            color:MyColors.myGrey,
+                            color: MyColors.myGrey,
                           ),
                         ),
                         suffixIcon: Icon(
@@ -140,20 +139,24 @@ class _allClinicsPageState extends State<allClinicsPage> {
                   ),
                   state is xBoneLoadingDoctorsStates
                       ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
+                          child: CircularProgressIndicator(),
+                        )
                       : ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index) =>
-                        detailsDocItem(context, searchController.text.isEmpty? doctorsModel![index]  : searchedForClinics![index]),
-
-                    separatorBuilder: (context, index) => const SizedBox(
-                      height: 15.0,
-                    ),
-                    itemCount: searchController.text.isEmpty? doctorsModel!.length : searchedForClinics!.length,
-                  ),
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (context, index) => detailsDocItem(
+                              context,
+                              searchController.text.isEmpty
+                                  ? doctorsModel![index]
+                                  : searchedForClinics![index]),
+                          separatorBuilder: (context, index) => const SizedBox(
+                            height: 15.0,
+                          ),
+                          itemCount: searchController.text.isEmpty
+                              ? doctorsModel!.length
+                              : searchedForClinics!.length,
+                        ),
                   const SizedBox(
                     height: 100.0,
                   )
@@ -237,16 +240,18 @@ class _allClinicsPageState extends State<allClinicsPage> {
                               maxLines: 1,
                               softWrap: false,
                               style: const TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: MyColors.myWhite,),
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
+                                color: MyColors.myWhite,
+                              ),
                             ),
                             Text(
                               "Orthopedics and joints specialist",
                               style: TextStyle(
-                                  fontSize: 8.0,
-                                  fontWeight: FontWeight.w300,
-                                  color: MyColors.myWhite,),
+                                fontSize: 8.0,
+                                fontWeight: FontWeight.w300,
+                                color: MyColors.myWhite,
+                              ),
                             ),
                             Container(
                               child: Row(
@@ -284,11 +289,8 @@ class _allClinicsPageState extends State<allClinicsPage> {
                                   SizedBox(
                                     width: 2.0,
                                   ),
-                                  Icon(
-                                    Icons.star,
-                                    size: 11,
-                                    color: MyColors.myWhite
-                                  ),
+                                  Icon(Icons.star,
+                                      size: 11, color: MyColors.myWhite),
                                 ],
                               ),
                             ),
@@ -327,7 +329,7 @@ class _allClinicsPageState extends State<allClinicsPage> {
                             children: [
                               const Icon(
                                 Icons.access_time,
-                                color:  MyColors.mydarkwhite,
+                                color: MyColors.mydarkwhite,
                                 size: 11,
                               ),
                               const SizedBox(
@@ -341,8 +343,7 @@ class _allClinicsPageState extends State<allClinicsPage> {
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w300,
                                   fontSize: 8,
-                                  color:  MyColors.mydarkwhite,
-
+                                  color: MyColors.mydarkwhite,
                                 ),
                               ),
                             ],
@@ -352,7 +353,7 @@ class _allClinicsPageState extends State<allClinicsPage> {
                               Icon(
                                 Icons.attach_money,
                                 size: 12.0,
-                                color:  MyColors.mydarkwhite,
+                                color: MyColors.mydarkwhite,
                               ),
                               SizedBox(
                                 width: 8.0,
@@ -362,7 +363,7 @@ class _allClinicsPageState extends State<allClinicsPage> {
                                 style: TextStyle(
                                   fontWeight: FontWeight.w300,
                                   fontSize: 10,
-                                  color:  MyColors.mydarkwhite,
+                                  color: MyColors.mydarkwhite,
                                   overflow: TextOverflow.visible,
                                 ),
                               ),
@@ -371,41 +372,44 @@ class _allClinicsPageState extends State<allClinicsPage> {
                         ],
                       ),
                     ),
-                    Container(
-                      height: 37.0,
-                      decoration: const BoxDecoration(
-                        color: MyColors.myWhite,
-                        // color: HexColor("#004DC0"),
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.zero,
-                          bottomRight: Radius.circular(16),
+                    InkWell(
+                      onTap: () {
+                        openWhatsApp(model.phone);
+                      },
+                      child: Container(
+                        height: 37.0,
+                        decoration: const BoxDecoration(
+                          color: MyColors.myWhite,
+                          // color: HexColor("#004DC0"),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.zero,
+                            bottomRight: Radius.circular(16),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            const SizedBox(
+                              width: 40.0,
+                            ),
+                            const Text(
+                              "contact",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: MyColors.myblue,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Image.asset(
+                              "assets/images/iconWatts.png",
+                              width: 12,
+                              height: 12,
+                            ),
+                          ],
                         ),
                       ),
-                      child: TextButton(
-                          child: Row(
-                            children: [
-                              const SizedBox(
-                                width: 40.0,
-                              ),
-                              const Text(
-                                "contact",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: MyColors.myblue,
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Image.asset(
-                                "assets/images/iconWatts.png",
-                                width: 12,
-                                height: 12,
-                              ),
-                            ],
-                          ),
-                          onPressed: () {}),
                     ),
                   ],
                 ),
@@ -416,48 +420,69 @@ class _allClinicsPageState extends State<allClinicsPage> {
       );
 
   void addSearchedFOrItemsToSearchedList(String searchedClinic) {
-    searchedForClinics = AppCubit.get(context).doctorList!
+    searchedForClinics = AppCubit.get(context)
+        .doctorList!
         .where((character) =>
-        character.name!.toLowerCase().startsWith(searchedClinic))
+            character.name!.toLowerCase().startsWith(searchedClinic))
         .toList();
-    setState((){});
+    setState(() {});
   }
 
-  List<Widget> _buildFaiActios(){
-    if(_isSearching){
-      return[
-        IconButton(onPressed:(){
-          _clearSearch();
-          Navigator.pop(context);
-        } ,icon:Icon(Icons.clear,color: MyColors.myGrey,) ,),
-      ];
-    }else{
+  List<Widget> _buildFaiActios() {
+    if (_isSearching) {
       return [
-        IconButton(onPressed: _startSearch, icon: Icon(Icons.search,color: MyColors.myGrey,))
-
+        IconButton(
+          onPressed: () {
+            _clearSearch();
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.clear,
+            color: MyColors.myGrey,
+          ),
+        ),
+      ];
+    } else {
+      return [
+        IconButton(
+            onPressed: _startSearch,
+            icon: Icon(
+              Icons.search,
+              color: MyColors.myGrey,
+            ))
       ];
     }
   }
 
-  void _startSearch(){
-    ModalRoute.of(context)!.addLocalHistoryEntry(LocalHistoryEntry(onRemove:_stopSearching ));
+  void _startSearch() {
+    ModalRoute.of(context)!
+        .addLocalHistoryEntry(LocalHistoryEntry(onRemove: _stopSearching));
 
-    setState((){
-      _isSearching =true;
+    setState(() {
+      _isSearching = true;
     });
   }
 
-  void _stopSearching(){
+  void _stopSearching() {
     _clearSearch();
-    setState((){
-      _isSearching =false;
+    setState(() {
+      _isSearching = false;
     });
   }
 
-  void _clearSearch(){
-    setState((){
+  void _clearSearch() {
+    setState(() {
       searchController.clear();
     });
+  }
 
+  void openWhatsApp(phoneNumber) async {
+    final whatsappUrl = "https://wa.me/$phoneNumber";
+
+    if (await canLaunch(whatsappUrl)) {
+      await launch(whatsappUrl);
+    } else {
+      throw 'Could not launch $whatsappUrl';
+    }
   }
 }

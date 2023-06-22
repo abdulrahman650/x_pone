@@ -31,12 +31,15 @@ class home_page extends StatelessWidget {
     PageController topController =
     PageController(viewportFraction: 1.0, keepPage: true, initialPage: 1);
     final List<String> imgList = [
-      'assets/images/doctor_in_home.png',
-      'assets/images/Fady.png',
+
+
+      'assets/images/clinics2.jpg',
+      'assets/images/images.jpg',
       'assets/images/3yada.png',
-      'assets/images/cardio.jpg',
-      'assets/images/cardio.jpg',
-      'assets/images/cardio.jpg',
+      'assets/images/images (1).jpg',
+      'assets/images/streatch.jpg',
+      'assets/images/salad.jpg',
+      'assets/images/locationegyrt.jpg',
      ];
     DateTime currentDate = DateTime.now();
     String formattedDate = currentDate
@@ -153,55 +156,6 @@ class home_page extends StatelessWidget {
                     ),
                   ],
                 ),
-                // Container(
-                //   width: double.infinity,
-                //   height: 44.0,
-                //   decoration: BoxDecoration(
-                //     border: Border.all(
-                //       width: 0.5,
-                //       color: MyColors.myWhite,
-                //     ),
-                //     borderRadius: BorderRadius.circular(12),
-                //     color: Colors.white,
-                //     boxShadow: [
-                //       BoxShadow(
-                //         color: HexColor("#0052CC").withOpacity(0.1),
-                //         spreadRadius: 3,
-                //         blurRadius: 9,
-                //         offset:
-                //             const Offset(0, 9), // changes position of shadow
-                //       ),
-                //     ],
-                //   ),
-                //   child: TextFormField(
-                //     controller: searchController,
-                //     keyboardType: TextInputType.text,
-                //     onFieldSubmitted: (value) {
-                //       // SearchCubit.get(context).search(searchController.text);
-                //     },
-                //     validator: (value) {
-                //       if (value!.isEmpty) {
-                //         return ' Name must not be empty';
-                //       }
-                //       return null;
-                //     },
-                //     decoration: const InputDecoration(
-                //       border: OutlineInputBorder(),
-                //       label: Text(
-                //         'Search doctors or clinics',
-                //         style: TextStyle(
-                //           fontWeight: FontWeight.w400,
-                //           fontSize: 14,
-                //           color: MyColors.myGrey,
-                //         ),
-                //       ),
-                //       suffixIcon: Icon(
-                //         Icons.search,
-                //         color: MyColors.myGrey,
-                //       ),
-                //     ),
-                //   ),
-                // ),
                 const SizedBox(
                   height: 15.0,
                 ),
@@ -347,7 +301,7 @@ class home_page extends StatelessWidget {
       child: Container(
         margin: const EdgeInsetsDirectional.only(start: 8, end: 7),
         decoration: BoxDecoration(
-          color: Colors.amber,
+          color: MyColors.myWhite,
           borderRadius: BorderRadiusDirectional.circular( 10),
           image: DecorationImage(
               fit: BoxFit.cover, image: AssetImage(media)),
@@ -661,11 +615,6 @@ class home_page extends StatelessWidget {
                         "assets/images/3yada.png",
                         fit: BoxFit.cover,
                       )
-                      // Image.network(
-                      //   model.image!,
-                      //   fit: BoxFit.cover,
-                      //   opacity: const AlwaysStoppedAnimation(.8),
-                      // ),
                     ),
                   ),
                 ),
@@ -673,7 +622,7 @@ class home_page extends StatelessWidget {
                   width: 200,
                   padding: const EdgeInsets.only(top: 11.0, left: 16),
                   child: Text(
-                    model.content!,
+                    model.title!,
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 12.0,

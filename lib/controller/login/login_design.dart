@@ -160,7 +160,7 @@ class LoginScreen extends StatelessWidget {
                                                       xBoneLoginCubit.get(context)
                                                           .changePasswordVisibility();
                                                     },
-                                                    icon:  Icon(Icons.remove_red_eye,
+                                                    icon:  const Icon(Icons.remove_red_eye,
                                                       color: MyColors.myGrey,
                                                     ),
                                                   ),

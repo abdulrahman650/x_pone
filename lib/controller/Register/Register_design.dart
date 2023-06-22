@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:x_pone/controller/layout/home_layout.dart';
 import 'package:x_pone/models/login_model.dart';
@@ -270,10 +271,9 @@ class register_Screen extends StatelessWidget {
                                                         .get(context)
                                                         .changePasswordVisibility();
                                                   },
-                                                  icon: Icon(
+                                                  icon: const Icon(
                                                     Icons.remove_red_eye,
                                                     color: MyColors.myGrey,
-                                                    // ShopLoginCubit.get(context).iconData,
                                                   ),
                                                 ),
                                               ),
@@ -292,7 +292,9 @@ class register_Screen extends StatelessWidget {
                                             width: double.infinity,
                                             height: 40,
                                             child: TextButton(
-                                              onPressed: () {calculateDistance();},
+                                              onPressed: () {
+                                                // calculateDistance();
+                                                },
                                               child: Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: const [
@@ -409,7 +411,7 @@ class register_Screen extends StatelessWidget {
                                                   height: .5,
                                                   thickness: 5,
                                                   indent: 20,
-                                                  endIndent: 97,
+                                                  endIndent: 90,
                                                 ),
                                               ),
                                               const SizedBox(
@@ -431,7 +433,7 @@ class register_Screen extends StatelessWidget {
                                                   height: .5,
                                                   thickness: 5,
                                                   indent: 20,
-                                                  endIndent: 87,
+                                                  endIndent: 80,
                                                 ),
                                               ),
                                             ],
@@ -489,4 +491,31 @@ class register_Screen extends StatelessWidget {
       ),
     );
   }
+  // void calculateDistance() async {
+  //   Position position = await Geolocator.getCurrentPosition(
+  //     desiredAccuracy: LocationAccuracy.high,
+  //   );
+  //
+  //   double latitude = position.latitude;
+  //   double longitude = position.longitude;
+  //   print(latitude);
+  //   print(longitude);
+  // }
+
+
+//   void getLocation()async{
+//     final service = LocationService();
+//     final locationData = await service.getLocation();
+//
+//     if(locationData != null){
+// final placeMark = await service.getPlacemark(locationData : locationData);
+//       setState(() {
+//         lat = locationData.latitude!.toStringAsFixed(2);
+//         long = locationData.longitude!.toStringAsFixed(2);
+//
+//         country = placeMark?.country ?? 'could not get country';
+//         adminArea = placeMark?.administrativeArea ?? 'could not get admin area';
+//       });
+//     }
+//   }
 }

@@ -4,8 +4,6 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:x_pone/models/blogs_model.dart';
 import 'package:x_pone/shared/bloc/app_cubit/cubit.dart';
 import 'package:x_pone/shared/bloc/app_cubit/states.dart';
-import '../shared/componants/components.dart';
-import 'home_Page.dart';
 
 class detailsExercises extends StatelessWidget {
   DataBlog? model;
@@ -91,6 +89,7 @@ class detailsExercises extends StatelessWidget {
                                 color: HexColor("#000000"),
                               ),
                               maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                             ),
                             const SizedBox(
                               height: 6.0,
@@ -117,17 +116,14 @@ class detailsExercises extends StatelessWidget {
                               height: 20.0,
                             ),
                             Text(
-
                            model!.content! ?? '',
-
-
                               style: TextStyle(
                                 decoration: TextDecoration.none,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w200,
                                 color: HexColor("#000000"),
                               ),
-                              maxLines: 7,
+                              maxLines: 10,
                               overflow: TextOverflow.ellipsis,
                             ),
 

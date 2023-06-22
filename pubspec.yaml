@@ -49,6 +49,8 @@ dependencies:
   location:
   geocoding:
   carousel_slider: ^4.2.1
+  url_launcher:
+
 
 
 

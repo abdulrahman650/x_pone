@@ -487,7 +487,7 @@ class _details_DoctorState extends State<details_Doctor> {
                                   ),
                                 ),
                                 const SizedBox(
-                                  height: 27.0,
+                                  height: 22.0,
                                 ),
                                 Text(
                                   "Certificates",

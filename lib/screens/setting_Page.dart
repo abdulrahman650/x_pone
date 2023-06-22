@@ -52,7 +52,7 @@ class _setting_pageState extends State<setting_page> {
             nameEditController.text = "${model?.data?.name}";
             emailEditController.text = "${model?.data?.email}";
             // passwordEditController.text = "${model?.data?.}";
-             // passwordEditController.text = '${modellogin?.data?.password}';
+            //  passwordEditController.text = '${modellogin?.data?.password}';
             // locationEditController.text = model.data!.location!;
             phoneEditController.text = "${model?.data?.phone}";
             return Scaffold(
@@ -119,7 +119,8 @@ class _setting_pageState extends State<setting_page> {
                                 child: const CircleAvatar(
                                   backgroundColor: MyColors.myWhite,
                                   radius: 72,
-                                  child: CircleAvatar(
+                                  child:
+                                  CircleAvatar(
                                     radius: 70,
                                     backgroundImage: AssetImage('assets/images/img.png'),
                                   ),
@@ -165,7 +166,6 @@ class _setting_pageState extends State<setting_page> {
                                         color: HexColor("#747474"),
                                       ),
                                       decoration: InputDecoration(
-
                                           suffix: GestureDetector(
                                               onTap: () {
                                                 nameEditController.clear();
@@ -181,12 +181,12 @@ class _setting_pageState extends State<setting_page> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Email",
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400,
-                                      color: HexColor("#747474"),
+                                      color: MyColors.myGrey,
                                     ),
                                   ),
                                   const SizedBox(
@@ -198,14 +198,12 @@ class _setting_pageState extends State<setting_page> {
                                     child: TextFormField(
                                       controller: emailEditController,
                                       textAlign: TextAlign.left,
-                                      cursorColor: Colors.black,
+                                      cursorColor: HexColor("#747474"),
                                       onChanged: (value) {},
-                                      style: const TextStyle(
-                                        color: MyColors.myGrey,
+                                      style:  TextStyle(
+                                        color: HexColor("#747474"),
                                       ),
                                       decoration: InputDecoration(
-
-                                        // labelText: 'First Name',
                                           suffix: GestureDetector(
                                               onTap: () {
                                                 emailEditController.clear();
@@ -240,12 +238,11 @@ class _setting_pageState extends State<setting_page> {
                                       textAlign: TextAlign.left,
                                       cursorColor: Colors.black,
                                       onChanged: (value) {},
-                                      style: const TextStyle(
-                                        color:MyColors.myGrey,
+                                      style:  TextStyle(
+                                        color:
+                                        HexColor("#747474"),
                                       ),
                                       decoration: InputDecoration(
-
-                                        // labelText: 'First Name',
                                           suffix: GestureDetector(
                                               onTap: () {
                                                 phoneEditController.clear();
@@ -280,8 +277,8 @@ class _setting_pageState extends State<setting_page> {
                                       textAlign: TextAlign.left,
                                       cursorColor: Colors.black,
                                       onChanged: (value) {},
-                                      style: const TextStyle(
-                                        color: MyColors.myGrey,
+                                      style:  TextStyle(
+                                        color: HexColor("#747474"),
                                       ),
                                       decoration: InputDecoration(
                                         suffix:
@@ -327,15 +324,15 @@ class _setting_pageState extends State<setting_page> {
                                     width: 8,
                                   ),
                                   Container(
-                                    width: MediaQuery.of(context).size.width / 1.4,
+                                    width: MediaQuery.of(context).size.width / 1.5,
                                     height: 25,
                                     child: TextFormField(
                                       controller: passwordEditController,
                                       textAlign: TextAlign.left,
                                       cursorColor: Colors.black,
                                       onChanged: (value) {},
-                                      style: const TextStyle(
-                                        color: MyColors.myGrey,
+                                      style:  TextStyle(
+                                        color: HexColor("#747474"),
                                       ),
                                     ),
                                   ),
@@ -346,19 +343,19 @@ class _setting_pageState extends State<setting_page> {
                               ),
                               Center(
                                 child: Container(
-                                  width: 130.0,
+                                  width: 140.0,
                                   height: 40.0,
                                   decoration: BoxDecoration(
                                     color: HexColor("#4482DE"),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   child: TextButton(
-                                    child: Text(
+                                    child: const Text(
                                       "Save changes",
                                       style: TextStyle(
                                         fontWeight: FontWeight.w400,
                                         fontSize: 16.0,
-                                        color: HexColor("#DEDEDE"),
+                                        color: MyColors.myWhite
                                       ),
                                     ),
                                     onPressed: () {

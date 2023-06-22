@@ -1,9 +1,8 @@
-// import 'dart:html';
+
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:x_pone/models/blogs_model.dart';
 import 'package:x_pone/screens/home_Page.dart';
 import 'package:x_pone/screens/setting_Page.dart';
@@ -37,36 +36,9 @@ class AppCubit extends Cubit<AppStates> {
   void changeBottom(int index) {
     pageIndex = index;
     emit(AppChangeBottomNavStates());
-    // emit(AppChangeBottomNavStates());
-    // if (index == 2) {
-    //   emit(AppSuccessClinicsStates());
-    // }
-    // if (index == 3) {
-    //   emit(xBoneSuccessUserDataState(userModel!));
-    // }
+
   }
 
-  // HomeModel? homeModel;
-  // void getHomeData() {
-  //   emit(AppLoadingHomeDataStates());
-  //   DioHelper.getData(url: home, token: token).then((value) {
-  //     homeModel = HomeModel.fromJson(value.data);
-  //     for (var element in homeModel!.data.products) {
-  //       favorites.addAll({
-  //         element.id: element.inFavorites,
-  //       });
-  //     }
-  //     //debugPrint(favorites.toString());
-  //     //debugPrint(token);
-  //     emit(AppSuccessHomeDataStates());
-  //   }).catchError((onError) {
-  //     debugPrint(onError.toString());
-  //     emit(AppErrorHomeDataStates());
-  //   });
-  // }
-  //
-
-  // ArticlesModel? articlesModel;
   List<ArticlesModel>? articles;
   List<DataBlog> articlesModel = [];
 
@@ -85,7 +57,6 @@ class AppCubit extends Cubit<AppStates> {
     }
   }
 
-  // DoctorsModel? doctorModel;
   List<DataDoctor>? doctorList;
 
   Future<void> getDoctorsModel() async {
@@ -123,7 +94,6 @@ class AppCubit extends Cubit<AppStates> {
         'Accept': 'application/json',
         'Authorization': "Bearer $token",
       },
-      // token: token,
       posteddata: {
         'name': name,
         'email': email,
@@ -142,56 +112,7 @@ class AppCubit extends Cubit<AppStates> {
       emit(xBoneErrorUpdateUserDataState(error));
     });
   }
-
-  //
-  //
-  // Map<int, bool> favorites = {};
-  // GetFavoritesModel? getFavoritesModel;
-  //
-  // void changeFavorites(int productId) {
-  //   favorites[productId] = !favorites[productId]!;
-  //   emit(AppFavoritesStates());
-  //   DioHelper.postData(
-  //     path: FAVORITES,
-  //     data: {
-  //       'product_id': productId,
-  //     },
-  //     token: token,
-  //   ).then((value) {
-  //     getFavoritesModel = GetFavoritesModel.fromJson(value.data!);
-  //     if (getFavoritesModel!.status == false) {
-  //       favorites[productId] = !favorites[productId]!;
-  //     } else {
-  //       getFav();
-  //       emit(AppChangeFavoritesStates());
-  //     }
-  //     emit(AppSuccessFavoritesStates(getFavoritesModel!));
-  //   }).catchError((onError) {
-  //     favorites[productId] = !favorites[productId]!;
-  //     emit(AppErrorFavoritesStates());
-  //   });
-  // }
-  //
-  // FavoritesModel? favoritesModel;
-  //
-  // void getFav() {
-  //   emit(AppLoadingGetFavoritesStates());
-  //   DioHelper.getData(
-  //       url: FAVORITES,
-  //       token: token
-  //   ).then((value)
-  //   {
-  //     favoritesModel = FavoritesModel.fromJson(value.data);
-  //     // debugPrint(value.data.toString());
-  //     emit(AppSuccessGetFavoritesStates());
-  //   }).catchError((onError) {
-  //     debugPrint(onError.toString());
-  //     emit(AppErrorGetFavoritesStates());
-  //   });
-  // }
-
-  // xBoneProfileModel? userModel;
-//الداتا بتاعت البروفايل
+  // بتوع البروفايل
   getUserData() {
     emit(xBoneLoadingUserDataState());
     DioHelper.getdata(
@@ -218,20 +139,22 @@ class AppCubit extends Cubit<AppStates> {
   }
 }
 
-void calculateDistance() async {
-  Position position = await Geolocator.getCurrentPosition(
-    desiredAccuracy: LocationAccuracy.high,
-  );
+// void calculateDistance() async {
+//   Position position = await Geolocator.getCurrentPosition(
+//     desiredAccuracy: LocationAccuracy.high,
+//   );
 
-  double latitude = position.latitude;
-  double longitude = position.longitude;
-  if (kDebugMode) {
-    print(latitude);
-  }
-  if (kDebugMode) {
-    print(longitude);
-  }
-}
+//   double latitude = position.latitude;
+//   double longitude = position.longitude;
+//   if (kDebugMode) {
+//     print(latitude);
+//   }
+//   if (kDebugMode) {
+//     print(longitude);
+//   }
+// }
+
+
 // void getProfil() {
 //
 //   emit(ProfilLoadingtState());

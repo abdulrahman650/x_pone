@@ -81,9 +81,6 @@ void signOut(context)
   });
 }
 
-
-
-
 modalBottomSheet(context) {
   return showModalBottomSheet(
       context: context,

@@ -74,6 +74,12 @@ class xBoneSuccessUpdateUserDataState extends AppStates{
 class xBoneErrorUpdateUserDataState extends AppStates{
   xBoneErrorUpdateUserDataState(error);
 }
+class ProfileSuccessUpdatePickedImageState extends AppStates{
+
+}
+class ProfileErrorUpdatePickedImageState extends AppStates{
+  ProfileErrorUpdatePickedImageState(error);
+}
 
 
 
