@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:x_pone/controller/login/login_design.dart';
 
@@ -27,14 +26,14 @@ void showToast({
   required String text,
   required ToastStates state,
 }) {
-  Fluttertoast.showToast(
-      msg: text,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 5,
-      backgroundColor: chooseToastColor(state),
-      textColor: Colors.white,
-      fontSize: 12.0);
+  // Fluttertoast.showToast(
+  //     msg: text,
+  //     toastLength: Toast.LENGTH_SHORT,
+  //     gravity: ToastGravity.BOTTOM,
+  //     timeInSecForIosWeb: 5,
+  //     backgroundColor: chooseToastColor(state),
+  //     textColor: Colors.white,
+  //     fontSize: 12.0);
 }
 
 
@@ -148,6 +147,8 @@ modalBottomSheet(context) {
                   ),
                   InkWell(
                     onTap: () {
+                        CacheHelper.clearData();
+
                       if (kDebugMode) {
                         print(CacheHelper.getData( key: 'token').toString());
                       }

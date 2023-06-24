@@ -13,12 +13,13 @@ import 'details_clinics.dart';
 import 'home_Page.dart';
 
 class details_Doctor extends StatefulWidget {
- // List<DataDoctor>?  model;
-   details_Doctor({Key? key,required this.model}) : super(key: key);
- final DataDoctor? model;
+  // List<DataDoctor>?  model;
+  details_Doctor({Key? key, required this.model}) : super(key: key);
+  final DataDoctor? model;
   @override
   State<details_Doctor> createState() => _details_DoctorState();
 }
+
 class _details_DoctorState extends State<details_Doctor> {
   double showRating = 1.0;
   @override
@@ -30,23 +31,23 @@ class _details_DoctorState extends State<details_Doctor> {
             body: Stack(
               children: [
                 SizedBox(
-                  height: 420.0,
-                  width: double.infinity,
-                  child: widget.model!.image!.isNotEmpty
-                      ? FadeInImage.assetNetwork(
-                    placeholder: "assets/images/loading.gif",
-                    image:widget.model!.image!,
-                    fit: BoxFit.cover,
-                  )
-                      : Image.asset(
-                    "assets/images/3yada.png",
-                    fit: BoxFit.cover,
-                  )
-                  // Image.network(
-                  //   widget.model!.image??'',
-                  //   fit: BoxFit.cover,
-                  // ),
-                ),
+                    height: 420.0,
+                    width: double.infinity,
+                    child: widget.model!.image!.isNotEmpty
+                        ? FadeInImage.assetNetwork(
+                            placeholder: "assets/images/loading.gif",
+                            image: widget.model!.image!,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.asset(
+                            "assets/images/3yada.png",
+                            fit: BoxFit.cover,
+                          )
+                    // Image.network(
+                    //   widget.model!.image??'',
+                    //   fit: BoxFit.cover,
+                    // ),
+                    ),
                 SingleChildScrollView(
                   child: Column(
                     children: [
@@ -98,8 +99,8 @@ class _details_DoctorState extends State<details_Doctor> {
                                 const SizedBox(
                                   height: 34.0,
                                 ),
-                                 Text(
-                                  widget.model!.name  ??'',
+                                Text(
+                                  widget.model!.name ?? '',
                                   style: const TextStyle(
                                     fontSize: 22,
                                     fontWeight: FontWeight.w500,
@@ -121,7 +122,7 @@ class _details_DoctorState extends State<details_Doctor> {
                                   height: 24.0,
                                 ),
                                 Row(
-                                  children:  [
+                                  children: [
                                     const Icon(
                                       Icons.location_on_outlined,
                                       size: 15.0,
@@ -131,7 +132,8 @@ class _details_DoctorState extends State<details_Doctor> {
                                       width: 6.0,
                                     ),
                                     Text(
-                                      widget.model!.address??'',                                      style: const TextStyle(
+                                      widget.model!.address ?? '',
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.w300,
                                         fontSize: 12,
                                         color: MyColors.myGreytext,
@@ -144,8 +146,8 @@ class _details_DoctorState extends State<details_Doctor> {
                                   height: 9.0,
                                 ),
                                 Row(
-                                  children:  [
-                                    const  Icon(
+                                  children: [
+                                    const Icon(
                                       Icons.access_time,
                                       size: 12.0,
                                       color: MyColors.myGreytext,
@@ -153,9 +155,9 @@ class _details_DoctorState extends State<details_Doctor> {
                                     const SizedBox(
                                       width: 8.0,
                                     ),
-                                     Text(
-                                      widget.model!.createdAt??'',
-                                      style:const TextStyle(
+                                    Text(
+                                      widget.model!.createdAt ?? '',
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.w300,
                                         fontSize: 12,
                                         color: MyColors.myGreytext,
@@ -216,7 +218,7 @@ class _details_DoctorState extends State<details_Doctor> {
                                     ),
                                     const Icon(
                                       Icons.star,
-                                      color:  MyColors.myYellow,
+                                      color: MyColors.myYellow,
                                       size: 16,
                                     ),
                                     const SizedBox(
@@ -232,7 +234,7 @@ class _details_DoctorState extends State<details_Doctor> {
                                     ),
                                     const Icon(
                                       Icons.star,
-                                      color:  MyColors.myYellow,
+                                      color: MyColors.myYellow,
                                       size: 16,
                                     ),
                                     const SizedBox(
@@ -254,8 +256,8 @@ class _details_DoctorState extends State<details_Doctor> {
                                           onPressed: () {
                                             showModalBottomSheet(
                                                 context: context,
-                                                builder: (BuildContext context)
-                                                {
+                                                builder:
+                                                    (BuildContext context) {
                                                   return SizedBox(
                                                     height: 280,
                                                     child: Padding(
@@ -268,25 +270,31 @@ class _details_DoctorState extends State<details_Doctor> {
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
                                                                     .start,
-                                                            children:  [
+                                                            children: [
                                                               const Text(
                                                                 "Rate - ",
-                                                                style: TextStyle(
+                                                                style:
+                                                                    TextStyle(
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w500,
                                                                   fontSize: 22,
-                                                                  color: MyColors.myblack,
+                                                                  color: MyColors
+                                                                      .myblack,
                                                                 ),
                                                               ),
                                                               Text(
-                                                                widget.model!.name??'',
-                                                                style: const TextStyle(
+                                                                widget.model!
+                                                                        .name ??
+                                                                    '',
+                                                                style:
+                                                                    const TextStyle(
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w500,
                                                                   fontSize: 22,
-                                                                  color: MyColors.myblack,
+                                                                  color: MyColors
+                                                                      .myblack,
                                                                 ),
                                                               ),
                                                             ],
@@ -300,8 +308,8 @@ class _details_DoctorState extends State<details_Doctor> {
                                                                         .symmetric(
                                                                     horizontal:
                                                                         5.0),
-                                                            child:
-                                                                RatingBar.builder(
+                                                            child: RatingBar
+                                                                .builder(
                                                               textDirection:
                                                                   TextDirection
                                                                       .rtl,
@@ -309,8 +317,8 @@ class _details_DoctorState extends State<details_Doctor> {
                                                                   showRating,
                                                               minRating: 1,
                                                               itemSize: 30,
-                                                              direction:
-                                                                  Axis.horizontal,
+                                                              direction: Axis
+                                                                  .horizontal,
                                                               allowHalfRating:
                                                                   true,
                                                               itemCount: 5,
@@ -320,11 +328,12 @@ class _details_DoctorState extends State<details_Doctor> {
                                                                       horizontal:
                                                                           2),
                                                               itemBuilder:
-                                                                  (context, _) =>
+                                                                  (context,
+                                                                          _) =>
                                                                       const Icon(
                                                                 Icons.star,
-                                                                color:
-                                                                    Colors.amber,
+                                                                color: Colors
+                                                                    .amber,
                                                               ),
                                                               onRatingUpdate:
                                                                   (rating) {
@@ -352,15 +361,18 @@ class _details_DoctorState extends State<details_Doctor> {
                                                                 onPressed: () {
                                                                   if (showRating <=
                                                                       4) {
-                                                                    setState(() {
+                                                                    setState(
+                                                                        () {
                                                                       showRating++;
                                                                     });
                                                                   }
                                                                 },
-                                                                icon: const Icon(
+                                                                icon:
+                                                                    const Icon(
                                                                   Icons
                                                                       .arrow_back_ios_new,
-                                                                  color: MyColors.myblack,
+                                                                  color: MyColors
+                                                                      .myblack,
                                                                   size: 22.0,
                                                                 ),
                                                               ),
@@ -402,15 +414,18 @@ class _details_DoctorState extends State<details_Doctor> {
                                                                 onPressed: () {
                                                                   if (showRating >=
                                                                       1) {
-                                                                    setState(() {
+                                                                    setState(
+                                                                        () {
                                                                       showRating--;
                                                                     });
                                                                   }
                                                                 },
-                                                                icon: const Icon(
+                                                                icon:
+                                                                    const Icon(
                                                                   Icons
                                                                       .arrow_forward_ios,
-                                                                  color: MyColors.myblack,
+                                                                  color: MyColors
+                                                                      .myblack,
                                                                   size: 22.0,
                                                                 ),
                                                               ),
@@ -434,16 +449,19 @@ class _details_DoctorState extends State<details_Doctor> {
                                                             ),
                                                             child: TextButton(
                                                               onPressed: () {
-                                                                  Navigator.pop(context);
+                                                                Navigator.pop(
+                                                                    context);
                                                               },
                                                               child: const Text(
                                                                 "Confirm",
-                                                                style: TextStyle(
+                                                                style:
+                                                                    TextStyle(
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w500,
                                                                   fontSize: 14,
-                                                                  color: MyColors.myWhite,
+                                                                  color: MyColors
+                                                                      .myWhite,
                                                                 ),
                                                               ),
                                                             ),
@@ -478,8 +496,8 @@ class _details_DoctorState extends State<details_Doctor> {
                                 const SizedBox(
                                   height: 10.0,
                                 ),
-                                const Text(
-                                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an",
+                                Text(
+                                  widget.model!.notes,
                                   style: TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.w400,
@@ -499,32 +517,11 @@ class _details_DoctorState extends State<details_Doctor> {
                                 const SizedBox(
                                   height: 10.0,
                                 ),
-                                Row(
-                                  children: const [
-                                    Icon(
-                                      Icons.local_hospital_outlined,
-                                      size: 12.0,
-                                      color:  MyColors.myGreytext,
-                                    ),
-                                    SizedBox(
-                                      width: 8.0,
-                                    ),
-                                    Text(
-                                      "Lorem Ipsum is simply dummy",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: 12,
-                                        color:  MyColors.myGreytext,
-                                        overflow: TextOverflow.visible,
-                                      ),
-                                    ),
-                                  ],
-                                ),
                                 const SizedBox(
                                   height: 6.0,
                                 ),
                                 Row(
-                                  children: const [
+                                  children: [
                                     Icon(
                                       Icons.house_siding_outlined,
                                       size: 12.0,
@@ -534,11 +531,11 @@ class _details_DoctorState extends State<details_Doctor> {
                                       width: 8.0,
                                     ),
                                     Text(
-                                      "Lorem Ipsum is simply dummy",
+                                      widget.model!.education,
                                       style: TextStyle(
                                         fontWeight: FontWeight.w300,
                                         fontSize: 12,
-                                        color:  MyColors.myGreytext,
+                                        color: MyColors.myGreytext,
                                         overflow: TextOverflow.visible,
                                       ),
                                     ),

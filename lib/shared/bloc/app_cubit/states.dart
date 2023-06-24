@@ -57,6 +57,9 @@ class AppErrorClinicsStates extends AppStates {
 
 //------Profile-------------------------------------------------------
 class xBoneLoadingUserDataState extends AppStates{}
+class ProfileUpdatePickedImageLoadingState extends AppStates{}
+class ProfileUpdatePickedImageDoneState extends AppStates{}
+
 class xBoneSuccessUserDataState extends AppStates{
  late final xBoneProfileModel userModel;
  xBoneSuccessUserDataState(this.userModel);
@@ -66,6 +69,9 @@ class xBoneErrorUserDataState extends AppStates{}
 
 //--------Update Profile----------------------------------------------------
 class xBoneLoadingUpdateUserDataState extends AppStates{}
+class ProfileUpdateImagePickErrorState extends AppStates{}
+class ProfileUpdatePickedImageErrorState extends AppStates{}
+class ProfileUpdateNoImagePickedState extends AppStates{}
 
 class xBoneSuccessUpdateUserDataState extends AppStates{
  late final xBoneProfileModel updateUserModel;

@@ -370,8 +370,8 @@ class _detailsClinicsState extends State<detailsClinics> {
                                 const SizedBox(
                                   height: 10.0,
                                 ),
-                                const Text(
-                                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an",
+                                 Text(
+                                  widget.model!.notes ?? "No data",
                                   style: TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.w400,
@@ -392,7 +392,7 @@ class _detailsClinicsState extends State<detailsClinics> {
                                   height: 10.0,
                                 ),
                                 Row(
-                                  children: const [
+                                  children: [
                                     Icon(
                                       Icons.local_hospital_outlined,
                                       size: 12.0,
@@ -401,43 +401,24 @@ class _detailsClinicsState extends State<detailsClinics> {
                                     SizedBox(
                                       width: 8.0,
                                     ),
-                                    Text(
-                                      "Lorem Ipsum is simply dummy",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: 12,
-                                        color:  MyColors.myGreytext,
-                                        overflow: TextOverflow.visible,
+                                    Container(
+                                      width: 250,
+                                      child: Text(
+                                        widget.model!.education ?? "No data",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 12,
+                                          color:  MyColors.myGreytext,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
                                     ),
                                   ],
                                 ),
                                 const SizedBox(
-                                  height: 6.0,
+                                  height: 20.0,
                                 ),
-                                Row(
-                                  children: const [
-                                    Icon(
-                                      Icons.house_siding_outlined,
-                                      size: 12.0,
-                                      color: MyColors.myGreytext,
-                                    ),
-                                    SizedBox(
-                                      width: 8.0,
-                                    ),
-                                    Text(
-                                      "Lorem Ipsum is simply dummy",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: 12,
-                                        color:  MyColors.myGreytext,
-                                        overflow: TextOverflow.visible,
-                                      ),
-                                    ),
-                                  ],
-                                ),  const SizedBox(
-                                  height:21.0,
-                                ),
+                             
                                 const Text(
                                   "Location",
                                   style: TextStyle(

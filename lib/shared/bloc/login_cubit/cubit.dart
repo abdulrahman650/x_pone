@@ -28,6 +28,7 @@ class xBoneLoginCubit extends Cubit<xBoneLoginState> {
       if (response.statusCode == 200) {
         loginModel = xBoneLoginModel.fromJson(response.data);
         CacheHelper.saveToken("${response.data['access_token']}");
+        
         print(response.data);
         emit(xBoneLoginSuccessState(loginModel!));
       } else {
