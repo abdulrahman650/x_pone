@@ -5,11 +5,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:x_pone/models/doctors_model.dart';
-import 'package:x_pone/screens/home_Page.dart';
-import 'package:x_pone/shared/bloc/app_cubit/cubit.dart';
-import 'package:x_pone/shared/bloc/app_cubit/states.dart';
 
+
+import '../models/doctors_model.dart';
+import '../shared/bloc/app_cubit/cubit.dart';
+import '../shared/bloc/app_cubit/states.dart';
 import '../shared/componants/components.dart';
 import '../shared/styles/colors.dart';
 import 'details_clinics.dart';

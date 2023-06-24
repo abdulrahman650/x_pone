@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:x_pone/models/blogs_model.dart';
-import 'package:x_pone/shared/bloc/app_cubit/cubit.dart';
-import 'package:x_pone/shared/bloc/app_cubit/states.dart';
+
+import '../models/blogs_model.dart';
+import '../shared/bloc/app_cubit/cubit.dart';
+import '../shared/bloc/app_cubit/states.dart';
+
 
 class detailsExercises extends StatelessWidget {
   DataBlog? model;

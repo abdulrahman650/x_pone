@@ -3,14 +3,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:x_pone/controller/layout/home_layout.dart';
-import 'package:x_pone/screens/allbicnic2.dart';
-import 'package:x_pone/screens/date.dart';
-
-import 'package:x_pone/screens/home_Page.dart';
-
-import 'package:x_pone/screens/rate_dr.dart';
-import 'package:x_pone/screens/setting_Page.dart';
 import 'package:x_pone/shared/bloc/app_cubit/cubit.dart';
 import 'package:x_pone/shared/bloc/app_cubit/states.dart';
 import 'package:x_pone/shared/componants/components.dart';
@@ -18,8 +10,8 @@ import 'package:x_pone/shared/network/local/blocObserver.dart';
 import 'package:x_pone/shared/network/local/dio_helper.dart';
 import 'package:x_pone/shared/network/remote/cache_helper.dart';
 import 'package:x_pone/shared/styles/themes.dart';
-
 import 'controller/Register/Register_design.dart';
+import 'controller/layout/home_layout.dart';
 import 'controller/login/login_design.dart';
 import 'on_boarding/logo_splash.dart';
 import 'on_boarding/on_boarding.dart';
@@ -37,7 +29,6 @@ Future<void> main() async {
 
   bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
   token = CacheHelper.getData(key: 'token');
-  // print(token);
 
   if (onBoarding != null) {
     if (token != null) {

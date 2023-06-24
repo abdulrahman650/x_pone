@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:x_pone/controller/login/login_design.dart';
 
+
+import '../../controller/login/login_design.dart';
 import '../bloc/app_cubit/cubit.dart';
 import '../network/remote/cache_helper.dart';
 

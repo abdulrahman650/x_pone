@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:x_pone/models/login_model.dart';
 import 'package:x_pone/shared/bloc/login_cubit/states.dart';
-import 'package:x_pone/shared/network/remote/cache_helper.dart';
+
+import '../../../models/login_model.dart';
+import '../../network/remote/cache_helper.dart';
+
 
 class xBoneLoginCubit extends Cubit<xBoneLoginState> {
   xBoneLoginCubit() : super(xBoneLoginInitialState());

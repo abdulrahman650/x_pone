@@ -4,14 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:x_pone/screens/detailes_doctor.dart';
-import 'package:x_pone/screens/home_Page.dart';
-import 'package:x_pone/shared/bloc/app_cubit/cubit.dart';
-import 'package:x_pone/shared/componants/components.dart';
-import 'package:x_pone/shared/styles/colors.dart';
+
 
 import '../models/doctors_model.dart';
+import '../shared/bloc/app_cubit/cubit.dart';
 import '../shared/bloc/app_cubit/states.dart';
+import '../shared/styles/colors.dart';
 
 class detailsClinics extends StatefulWidget {
 
@@ -33,6 +31,49 @@ class _detailsClinicsState extends State<detailsClinics> {
         // List<DataDoctor>? doctorsModel = AppCubit.get(context).doctorList;
 
         return Scaffold(
+          bottomNavigationBar: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child:   Container(
+              color: Colors.transparent,
+              child:   InkWell(
+                onTap: () {
+                  openWhatsApp(widget.model!.phone);
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 44.0,
+                  decoration: BoxDecoration(
+                    color: HexColor("#004DC0"),
+                    // color: HexColor("#004DC0"),
+                    borderRadius:
+                    const BorderRadius.all(Radius.circular(8)),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "contact",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: HexColor("#FEFEFE"),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Image.asset(
+                        "assets/images/iconWatts.png",
+                        width: 12,
+                        color: HexColor("#FEFEFE"),
+                        height: 12,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
           body: Stack(
             children: [
               Container(
@@ -52,17 +93,19 @@ class _detailsClinicsState extends State<detailsClinics> {
               ),
               SingleChildScrollView(
                 child: Column(
+
                   children: [
                     const SizedBox(
                       height: 52.0,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
+                     Padding(
+                      padding: EdgeInsets.all(16.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Stack(
-                              children:[ TextButton(onPressed: (){
+                              children:[
+                                TextButton(onPressed: (){
                                 Navigator.pop(context);
                               }, child:  CircleAvatar(
                                   radius: 18,
@@ -79,7 +122,7 @@ class _detailsClinicsState extends State<detailsClinics> {
                     ),
                     SingleChildScrollView(
                       child: Container(
-                        height: 950.0,
+                        height: 750.0,
                         width: double.infinity,
                         decoration: const BoxDecoration(
                           color:MyColors.myWhite,
@@ -90,9 +133,11 @@ class _detailsClinicsState extends State<detailsClinics> {
                         child: Padding(
                           padding: const EdgeInsets.all(24.0),
                           child: Column(
+
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+
                                 const SizedBox(
                                   height: 34.0,
                                 ),
@@ -165,18 +210,20 @@ class _detailsClinicsState extends State<detailsClinics> {
                                     const SizedBox(
                                       width: 8.0,
                                     ),
-                                    Text(
-                                      widget.model!.createdAt??'',
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                      softWrap: false,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: 12,
-                                        color: MyColors.myGreytext,
+                                    if(widget.model!.workingHours!.start != null && widget.model!.workingHours!.end != null)
+                                      Text(
+                                        // widget.model!.createdAt??'',
+                                        widget.model!.workingHours!.start! +" / " +widget.model!.workingHours!.end!,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        softWrap: false,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 12,
+                                          color: MyColors.myGreytext,
 
+                                        ),
                                       ),
-                                    ),
 
                                   ],
                                 ),
@@ -184,24 +231,25 @@ class _detailsClinicsState extends State<detailsClinics> {
                                   height: 9,
                                 ),
                                 Row(
-                                  children: const [
-                                    Icon(
+                                  children: [
+                                    const Icon(
                                       Icons.attach_money,
                                       size: 15.0,
                                       color: MyColors.myGreytext,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 6.0,
                                     ),
-                                    Text(
-                                      "200 L.E / detection",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: 12,
-                                        color: MyColors.myGreytext,
-                                        overflow: TextOverflow.visible,
+                                    if (widget.model!.price != null)
+                                      Text(
+                                        widget.model!.price.toString()+"LE/EGP",
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 12,
+                                          color: MyColors.myGreytext,
+                                          overflow: TextOverflow.visible,
+                                        ),
                                       ),
-                                    ),
                                   ],
                                 ),
                                 const SizedBox(
@@ -292,71 +340,74 @@ class _detailsClinicsState extends State<detailsClinics> {
                                   height: 16.0,
                                 ),
                               if (widget.model!.services != null)
-                                Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: List.generate(
-                                      widget.model!.services!.length,
-                                      (index) => Container(
-                                        margin:
-                                            EdgeInsetsDirectional.only(end: 10),
-                                        padding: EdgeInsetsDirectional.all(10),
-                                        decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                            Radius.circular(16),
+                                Container(
+                                  width: double.infinity,
+                                  child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: List.generate(
+                                        widget.model!.services!.length,
+                                        (index) => Container(
+                                          margin:
+                                              EdgeInsetsDirectional.only(end: 5),
+                                          padding: EdgeInsetsDirectional.all(10),
+                                          decoration: BoxDecoration(
+                                            borderRadius: const BorderRadius.all(
+                                              Radius.circular(16),
+                                            ),
+                                            color: HexColor("#E8F1FF"),
                                           ),
-                                          color: HexColor("#E8F1FF"),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            widget.model!.services![index],
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w500,
-                                              color: HexColor("#0046AF"),
+                                          child: Center(
+                                            child: Text(
+                                              widget.model!.services![index],
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                color: HexColor("#0046AF"),
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    )),const SizedBox(
+                                      )),
+                                ),const SizedBox(
                                   height: 18.0,
                                 ),
-                                InkWell(
-                                  onTap: () {
-                                    openWhatsApp(widget.model!.phone);
-                                  },
-                                  child: Container(
-                                    width: double.infinity,
-                                    height: 44.0,
-                                    decoration: BoxDecoration(
-                                      color: HexColor("#004DC0"),
-                                      // color: HexColor("#004DC0"),
-                                      borderRadius:
-                                      const BorderRadius.all(Radius.circular(8)),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "contact",
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                            color: HexColor("#FEFEFE"),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Image.asset(
-                                          "assets/images/iconWatts.png",
-                                          width: 12,
-                                          color: HexColor("#FEFEFE"),
-                                          height: 12,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                                // InkWell(
+                                //   onTap: () {
+                                //     openWhatsApp(widget.model!.phone);
+                                //   },
+                                //   child: Container(
+                                //     width: double.infinity,
+                                //     height: 44.0,
+                                //     decoration: BoxDecoration(
+                                //       color: HexColor("#004DC0"),
+                                //       // color: HexColor("#004DC0"),
+                                //       borderRadius:
+                                //       const BorderRadius.all(Radius.circular(8)),
+                                //     ),
+                                //     child: Row(
+                                //       mainAxisAlignment: MainAxisAlignment.center,
+                                //       children: [
+                                //         Text(
+                                //           "contact",
+                                //           style: TextStyle(
+                                //             fontSize: 14,
+                                //             fontWeight: FontWeight.w400,
+                                //             color: HexColor("#FEFEFE"),
+                                //           ),
+                                //         ),
+                                //         const SizedBox(
+                                //           width: 10,
+                                //         ),
+                                //         Image.asset(
+                                //           "assets/images/iconWatts.png",
+                                //           width: 12,
+                                //           color: HexColor("#FEFEFE"),
+                                //           height: 12,
+                                //         ),
+                                //       ],
+                                //     ),
+                                //   ),
+                                // ),
                                 const SizedBox(
                                   height: 16.0,
                                 ),
@@ -372,7 +423,7 @@ class _detailsClinicsState extends State<detailsClinics> {
                                 ),
                                  Text(
                                   widget.model!.notes ?? "No data",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.w400,
                                     color: MyColors.myGreytext,
@@ -393,19 +444,19 @@ class _detailsClinicsState extends State<detailsClinics> {
                                 ),
                                 Row(
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.local_hospital_outlined,
                                       size: 12.0,
                                       color:  MyColors.myGreytext,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 8.0,
                                     ),
-                                    Container(
+                                    SizedBox(
                                       width: 250,
                                       child: Text(
                                         widget.model!.education ?? "No data",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.w300,
                                           fontSize: 12,
                                           color:  MyColors.myGreytext,
@@ -418,7 +469,6 @@ class _detailsClinicsState extends State<detailsClinics> {
                                 const SizedBox(
                                   height: 20.0,
                                 ),
-                             
                                 const Text(
                                   "Location",
                                   style: TextStyle(
@@ -442,9 +492,11 @@ class _detailsClinicsState extends State<detailsClinics> {
                                   ),
                                 ),
                               ]),
+
                         ),
                       ),
                     ),
+
                   ],
                 ),
               )
@@ -463,6 +515,15 @@ class _detailsClinicsState extends State<detailsClinics> {
       await launch(whatsappUrl);
     } else {
       throw 'Could not launch $whatsappUrl';
+    }
+  }
+  void openFacebook() async {
+    String url = 'https://www.facebook.com/';
+
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
     }
   }
   SizedBox modelRateBottomSheet(){

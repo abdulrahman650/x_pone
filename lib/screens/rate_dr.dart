@@ -177,18 +177,18 @@ class _rateDoctorState extends State<rateDoctor> {
     );
   }
   void getLocation()async{
-    final service = LocationService();
-    final locationData = await service.getLocation();
+    // final service = LocationService();
+    // final locationData = await service.getLocation();
 
-    if(locationData != null){
-      final placeMark = await service.getPlacemark(locationData : locationData);
-      setState(() {
-        lat = locationData.latitude!.toStringAsFixed(2);
-        long = locationData.longitude!.toStringAsFixed(2);
-
-        country = placeMark?.country ?? 'could not get country';
-        adminArea = placeMark?.administrativeArea ?? 'could not get admin area';
-      });
-    }
+    // if(locationData != null){
+    //   final placeMark = await service.getPlacemark(locationData : locationData);
+    //   setState(() {
+    //     lat = locationData.latitude!.toStringAsFixed(2);
+    //     long = locationData.longitude!.toStringAsFixed(2);
+    //
+    //     country = placeMark?.country ?? 'could not get country';
+    //     adminArea = placeMark?.administrativeArea ?? 'could not get admin area';
+    //   });
+    // }
   }
 }

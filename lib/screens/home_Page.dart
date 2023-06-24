@@ -5,19 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:x_pone/models/doctors_model.dart';
-import 'package:x_pone/screens/allExercises_Page.dart';
-import 'package:x_pone/screens/all_bicnic_Page.dart';
-import 'package:x_pone/models/blogs_model.dart';
-import 'package:x_pone/screens/details_clinics.dart';
-import 'package:x_pone/screens/setting_Page.dart';
-import 'package:x_pone/shared/bloc/app_cubit/cubit.dart';
-import 'package:x_pone/shared/bloc/app_cubit/states.dart';
-import 'package:x_pone/shared/componants/components.dart';
+
 
 import '../models/blogs_model.dart';
+import '../models/doctors_model.dart';
 import '../models/editProfile_model.dart';
+import '../shared/bloc/app_cubit/cubit.dart';
+import '../shared/bloc/app_cubit/states.dart';
+import '../shared/componants/components.dart';
 import '../shared/styles/colors.dart';
+import 'details_clinics.dart';
 import 'details_exercises.dart';
 
 class home_page extends StatelessWidget {
@@ -36,7 +33,7 @@ class home_page extends StatelessWidget {
       'assets/images/clinics2.jpg',
       'assets/images/images.jpg',
       'assets/images/3yada.png',
-      'assets/images/images (1).jpg',
+      'assets/images/pain.jpg',
       'assets/images/streatch.jpg',
       'assets/images/salad.jpg',
       'assets/images/locationegyrt.jpg',
@@ -51,6 +48,8 @@ class home_page extends StatelessWidget {
         xBoneProfileModel? model = AppCubit.get(context).userModel;
         List<DataDoctor>? doctorsModel = AppCubit.get(context).doctorList;
         List<DataBlog>? articalesModel = AppCubit.get(context).articlesModel;
+
+
         return Scaffold(
             body: SingleChildScrollView(
           child: Padding(
@@ -68,15 +67,28 @@ class home_page extends StatelessWidget {
                       width: 65.0,
                       height: 65.0,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(16),
                       ),
                       child: IconButton(
                         onPressed: () {
                           AppCubit.get(context).changeBottom(3);
                         },
-                        icon: Image.asset(
-                          "assets/images/me.png",
-                          fit: BoxFit.cover,
+                        icon:
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+
+                          child:
+                          ChangeImageController.instance.image.path != "" ?
+
+                          Image.file(
+                            ChangeImageController.instance.image,
+                            fit: BoxFit.fill,
+
+                            width: 65.0,
+                            height: 65.0,
+                          ): Image.asset("assets/images/imageprofile.png"),
                         ),
                       ),
                     ),
@@ -109,6 +121,8 @@ class home_page extends StatelessWidget {
                         const SizedBox(
                           height: 4,
                         ),
+
+                        if(model?.data?.name != null)
                         Text(
                           "${model?.data?.name}",
                           style: const TextStyle(
@@ -310,268 +324,263 @@ class home_page extends StatelessWidget {
     );
   }
   Widget detailsDocItem(context, DataDoctor model) => InkWell(
-        onTap: () {
-          navigateTo(
-              context,
-              detailsClinics(
-                model: model,
-              ));
-        },
-        child: Container(
-          width: 312.0,
-          height: 161.0,
-          decoration: BoxDecoration(
-            color: HexColor("#004DC0"),
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: HexColor("#0052CC").withOpacity(0.1),
-                spreadRadius: 2,
-                blurRadius: 9,
-                offset: const Offset(0, 9), // changes position of shadow
-              ),
-            ],
+    onTap: () {
+      navigateTo(
+          context,
+          detailsClinics(
+            model: model,
+          ));
+    },
+    child: Container(
+      width: 312.0,
+      height: 161.0,
+      decoration: BoxDecoration(
+        color: HexColor("#004DC0"),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: HexColor("#0052CC").withOpacity(0.1),
+            spreadRadius: 2,
+            blurRadius: 9,
+            offset: const Offset(0, 9), // changes position of shadow
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
+            width: 151,
+            height: 161.0,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(16),
+                bottomLeft: Radius.circular(16),
+                topRight: Radius.circular(16),
+                bottomRight: Radius.zero,
+              ),
+            ),
+            child: ClipRRect(
+              borderRadius: borderRadius1,
+              child: SizedBox.fromSize(
+                  child: model.image!.isNotEmpty
+                      ? FadeInImage.assetNetwork(
+                    placeholder: "assets/images/loading.gif",
+                    image: model.image!,
+                    fit: BoxFit.cover,
+                  )
+                      : Image.asset(
+                    "assets/images/3yada.png",
+                    fit: BoxFit.cover,
+                  )
+              ),
+            ),
+          ),
+          Column(
             children: [
               Container(
-                width: 151,
-                height: 161.0,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(16),
-                    bottomLeft: Radius.circular(16),
+                width: 161,
+                height: 62,
+                decoration: BoxDecoration(
+                  color: HexColor("#004DC0"),
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.zero,
                     topRight: Radius.circular(16),
-                    bottomRight: Radius.zero,
                   ),
                 ),
-                child: ClipRRect(
-                  borderRadius: borderRadius1,
-                  child: SizedBox.fromSize(
-                      child: model.image!.isNotEmpty
-                          ? FadeInImage.assetNetwork(
-                              placeholder: "assets/images/loading.gif",
-                              image: model.image!,
-                              fit: BoxFit.cover,
-                            )
-                          : Image.asset(
-                              "assets/images/3yada.png",
-                              fit: BoxFit.cover,
-                            )
-                      // model.image ==null ? Center(child: Text("not image found")):
-                      // Image.network(
-                      //   model.image!,
-                      //   fit: BoxFit.cover,
-                      // ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        model.name.toString(),
+                        overflow: TextOverflow.fade,
+                        maxLines: 1,
+                        softWrap: false,
+                        style: const TextStyle(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.bold,
+                          color: MyColors.myWhite,
+                        ),
                       ),
+                      const Text(
+                        "Orthopedics and joints specialist",
+                        style: TextStyle(
+                            fontSize: 8.0,
+                            fontWeight: FontWeight.w300,
+                            color: MyColors.myWhite),
+                      ),
+                      Container(
+                        width: 161,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Icon(
+                              Icons.star,
+                              size: 10,
+                              color: MyColors.myYellow,
+                            ),
+                            const SizedBox(
+                              width: 2.0,
+                            ),
+                            const Icon(
+                              Icons.star,
+                              size: 10,
+                              color: MyColors.myYellow,
+                            ),
+                            const SizedBox(
+                              width: 2.0,
+                            ),
+                            const Icon(
+                              Icons.star,
+                              size: 10,
+                              color: MyColors.myYellow,
+                            ),
+                            const SizedBox(
+                              width: 2.0,
+                            ),
+                            const Icon(
+                              Icons.star,
+                              size: 10,
+                              color: MyColors.myYellow,
+                            ),
+                            const SizedBox(
+                              width: 2.0,
+                            ),
+                            Icon(
+                              Icons.star,
+                              size: 10,
+                              color: HexColor("#FFFFFF"),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              Column(
-                children: [
-                  Container(
-                    width: 161,
-                    height: 62,
-                    decoration: BoxDecoration(
-                      color: HexColor("#004DC0"),
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.zero,
-                        topRight: Radius.circular(16),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            model.name.toString(),
-                            overflow: TextOverflow.fade,
-                            maxLines: 1,
-                            softWrap: false,
-                            style: const TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.bold,
-                              color: MyColors.myWhite,
-                            ),
-                          ),
-                          const Text(
-                            "Orthopedics and joints specialist",
-                            // model.address ?? '',
-                            style: TextStyle(
-                                fontSize: 8.0,
-                                fontWeight: FontWeight.w300,
-                                color: MyColors.myWhite),
-                          ),
-                          Container(
-                            width: 161,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                const Icon(
-                                  Icons.star,
-                                  size: 10,
-                                  color: MyColors.myYellow,
-                                ),
-                                const SizedBox(
-                                  width: 2.0,
-                                ),
-                                const Icon(
-                                  Icons.star,
-                                  size: 10,
-                                  color: MyColors.myYellow,
-                                ),
-                                const SizedBox(
-                                  width: 2.0,
-                                ),
-                                const Icon(
-                                  Icons.star,
-                                  size: 10,
-                                  color: MyColors.myYellow,
-                                ),
-                                const SizedBox(
-                                  width: 2.0,
-                                ),
-                                const Icon(
-                                  Icons.star,
-                                  size: 10,
-                                  color: MyColors.myYellow,
-                                ),
-                                const SizedBox(
-                                  width: 2.0,
-                                ),
-                                Icon(
-                                  Icons.star,
-                                  size: 10,
-                                  color: HexColor("#FFFFFF"),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(left: 12),
-                    width: 161.0,
-                    height: 62.0,
-                    color: MyColors.mydarkblue,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
+              Container(
+                padding: const EdgeInsets.only(left: 12),
+                width: 161.0,
+                height: 62.0,
+                color: MyColors.mydarkblue,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
                       children: [
-                        Row(
-                          children: [
-                            const Icon(
-                              Icons.location_on_outlined,
-                              size: 12,
-                              color: MyColors.mydarkwhite,
-                            ),
-                            const SizedBox(
-                              width: 8.0,
-                            ),
-                            Text(
-                              model.address ?? '',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w300,
-                                fontSize: 10,
-                                color: MyColors.mydarkwhite,
-                              ),
-                            ),
-                          ],
+                        const Icon(
+                          Icons.location_on_outlined,
+                          size: 12,
+                          color: MyColors.mydarkwhite,
                         ),
-                        Row(
-                          children: [
-                            const Icon(
-                              Icons.access_time,
-                              color: MyColors.mydarkwhite,
-                              size: 11,
-                            ),
-                            const SizedBox(
-                              width: 8.0,
-                            ),
-                            Text(
-                              model.createdAt! ?? '',
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              softWrap: false,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w300,
-                                fontSize: 8,
-                                color: MyColors.mydarkwhite,
-                              ),
-                            ),
-                          ],
+                        const SizedBox(
+                          width: 8.0,
                         ),
-                        Row(
-                          children: const [
-                            Icon(
-                              Icons.attach_money,
-                              size: 12.0,
-                              color: MyColors.mydarkwhite,
-                            ),
-                            SizedBox(
-                              width: 8.0,
-                            ),
-                            Text(
-                              "200 L.E / detection",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w300,
-                                fontSize: 10,
-                                color: MyColors.mydarkwhite,
-                                overflow: TextOverflow.visible,
-                              ),
-                            ),
-                          ],
+                        Text(
+                          model.address ?? '',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w300,
+                            fontSize: 10,
+                            color: MyColors.mydarkwhite,
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                  Container(
-                    width: 161.0,
-                    // width: MediaQuery.of(context).size.width,
-                    height: 37.0,
-                    decoration: const BoxDecoration(
-                      color: MyColors.myWhite,
-                      // color: HexColor("#004DC0"),
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.zero,
-                        bottomRight: Radius.circular(16),
-                      ),
-                    ),
-                    child: TextButton(
-                        child: Row(
-                          children: [
-                            const SizedBox(
-                              width: 40.0,
-                            ),
-                            const Text(
-                              "contact",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: MyColors.myblue,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Image.asset(
-                              "assets/images/iconWatts.png",
-                              width: 12,
-                              height: 12,
-                            ),
-                          ],
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.access_time,
+                          color: MyColors.mydarkwhite,
+                          size: 11,
                         ),
-                        onPressed: () {}),
+                        const SizedBox(
+                          width: 8.0,
+                        ),
+                        if(model.workingHours!.start != null && model.workingHours!.end != null)
+
+                          Text(
+                            model.workingHours!.start! +" / " +model.workingHours!.end!,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            softWrap: false,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w300,
+                              fontSize: 8,
+                              color: MyColors.mydarkwhite,
+                            ),
+                          ),
+                      ],
+                    ),
+                    Row(
+                      children:  [
+                        const Icon(
+                          Icons.attach_money,
+                          size: 12.0,
+                          color: MyColors.mydarkwhite,
+                        ),
+                        const SizedBox(
+                          width: 8.0,
+                        ),
+                        if (model.price != null)
+                          Text(
+                            "${model.price} LE/EGP",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w300,
+                              fontSize: 10,
+                              color: MyColors.mydarkwhite,
+                              overflow: TextOverflow.visible,
+                            ),
+                          ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                width: 161.0,
+                height: 37.0,
+                decoration: const BoxDecoration(
+                  color: MyColors.myWhite,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.zero,
+                    bottomRight: Radius.circular(16),
                   ),
-                ],
-              )
+                ),
+                child: TextButton(
+                    child: Row(
+                      children: [
+                        const SizedBox(
+                          width: 40.0,
+                        ),
+                        const Text(
+                          "contact",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: MyColors.myblue,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Image.asset(
+                          "assets/images/iconWatts.png",
+                          width: 12,
+                          height: 12,
+                        ),
+                      ],
+                    ),
+                    onPressed: () {}),
+              ),
             ],
-          ),
-        ),
-      );
+          )
+        ],
+      ),
+    ),
+  );
 
   Widget detailsExcrciseItem(context, DataBlog model) => InkWell(
         onTap: () {

@@ -3,12 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:x_pone/models/blogs_model.dart';
-import 'package:x_pone/shared/styles/colors.dart';
+
 import '../models/blogs_model.dart';
 import '../shared/bloc/app_cubit/cubit.dart';
 import '../shared/bloc/app_cubit/states.dart';
 import '../shared/componants/components.dart';
+import '../shared/styles/colors.dart';
 import 'details_exercises.dart';
 import 'home_Page.dart';
 

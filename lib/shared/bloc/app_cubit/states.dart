@@ -2,8 +2,7 @@
 
 
 
-import 'package:x_pone/models/doctors_model.dart';
-import 'package:x_pone/models/login_model.dart';
+
 
 import '../../../models/blogs_model.dart';
 import '../../../models/blogs_model.dart';

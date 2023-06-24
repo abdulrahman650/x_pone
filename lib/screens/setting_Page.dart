@@ -3,19 +3,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:x_pone/shared/bloc/app_cubit/cubit.dart';
-import 'package:x_pone/shared/bloc/app_cubit/states.dart';
-import 'package:x_pone/shared/bloc/login_cubit/cubit.dart';
-import 'package:x_pone/shared/bloc/register_cubit/cubit.dart';
-import 'package:x_pone/shared/styles/colors.dart';
 
+
+import '../controller/Register/Register_design.dart';
 import '../controller/login/login_design.dart';
 import '../models/Register_model.dart';
 import '../models/editProfile_model.dart';
 import '../models/login_model.dart';
 import '../models/profile_model.dart';
+import '../shared/bloc/app_cubit/cubit.dart';
+import '../shared/bloc/app_cubit/states.dart';
 import '../shared/componants/components.dart';
 import '../shared/network/remote/cache_helper.dart';
+import '../shared/styles/colors.dart';
 import 'home_Page.dart';
 import 'location.dart';
 
@@ -30,7 +30,6 @@ class _setting_pageState extends State<setting_page> {
   void initState() {
     AppCubit.get(context).getUserData();
     super.initState();
-    // getLocation();
   }
 
   var formKey = GlobalKey<FormState>();
@@ -40,6 +39,7 @@ class _setting_pageState extends State<setting_page> {
   var latEditController = TextEditingController();
   var longEditController = TextEditingController();
   var passwordEditController = TextEditingController();
+  var locationEditController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +49,14 @@ class _setting_pageState extends State<setting_page> {
         xBoneProfileModel? model = AppCubit.get(context).userModel;
         // xBoneRegisterModel? modellogin = xBoneRegisterCubit.get(context).RegisterModel;
         if (model != null) {
-          nameEditController.text = model.data!.name!;
-          emailEditController.text = model.data!.email!;
-          latEditController.text = model.data!.lat!;
-          longEditController.text = model.data!.long!;
-          phoneEditController.text = model.data!.phone!;
+          nameEditController.text = model.data?.name ?? '';
+          emailEditController.text = model.data?.email ?? '';
+          latEditController.text = model.data?.lat?? '';
+          longEditController.text = model.data?.long?? '';
+          phoneEditController.text = model.data?.phone?? '';
+          passwordEditController.text = "123123123";
+          locationEditController.text = ":${LocationController.instance.location}";
+
         }
         return Scaffold(
             appBar: AppBar(
@@ -91,9 +94,14 @@ class _setting_pageState extends State<setting_page> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Row(
+                      if (state is ProfileUpdatePickedImageLoadingState)
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 20),
+                          child: LinearProgressIndicator(),
+                        ),
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
                             "Photo",
                             style: TextStyle(
@@ -107,10 +115,9 @@ class _setting_pageState extends State<setting_page> {
                       const SizedBox(
                         height: 8.0,
                       ),
-                      if (state is ProfileUpdatePickedImageLoadingState)
-                        CircularProgressIndicator(),
-                      if (AppCubit.get(context).pickedImage != null &&
-                          state is! ProfileUpdatePickedImageLoadingState)
+
+                      if (
+                          AppCubit.get(context).image != null)
                         CircleAvatar(
                           backgroundColor: HexColor("#004DC0"),
                           radius: 76,
@@ -119,41 +126,23 @@ class _setting_pageState extends State<setting_page> {
                             radius: 72,
                             child: CircleAvatar(
                               radius: 70,
-                              backgroundImage:
-                                  FileImage(AppCubit.get(context).image!),
-                            ),
-                          ),
-                        ),
-                      if (model!.data!.image != null &&
-                          model.data!.image != "" &&
-                          AppCubit.get(context).pickedImage == null &&
-                          state is! ProfileUpdatePickedImageLoadingState)
-                        CircleAvatar(
-                          backgroundColor: HexColor("#004DC0"),
-                          radius: 76,
-                          child: CircleAvatar(
-                            backgroundColor: MyColors.myWhite,
-                            radius: 72,
-                            child: CircleAvatar(
-                              radius: 70,
-                              backgroundImage: NetworkImage(model.data!.image!),
+                              backgroundImage: FileImage(AppCubit.get(context).image!),
                             ),
                           ),
                         ),
 
-                      if (AppCubit.get(context).pickedImage == null &&
-                          model.data!.image == null &&
+                      if (AppCubit.get(context).image == null &&
                           state is! ProfileUpdatePickedImageLoadingState)
                         CircleAvatar(
                           backgroundColor: HexColor("#004DC0"),
                           radius: 76,
-                          child: CircleAvatar(
+                          child: const CircleAvatar(
                             backgroundColor: MyColors.myWhite,
                             radius: 72,
                             child: CircleAvatar(
-                              radius: 70,
                               backgroundImage:
-                                  AssetImage('assets/images/img.png'),
+                              AssetImage('assets/images/imageprofile.png'),    radius: 70,
+
                             ),
                           ),
                         ),
@@ -279,7 +268,7 @@ class _setting_pageState extends State<setting_page> {
                                       onTap: () {
                                         phoneEditController.clear();
                                       },
-                                      child: Icon(Icons.clear))),
+                                      child: const Icon(Icons.clear))),
                             ),
                           ),
                         ],
@@ -291,7 +280,7 @@ class _setting_pageState extends State<setting_page> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           const Text(
-                            "Location (Lat)",
+                            "Password",
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
@@ -302,34 +291,16 @@ class _setting_pageState extends State<setting_page> {
                             width: 12,
                           ),
                           Container(
-                            width: MediaQuery.of(context).size.width / 1.7,
+                            width: MediaQuery.of(context).size.width / 1.45,
                             height: 20,
                             child: TextFormField(
-                              controller: latEditController,
+                              controller: passwordEditController,
                               textAlign: TextAlign.left,
                               cursorColor: Colors.black,
                               onChanged: (value) {},
                               style: TextStyle(
                                 color: HexColor("#747474"),
                               ),
-                              decoration: InputDecoration(
-                                  // suffix: GestureDetector(
-                                  //   onTap: () {
-                                  //     locationEditController.clear();
-                                  //   },
-                                  //   child: InkWell(
-                                  //     onTap: () {},
-                                  //     child: Text(
-                                  //       "Change",
-                                  //       style: TextStyle(
-                                  //         fontSize: 10,
-                                  //         fontWeight: FontWeight.w400,
-                                  //         color: HexColor("#004DC0"),
-                                  //       ),
-                                  //     ),
-                                  //   ),
-                                  // ),
-                                  ),
                             ),
                           ),
                         ],
@@ -341,7 +312,7 @@ class _setting_pageState extends State<setting_page> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           const Text(
-                            "Location (Long)",
+                            "location",
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
@@ -349,52 +320,36 @@ class _setting_pageState extends State<setting_page> {
                             ),
                           ),
                           const SizedBox(
-                            width: 12,
+                            width: 22,
                           ),
-                          Container(
-                            width: MediaQuery.of(context).size.width / 1.7,
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width / 1.45,
                             height: 20,
                             child: TextFormField(
-                              controller: longEditController,
+                              controller: locationEditController,
                               textAlign: TextAlign.left,
                               cursorColor: Colors.black,
                               onChanged: (value) {},
                               style: TextStyle(
                                 color: HexColor("#747474"),
                               ),
-                              decoration: InputDecoration(
-                                  // suffix: GestureDetector(
-                                  //   onTap: () {
-                                  //     locationEditController.clear();
-                                  //   },
-                                  //   child: InkWell(
-                                  //     onTap: () {},
-                                  //     child: Text(
-                                  //       "Change",
-                                  //       style: TextStyle(
-                                  //         fontSize: 10,
-                                  //         fontWeight: FontWeight.w400,
-                                  //         color: HexColor("#004DC0"),
-                                  //       ),
-                                  //     ),
-                                  //   ),
-                                  // ),
-                                  ),
                             ),
                           ),
                         ],
                       ),
-                      // Text("Country : ${country ??' Loading ...'}"),
-                      // Text("Admin Area : ${adminArea ??' Loading ...'}"),
                       const SizedBox(
                         height: 40,
                       ),
-                      const SizedBox(
-                        height: 40,
-                      ),
+                      // Text("Country : ${{LocationController.instance.location} ??' Loading ...'}"),
+                      // const SizedBox(
+                      //   height: 40,
+                      // ),
+                      // const SizedBox(
+                      //   height: 40,
+                      // ),
 
                       if (state is xBoneLoadingUpdateUserDataState)
-                        CircularProgressIndicator(),
+                        const CircularProgressIndicator(),
                       if (state is! xBoneLoadingUpdateUserDataState)
                         Center(
                           child: Container(
@@ -413,9 +368,6 @@ class _setting_pageState extends State<setting_page> {
                                     color: MyColors.myWhite),
                               ),
                               onPressed: () {
-                                // AppCubit.get(context).getUserData();
-                                // print(CacheHelper.getData(key: "name"));
-                                // print(CacheHelper.getData(key: 'token'));
                                 if (formKey.currentState!.validate()) {
                                   AppCubit.get(context).updateUserData(
                                     name: nameEditController.text,
@@ -424,15 +376,16 @@ class _setting_pageState extends State<setting_page> {
                                     password: passwordEditController.text,
                                     lat: latEditController.text,
                                     long: longEditController.text,
-                                    mainImage: model.data!.image!,
+                                    mainImage: AppCubit.get(context).image!.path,
                                   );
                                 }
                               },
                             ),
+
                           ),
                         ),
-                      const SizedBox(
-                        height: 200,
+                       const SizedBox(
+                        height: 150,
                       ),
                     ],
                   ),
@@ -442,19 +395,5 @@ class _setting_pageState extends State<setting_page> {
       },
     );
   }
-//   void getLocation()async{
-//     final service = LocationService();
-//     final locationData = await service.getLocation();
-//
-//     if(locationData != null){
-// final placeMark = await service.getPlacemark(locationData : locationData);
-//       setState(() {
-//         lat = locationData.latitude!.toStringAsFixed(2);
-//         long = locationData.longitude!.toStringAsFixed(2);
-//
-//         country = placeMark?.country ?? 'could not get country';
-//         adminArea = placeMark?.administrativeArea ?? 'could not get admin area';
-//       });
-//     }
-//   }
+
 }

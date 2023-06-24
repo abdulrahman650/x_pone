@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:x_pone/controller/layout/home_layout.dart';
-import 'package:x_pone/shared/componants/components.dart';
-import 'package:x_pone/shared/network/remote/cache_helper.dart';
+
 
 import '../controller/login/login_design.dart';
+import '../shared/componants/components.dart';
+import '../shared/network/remote/cache_helper.dart';
 import '../shared/styles/colors.dart';
 
 class BoardingModel {

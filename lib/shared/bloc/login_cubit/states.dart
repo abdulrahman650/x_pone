@@ -1,4 +1,6 @@
-import 'package:x_pone/models/login_model.dart';
+
+
+import '../../../models/login_model.dart';
 
 abstract class xBoneLoginState{}
 

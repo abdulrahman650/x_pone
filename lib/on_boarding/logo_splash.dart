@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:x_pone/shared/componants/components.dart';
 
+
+import '../shared/componants/components.dart';
 import 'on_boarding.dart';
 
 class logo_splash extends StatefulWidget {

@@ -5,22 +5,22 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:x_pone/models/blogs_model.dart';
-import 'package:x_pone/screens/home_Page.dart';
-import 'package:x_pone/screens/setting_Page.dart';
-import 'package:x_pone/screens/all_bicnic_Page.dart';
-import 'package:x_pone/screens/allExercises_Page.dart';
 import 'package:x_pone/shared/bloc/app_cubit/states.dart';
-import 'package:x_pone/shared/componants/components.dart';
-import 'package:x_pone/shared/network/remote/cache_helper.dart';
+
 
 import '../../../models/blogs_model.dart';
 import '../../../models/doctors_model.dart';
 import '../../../models/editProfile_model.dart';
 import '../../../models/login_model.dart';
 import '../../../models/profile_model.dart';
+import '../../../screens/allExercises_Page.dart';
+import '../../../screens/all_bicnic_Page.dart';
+import '../../../screens/home_Page.dart';
+import '../../../screens/setting_Page.dart';
+import '../../componants/components.dart';
 import '../../network/endpoint.dart';
 import '../../network/local/dio_helper.dart';
+import '../../network/remote/cache_helper.dart';
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(AppInitStates());
@@ -94,12 +94,14 @@ class AppCubit extends Cubit<AppStates> {
             "https://x-bone.innovadigits.com/api/$update_profile",
             data: formData,
           );
-          print(response.data);
+          print("response.data  ${response.data}");
           emit(ProfileUpdatePickedImageDoneState());
         } catch (e) {
           print('Error uploading image: $e');
           emit(ProfileUpdatePickedImageErrorState());
         }
+        ChangeImageController.instance.changeImage(image!);
+
       } else {
         // Handle the case when no image was picked
         emit(ProfileUpdateNoImagePickedState());
@@ -221,3 +223,16 @@ class AppCubit extends Cubit<AppStates> {
 //     print("team_id");
 //   });
 // }
+
+
+class ChangeImageController {
+  ChangeImageController._();
+
+  static ChangeImageController instance = ChangeImageController._();
+
+  File image = File('');
+
+  void changeImage(File newImg){
+    image = File(newImg.path);
+  }
+}

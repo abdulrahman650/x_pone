@@ -5,14 +5,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:x_pone/controller/layout/home_layout.dart';
-import 'package:x_pone/shared/bloc/app_cubit/cubit.dart';
-import 'package:x_pone/shared/bloc/login_cubit/cubit.dart';
-import 'package:x_pone/shared/bloc/login_cubit/states.dart';
-import 'package:x_pone/shared/styles/colors.dart';
+
+import '../../shared/bloc/app_cubit/cubit.dart';
+import '../../shared/bloc/login_cubit/cubit.dart';
+import '../../shared/bloc/login_cubit/states.dart';
 import '../../shared/componants/components.dart';
 import '../../shared/network/remote/cache_helper.dart';
+import '../../shared/styles/colors.dart';
 import '../Register/Register_design.dart';
+import '../layout/home_layout.dart';
 
 class LoginScreen extends StatelessWidget {
   var emailController = TextEditingController();

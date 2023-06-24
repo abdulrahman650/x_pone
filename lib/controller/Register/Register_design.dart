@@ -3,28 +3,45 @@ import 'dart:ui';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:x_pone/controller/layout/home_layout.dart';
-import 'package:x_pone/models/login_model.dart';
-import 'package:x_pone/shared/bloc/login_cubit/cubit.dart';
-import 'package:x_pone/shared/bloc/register_cubit/cubit.dart';
-import 'package:x_pone/shared/bloc/register_cubit/states.dart';
+import 'package:location/location.dart';
+
 
 import '../../screens/home_Page.dart';
+import '../../screens/location.dart';
 import '../../shared/bloc/app_cubit/cubit.dart';
+import '../../shared/bloc/register_cubit/cubit.dart';
+import '../../shared/bloc/register_cubit/states.dart';
 import '../../shared/componants/components.dart';
 import '../../shared/network/remote/cache_helper.dart';
 import '../../shared/styles/colors.dart';
+import '../layout/home_layout.dart';
 import '../login/login_design.dart';
 
-class register_Screen extends StatelessWidget {
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
-  var nameController = TextEditingController();
-  var phoneController = TextEditingController();
-  var formKey = GlobalKey<FormState>();
+class register_Screen extends StatefulWidget {
   register_Screen({Key? key}) : super(key: key);
+
+  @override
+  State<register_Screen> createState() => _register_ScreenState();
+}
+
+class _register_ScreenState extends State<register_Screen> {
+  var emailController = TextEditingController();
+
+  var passwordController = TextEditingController();
+
+  var nameController = TextEditingController();
+
+  var phoneController = TextEditingController();
+
+  var formKey = GlobalKey<FormState>();
+
+  String? country, adminArea;
+  @override
+  void initState() {
+    super.initState();
+    getLocation();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +53,10 @@ class register_Screen extends StatelessWidget {
             CacheHelper.saveLoginData('token', state.RegisterModel.data)
                 .then((value) {
               token = state.RegisterModel.data;
-              navigate2(context, const xpone_layout(),);
+              navigate2(
+                context,
+                const xpone_layout(),
+              );
             });
           }
         },
@@ -85,7 +105,10 @@ class register_Screen extends StatelessWidget {
                                         height: 560,
                                         child: Image.asset(
                                           "assets/images/picdocinlogin.png",
-                                          width: MediaQuery.of(context).size.width / 1.3,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              1.3,
                                         ),
                                       ),
                                     ],
@@ -152,8 +175,7 @@ class register_Screen extends StatelessWidget {
                                                 return null;
                                               },
                                               decoration: const InputDecoration(
-                                                border:
-                                                    OutlineInputBorder(),
+                                                border: OutlineInputBorder(),
                                                 label: Text(
                                                   'Email',
                                                   style: TextStyle(
@@ -184,14 +206,13 @@ class register_Screen extends StatelessWidget {
                                                 }
                                                 return null;
                                               },
-                                              decoration:const InputDecoration(
-                                                border:
-                                                     OutlineInputBorder(),
+                                              decoration: const InputDecoration(
+                                                border: OutlineInputBorder(),
                                                 label: Text(
                                                   'Your Phone',
                                                   style: TextStyle(
                                                     fontSize: 14.0,
-                                                    color:MyColors.myGrey,
+                                                    color: MyColors.myGrey,
                                                   ),
                                                 ),
                                               ),
@@ -216,7 +237,7 @@ class register_Screen extends StatelessWidget {
                                                 }
                                                 return null;
                                               },
-                                              decoration:const InputDecoration(
+                                              decoration: const InputDecoration(
                                                 border: OutlineInputBorder(),
                                                 label: Text(
                                                   'Your Name',
@@ -226,7 +247,6 @@ class register_Screen extends StatelessWidget {
                                                     color: MyColors.myGrey,
                                                   ),
                                                 ),
-
                                               ),
                                             ),
                                           ),
@@ -255,8 +275,7 @@ class register_Screen extends StatelessWidget {
                                                   .get(context)
                                                   .isShown,
                                               decoration: InputDecoration(
-                                                border:
-                                                     OutlineInputBorder(),
+                                                border: OutlineInputBorder(),
                                                 label: const Text(
                                                   'Password',
                                                   style: TextStyle(
@@ -282,7 +301,6 @@ class register_Screen extends StatelessWidget {
                                           const SizedBox(
                                             height: 8.0,
                                           ),
-
                                           Container(
                                             decoration: BoxDecoration(
                                               color: MyColors.myGrey,
@@ -293,21 +311,26 @@ class register_Screen extends StatelessWidget {
                                             height: 40,
                                             child: TextButton(
                                               onPressed: () {
-                                                // calculateDistance();
-                                                },
+                                                calculateDistance();
+                                              },
                                               child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: const [
                                                   Text(
                                                     "Your Location",
-                                                    style: TextStyle(fontWeight:
-                                                          FontWeight.w400, fontSize: 14,
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: 14,
                                                       color: MyColors.myWhite,
                                                     ),
                                                   ),
                                                   Icon(
-                                                      Icons.location_on_outlined,
-                                                      color: MyColors.myWhite,),
+                                                    Icons.location_on_outlined,
+                                                    color: MyColors.myWhite,
+                                                  ),
                                                 ],
                                               ),
                                             ),
@@ -347,12 +370,20 @@ class register_Screen extends StatelessWidget {
                                                   onPressed: () {
                                                     if (formKey.currentState!
                                                         .validate()) {
-                                                      xBoneRegisterCubit.get(context)
+                                                      xBoneRegisterCubit
+                                                          .get(context)
                                                           .userRegister(
-                                                            email: emailController.text,
-                                                            password: passwordController.text,
-                                                            name: nameController.text,
-                                                            phone: phoneController.text,
+                                                            email:
+                                                                emailController
+                                                                    .text,
+                                                            password:
+                                                                passwordController
+                                                                    .text,
+                                                            name: nameController
+                                                                .text,
+                                                            phone:
+                                                                phoneController
+                                                                    .text,
                                                             long: "15.5",
                                                             lat: "15.5",
                                                           );
@@ -376,7 +407,6 @@ class register_Screen extends StatelessWidget {
                                                       CircularProgressIndicator());
                                             },
                                           ),
-
                                           const SizedBox(
                                             height: 11.0,
                                           ),
@@ -389,11 +419,10 @@ class register_Screen extends StatelessWidget {
                                                 child: const Text(
                                                   'Forgot Your password?',
                                                   style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color:
-                                                         MyColors.myblue,),
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: MyColors.myblue,
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -420,15 +449,16 @@ class register_Screen extends StatelessWidget {
                                               const Text(
                                                 'Have account ?',
                                                 style: TextStyle(
-                                                    fontWeight: FontWeight.w300,
-                                                    fontSize: 12,
-                                                    color: MyColors.myGrey,),
+                                                  fontWeight: FontWeight.w300,
+                                                  fontSize: 12,
+                                                  color: MyColors.myGrey,
+                                                ),
                                               ),
                                               const SizedBox(
                                                 width: 9.0,
                                               ),
                                               Container(
-                                                color:MyColors.myGrey,
+                                                color: MyColors.myGrey,
                                                 child: const Divider(
                                                   height: .5,
                                                   thickness: 5,
@@ -445,10 +475,10 @@ class register_Screen extends StatelessWidget {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              const Text('Already have an account? ',
+                                              const Text(
+                                                  'Already have an account? ',
                                                   style: TextStyle(
-                                                      color:
-                                                      MyColors.myGrey,
+                                                      color: MyColors.myGrey,
                                                       fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.w300)),
@@ -462,7 +492,7 @@ class register_Screen extends StatelessWidget {
                                                 child: const Text(
                                                   'Login',
                                                   style: TextStyle(
-                                                    color:  MyColors.myblue,
+                                                    color: MyColors.myblue,
                                                   ),
                                                 ),
                                               ),
@@ -491,31 +521,43 @@ class register_Screen extends StatelessWidget {
       ),
     );
   }
-  // void calculateDistance() async {
-  //   Position position = await Geolocator.getCurrentPosition(
-  //     desiredAccuracy: LocationAccuracy.high,
-  //   );
-  //
-  //   double latitude = position.latitude;
-  //   double longitude = position.longitude;
-  //   print(latitude);
-  //   print(longitude);
-  // }
 
+  void calculateDistance() async {
+    LocationData position = await Location.instance.getLocation();
 
-//   void getLocation()async{
-//     final service = LocationService();
-//     final locationData = await service.getLocation();
-//
-//     if(locationData != null){
-// final placeMark = await service.getPlacemark(locationData : locationData);
-//       setState(() {
-//         lat = locationData.latitude!.toStringAsFixed(2);
-//         long = locationData.longitude!.toStringAsFixed(2);
-//
-//         country = placeMark?.country ?? 'could not get country';
-//         adminArea = placeMark?.administrativeArea ?? 'could not get admin area';
-//       });
-//     }
-//   }
+    double latitude = position.latitude!;
+    double longitude = position.longitude!;
+    print(latitude);
+    print(longitude);
+  }
+
+  void getLocation() async {
+    final service = LocationService();
+    final locationData = await service.getLocation();
+
+    if (locationData != null) {
+      final placeMark = await service.getPlacemark(locationData: locationData);
+      setState(() {
+        // lat = locationData.latitude!.toStringAsFixed(2);
+        // long = locationData.longitude!.toStringAsFixed(2);
+
+        country = placeMark?.country ?? 'could not get country';
+        adminArea = placeMark?.administrativeArea ?? 'could not get admin area';
+
+        LocationController.instance.setLocation('$country - $adminArea');
+      });
+    }
+  }
+}
+
+class LocationController {
+  LocationController._();
+
+  static LocationController instance = LocationController._();
+
+  String location = '';
+
+  void setLocation(String newLocation) {
+    location = newLocation;
+  }
 }
